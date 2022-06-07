@@ -4,7 +4,7 @@ import { removeMessageFromLog } from "../../../shared/utils/api.mjs"
 import "./Log.scss"
 import LogEntry from "./LogEntry/LogEntry"
 
-const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
+const Log = ({ _id, userId,  tasklog, updateTaskLog, getTaskInformation }) => {
   const [newMessage, setNewMessage] = React.useState("")
   const updateModalData = React.useContext(ModalContext)
 
@@ -42,7 +42,7 @@ const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
       </form>
       <section className="task-log__list">
         {tasklog?.map((entry, index) => (
-          <LogEntry key={JSON.stringify(entry + index)} entry={entry} index={index} handleDelete={handleDelete} />
+          <LogEntry key={JSON.stringify(entry + index)} userId={userId} entry={entry} index={index} handleDelete={handleDelete} />
         ))}
       </section>
     </section>

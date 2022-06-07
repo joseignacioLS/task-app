@@ -165,6 +165,7 @@ const Detail = ({ user }) => {
           <Log
             _id={task._id}
             tasklog={task.log}
+            userId={user._id}
             updateTaskLog={updateTaskLog(user._id)}
             getTaskInformation={getTaskInformation(id)}
           />

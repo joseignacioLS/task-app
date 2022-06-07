@@ -9,13 +9,16 @@ const Navbar = ({ user, logout }) => {
       <Link className="navbar__item" to="/">
         Tasks
       </Link>
-
-      {logged ? (
-        <Link className="navbar__item" to="/profile">
-          {user.username}
-        </Link>
-      ) : ""}
-      {logged && <button onClick={logout}>Logout</button>}
+      <div className="account-actions">
+        {logged ? (
+          <Link to="/profile">
+            {user.username}
+          </Link>
+        ) : (
+          ""
+        )}
+        {logged && <button onClick={logout}>Logout</button>}
+      </div>
     </header>
   )
 }

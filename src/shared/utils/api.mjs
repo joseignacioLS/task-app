@@ -1,7 +1,25 @@
-const BACKURL = "http://localhost:4000"
+const BACKURL = "https://peaceful-woodland-96091.herokuapp.com"// "http://localhost:4000"
 
 const login = async (username, password) => {
   const res = await fetch(`${BACKURL}/user/login`, {
+    method: "POST",
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  const data = await res.json()
+
+  if (data.status !== 200) return false
+
+  return data.data
+}
+
+const register = async (username, password) => {
+  const res = await fetch(`${BACKURL}/user/register`, {
     method: "POST",
     body: JSON.stringify({
       username,
@@ -188,6 +206,7 @@ const handleInvitation = async (invitationId, action) => {
 
 export {
   login,
+  register,
   updateTask,
   getUserTasks,
   createTask,

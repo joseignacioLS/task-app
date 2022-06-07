@@ -1,19 +1,17 @@
+@import "../../styles/variables";
+
 .filter-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
 
-.tasks-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 0.5rem;
+  margin-bottom: 1rem;
+  p {
+    padding: 0.5rem;
+    background-color: $green;
+    color: $primary-color;
+    border-radius: 1rem;
+  }
 }
 
 .new-btn {
@@ -21,8 +19,10 @@
   right: 1rem;
   bottom: 4rem;
 
-  color: white;
-  background-color: black;
+  color: $primary-color;
+  background-color: $red;
+
+  font-size: 3rem;
 
   border-radius: 50%;
 
@@ -32,6 +32,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  text-decoration: none;
 }

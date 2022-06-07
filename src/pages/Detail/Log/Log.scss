@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 .task-log {
   width: 100%;
 
@@ -19,9 +21,19 @@
     flex-direction: column;
     list-style: none;
 
-    .log-item{
-      color: grey;
+    .log-item {
+      width: 100%;
+      color: $secondary-color;
+      &--self {
+        text-align: right;
+      }
+      &--other {
+        text-align: left;
+      }
+      button {
+        background-color: $red;
+        color: $secondary-color;
+      }
     }
-
   }
 }
