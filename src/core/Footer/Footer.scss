@@ -1,0 +1,18 @@
+.footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 3rem;
+
+  background-color: white;
+  box-shadow: 0px -3px 3px 3px rgba(128, 128, 128, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  z-index: 10;
+}

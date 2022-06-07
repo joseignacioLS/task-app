@@ -1,0 +1,50 @@
+.task-detail {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+
+  &__title {
+    width: 100%;
+    border-bottom: 1px solid black;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  &__title-input {
+    width: 100%;
+    font-size: 2rem;
+    border-bottom: 1px solid black;
+    font-weight: 700;
+  }
+  &__ownership {
+    color: grey;
+  }
+  &__status {
+    color: grey;
+  }
+
+  &__deadline, &__deadline-input {
+    color: grey;
+    margin-top:1rem;
+
+    &--expired {
+
+      color: red;
+    }
+
+  }
+
+  &__description, &__description-input {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height: 6rem;
+    overflow-y: scroll;
+  }
+  &__handler {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,27 @@
+.task-log {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 1rem;
+
+  &__form {
+    margin-bottom: 0.25rem;
+  }
+  &__list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    list-style: none;
+
+    .log-item{
+      color: grey;
+    }
+
+  }
+}
