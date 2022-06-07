@@ -1,11 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { UserDataContext } from "../../context/UserDataContext.js"
 import {
   createGroup,
   getUserGroups,
   getUserInvitations,
   handleInvitation,
 } from "../../shared/utils/api.mjs"
+import "./Profile.scss"
 
 const getGroups = async (userId, setUserGroups) => {
   const data = await getUserGroups(userId)
@@ -21,7 +23,8 @@ const getInvitations = async (userId, setUserInvitations) => {
   }
 }
 
-const Profile = ({ user }) => {
+const Profile = () => {
+  const { user } = React.useContext(UserDataContext)
   const [formData, setFormData] = React.useState({ groupName: "" })
   const [userGroups, setUserGroups] = React.useState({
     ownedGroups: [],
@@ -29,7 +32,6 @@ const Profile = ({ user }) => {
   })
   const [userInvitations, setUserInvitations] = React.useState([])
   const [isLoaded, setIsLoaded] = React.useState(false)
-
 
   const handleInput = (e) => {
     const key = e.target.name
@@ -43,7 +45,6 @@ const Profile = ({ user }) => {
 
     const response = await createGroup(user._id, formData.groupName)
     if (response) {
-      console.log("cool")
       setFormData({ groupName: "" })
       getGroups(user._id, setUserGroups)
     }
@@ -65,54 +66,73 @@ const Profile = ({ user }) => {
       setIsLoaded(true)
     }
   }, [user])
+
+  const showOwnedGroups = () => {
+    return (
+      <ul>
+        {userGroups.ownedGroups.map((group) => (
+          <li key={JSON.stringify(group)}>
+            <Link to={`/group/${group._id}`}>{group.name}</Link>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  const showMemberGroups = () => {
+    return (
+      <ul>
+        {userGroups.memberGroups.map((group) => (
+          <li key={JSON.stringify(group)}>
+            <Link to={`/group/${group._id}`}>{group.name}</Link>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  const showUserInvitations = () => {
+    return (
+      <ul>
+        {userInvitations.map((i) => (
+          <li key={JSON.stringify(i)}>
+            {i.group.name}
+            <button onClick={handleInvitationAction(i._id, "accept")}>
+              Accept
+            </button>
+            <button onClick={handleInvitationAction(i._id, "decline")}>
+              Decline
+            </button>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
   return (
     <>
       {isLoaded && (
         <div>
           <h1>{user.username}</h1>
-          <h2>Tasks</h2>
-          <p>Pending tasks:</p>
-          <p>Completed tasks:</p>
-          <h2>Groups</h2>
-          <h3>Owner</h3>
-          <ul>
-            {userGroups.ownedGroups.map((group) => (
-              <li key={JSON.stringify(group)}>
-                <Link to={`/group/${group._id}`}>{group.name}</Link>
-              </li>
-            ))}
-          </ul>
-          <form>
-            <input
-              type="text"
-              name="groupName"
-              onInput={handleInput}
-              value={formData.groupName}
-            />
-            <button onClick={handleSubmit}>Create</button>
-          </form>
-          <h3>Member</h3>
-          <ul>
-            {userGroups.memberGroups.map((group) => (
-              <li key={JSON.stringify(group)}>
-                <Link to={`/group/${group._id}`}>{group.name}</Link>
-              </li>
-            ))}
-          </ul>
-          <h3>Invitations</h3>
-          <ul>
-            {userInvitations.map((i) => (
-              <li key={JSON.stringify(i)}>
-                {i.group.name}
-                <button onClick={handleInvitationAction(i._id, "accept")}>
-                  Accept
-                </button>
-                <button onClick={handleInvitationAction(i._id, "decline")}>
-                  Decline
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className="groups">
+            <h2>Groups</h2>
+            <h3>Owner</h3>
+            {showOwnedGroups()}
+            <form>
+              <input
+                type="text"
+                name="groupName"
+                onInput={handleInput}
+                value={formData.groupName}
+              />
+              <button onClick={handleSubmit}>Create</button>
+            </form>
+            <h3>Member</h3>
+            {showMemberGroups()}
+
+            <h3>Invitations</h3>
+            {showUserInvitations()}
+          </div>
         </div>
       )}
     </>

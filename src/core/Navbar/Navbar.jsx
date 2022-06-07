@@ -1,8 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { UserDataContext } from "../../context/UserDataContext"
 import "./Navbar.scss"
 
-const Navbar = ({ user, logout }) => {
+const Navbar = () => {
+  const {user, logout} = React.useContext(UserDataContext)
   const logged = user !== undefined
   return (
     <header className="navbar">

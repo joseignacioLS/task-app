@@ -27,7 +27,7 @@ p, input, div, textarea {
   font-size: 1rem;
 }
 
-a, Link {
+a, Link, button {
   text-decoration: none;
   cursor: pointer;
   color: $secondary-color;
@@ -39,4 +39,8 @@ button {
   border: 0;
   background-color: $secondary-color;
   color:$primary-color;
+
+  &:active {
+    background-color: $purple;
+  }
 }

@@ -1,20 +1,20 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { ModalContext } from "../../core/Modal/ModalContext.js"
+import { ModalContext } from "../../context/ModalContext.js"
+import { UserDataContext } from "../../context/UserDataContext.js"
 import { createTask, getUserGroups } from "../../shared/utils/api.mjs"
 import "./CreateTask.scss"
-
 
 const getGroups = async (userId, setUserGroups) => {
   const data = await getUserGroups(userId)
   if (data) {
     const owned = data.ownedGroups.map((g) => ({ _id: g._id, name: g.name }))
     const member = data.memberGroups.map((g) => ({ _id: g._id, name: g.name }))
-    console.log(owned, member)
-    setUserGroups([{ _id: null, name: "private" }, ...owned, ...member])
+    setUserGroups([{ _id: null, name: "Private" }, ...owned, ...member])
   }
 }
-const CreateTask = ({ user }) => {
+const CreateTask = () => {
+  const { user } = React.useContext(UserDataContext)
   const [formData, setFormData] = React.useState({
     title: "",
     description: "",
@@ -23,10 +23,10 @@ const CreateTask = ({ user }) => {
   })
 
   const navigate = useNavigate()
-  const updateModalData = React.useContext(ModalContext)
+  const { updateModalData } = React.useContext(ModalContext)
   const [userLists, setUserLists] = React.useState([])
   const [userGroups, setUserGroups] = React.useState([
-    { _id: null, name: "private" },
+    { _id: null, name: "Private" },
   ])
 
   const handleInput = (e) => {
@@ -52,7 +52,7 @@ const CreateTask = ({ user }) => {
       formData.group,
       formData.title,
       formData.description,
-      formData.deadline,
+      formData.deadline
     )
     if (!response) {
       updateModalData("Task could not be created", true, [
@@ -62,6 +62,20 @@ const CreateTask = ({ user }) => {
     }
 
     navigate("/")
+  }
+
+  const showSelectGroup = () => {
+    return (
+      <select name="group" onInput={handleInput}>
+        {userGroups.map((list) => {
+          return (
+            <option key={JSON.stringify(list)} value={list._id}>
+              {list.name}
+            </option>
+          )
+        })}
+      </select>
+    )
   }
 
   React.useEffect(() => {
@@ -78,7 +92,7 @@ const CreateTask = ({ user }) => {
       </label>
       <label>
         <p>description</p>
-        <input onInput={handleInput} type="text" name="description" />
+        <textarea onInput={handleInput} type="text" name="description" />
       </label>
       <label>
         <p>Deadline</p>
@@ -86,15 +100,7 @@ const CreateTask = ({ user }) => {
       </label>
       <label>
         <p>Group</p>
-        <select name="group" onInput={handleInput}>
-          {userGroups.map((list) => {
-            return (
-              <option key={JSON.stringify(list)} value={list._id}>
-                {list.name}
-              </option>
-            )
-          })}
-        </select>
+        {showSelectGroup()}
       </label>
       <button onClick={handleSubmit}>Create</button>
     </form>

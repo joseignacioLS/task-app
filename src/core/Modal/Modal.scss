@@ -15,6 +15,11 @@
   background-color: rgba(64, 64, 64, 0.5);
 
   text-align: center;
+
+  z-index: 20;
+
+  animation: fade-in 100ms forwards;
+
   .modal {
     padding: 1rem;
     width: 50%;
@@ -29,6 +34,8 @@
     background-color: $primary-color;
     border-radius: 1rem;
     min-width: 264px;
+
+    animation: slide-in 500ms forwards;
     p {
       color: $secondary-color;
       font-weight: bold;
@@ -36,7 +43,18 @@
     &__actions {
       display: flex;
       gap: 1rem;
-
     }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(200%);
   }
 }

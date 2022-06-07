@@ -1,12 +1,12 @@
 import React from "react"
-import { ModalContext } from "../../../core/Modal/ModalContext"
+import { ModalContext } from "../../../context/ModalContext"
 import { removeMessageFromLog } from "../../../shared/utils/api.mjs"
 import "./Log.scss"
 import LogEntry from "./LogEntry/LogEntry"
 
-const Log = ({ _id, userId,  tasklog, updateTaskLog, getTaskInformation }) => {
+const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
   const [newMessage, setNewMessage] = React.useState("")
-  const updateModalData = React.useContext(ModalContext)
+  const {updateModalData} = React.useContext(ModalContext)
 
   const handleInput = (e) => {
     setNewMessage(e.target.value)
@@ -34,6 +34,17 @@ const Log = ({ _id, userId,  tasklog, updateTaskLog, getTaskInformation }) => {
       { title: "No", f: () => {} },
     ])
   }
+
+  const showLogEntries = () =>{
+    return tasklog?.map((entry, index) => (
+      <LogEntry
+        key={JSON.stringify(entry + index)}
+        entry={entry}
+        index={index}
+        handleDelete={handleDelete}
+      />
+    ))
+  }
   return (
     <section className="task-log">
       <form className="task-log__form">
@@ -41,9 +52,7 @@ const Log = ({ _id, userId,  tasklog, updateTaskLog, getTaskInformation }) => {
         <button onClick={handleSubmit}>Add log</button>
       </form>
       <section className="task-log__list">
-        {tasklog?.map((entry, index) => (
-          <LogEntry key={JSON.stringify(entry + index)} userId={userId} entry={entry} index={index} handleDelete={handleDelete} />
-        ))}
+        {showLogEntries()}
       </section>
     </section>
   )

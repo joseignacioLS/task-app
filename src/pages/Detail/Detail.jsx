@@ -1,6 +1,7 @@
 import React from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { ModalContext } from "../../core/Modal/ModalContext"
+import { ModalContext } from "../../context/ModalContext"
+import { UserDataContext } from "../../context/UserDataContext"
 import {
   addMessageToLog,
   deleteTask,
@@ -15,7 +16,6 @@ import Log from "./Log/Log"
 const updateTaskLog = (userId) => {
   return async (taskId, newMessage) => {
     if (newMessage !== "") {
-      console.log(taskId, userId)
       await addMessageToLog(taskId, userId, newMessage)
     }
   }
@@ -25,11 +25,12 @@ const updateTaskField = async (taskId, name, value) => {
   await updateTask(taskId, { [name]: value })
 }
 
-const Detail = ({ user }) => {
+const Detail = () => {
+  const {user} = React.useContext(UserDataContext)
   const { id } = useParams()
   const [task, setTask] = React.useState({})
   const [isLoaded, setIsLoaded] = React.useState(false)
-  const updateModalData = React.useContext(ModalContext)
+  const {updateModalData} = React.useContext(ModalContext)
   const isExpired = task.status === "pending" && checkExpiration(task.deadline)
 
   const navigate = useNavigate()
@@ -165,7 +166,6 @@ const Detail = ({ user }) => {
           <Log
             _id={task._id}
             tasklog={task.log}
-            userId={user._id}
             updateTaskLog={updateTaskLog(user._id)}
             getTaskInformation={getTaskInformation(id)}
           />

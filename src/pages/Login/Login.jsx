@@ -1,17 +1,20 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { ModalContext } from "../../core/Modal/ModalContext.js"
+import { ModalContext } from "../../context/ModalContext.js"
+import { UserDataContext } from "../../context/UserDataContext.js"
 import { login, register } from "../../shared/utils/api.mjs"
 import "./Login.scss"
 
-const Login = ({ setUser }) => {
+const Login = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = React.useState({ username: "", password: "" })
   const [mode, setMode] = React.useState("login")
 
-  const updateModalData = React.useContext(ModalContext)
+  const { setUser } = React.useContext(UserDataContext)
 
-  const onInput = (e) => {
+  const { updateModalData } = React.useContext(ModalContext)
+
+  const handleInput = (e) => {
     const key = e.target.name
     const value = e.target.value
     setFormData((oldValue) => {
@@ -23,7 +26,7 @@ const Login = ({ setUser }) => {
     const newMode = { login: "register", register: "login" }[mode]
     setMode(newMode)
   }
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     let response
     if (mode === "login")
@@ -44,7 +47,7 @@ const Login = ({ setUser }) => {
         <label className="login-form__field">
           <p>Username</p>
           <input
-            onInput={onInput}
+            onInput={handleInput}
             name="username"
             type="text"
             value={formData.username}
@@ -53,14 +56,16 @@ const Login = ({ setUser }) => {
         <label className="login-form__field">
           <p>Password</p>
           <input
-            onInput={onInput}
+            onInput={handleInput}
             name="password"
             type="password"
             value={formData.password}
           />
         </label>
-        <button onClick={onSubmit}>{mode}</button>
-        <p onClick={handleModeTogle}>{mode === "login"? "New? register here": "Registered? Login here"}</p>
+        <button onClick={handleSubmit}>{mode}</button>
+        <p onClick={handleModeTogle}>
+          {mode === "login" ? "New? register here" : "Registered? Login here"}
+        </p>
       </form>
     </>
   )

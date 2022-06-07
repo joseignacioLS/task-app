@@ -6,7 +6,7 @@
   align-items: center;
 
   margin-bottom: 1rem;
-  p {
+  &__button {
     padding: 0.5rem;
     background-color: $green;
     color: $primary-color;

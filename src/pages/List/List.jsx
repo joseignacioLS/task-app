@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { UserDataContext } from "../../context/UserDataContext.js"
 import { getUserGroups, getUserTasks } from "../../shared/utils/api.mjs"
 import "./List.scss"
 import ListSection from "./ListSection/ListSection.jsx"
@@ -17,7 +18,7 @@ const getGroups = async (userId, setUserGroups) => {
   if (data) {
     const owned = data.ownedGroups.map((g) => ({ _id: g._id, name: g.name }))
     const member = data.memberGroups.map((g) => ({ _id: g._id, name: g.name }))
-    setUserGroups([{ _id: null, name: "private" }, ...owned, ...member])
+    setUserGroups([{ _id: null, name: "Private" }, ...owned, ...member])
   }
 }
 
@@ -38,10 +39,11 @@ const handleCurrentListChange = (
   setCurrentList(filteredTaskList)
 }
 
-const List = ({ user }) => {
+const List = () => {
+  const {user} = React.useContext(UserDataContext)
   const [tasks, setTasks] = React.useState([])
   const [userGroups, setUserGroups] = React.useState([
-    { _id: null, name: "private" },
+    { _id: null, name: "Private" },
   ])
   const [listIndex, setListIndex] = React.useState(0)
   const [statusFilter, setStatusFilter] = React.useState("pending")
@@ -49,7 +51,7 @@ const List = ({ user }) => {
 
   const [currentList, setCurrentList] = React.useState([])
 
-  const onListChange = () => {
+  const handleListChange = () => {
     setStatusFilter("pending")
     setListIndex((oldValue) => {
       let newValue = oldValue + 1
@@ -87,8 +89,8 @@ const List = ({ user }) => {
       {isLoaded && (
         <>
           <section className="filter-section">
-            <p onClick={onListChange}>{userGroups[listIndex].name}</p>
-            <p onClick={handleStatusToggle}>{statusFilter}</p>
+            <button className="filter-section__button" onClick={handleListChange}>{userGroups[listIndex].name}</button>
+            <button className="filter-section__button" onClick={handleStatusToggle}>{statusFilter}</button>
           </section>
 
           {currentList.length > 0 ? (
@@ -97,8 +99,8 @@ const List = ({ user }) => {
             <p>Nothing to complete here!</p>
           )}
 
-          <Link className="new-btn" to="/newtask">
-            +
+          <Link to="/newtask">
+          <button className="new-btn" >+</button>
           </Link>
         </>
       )}

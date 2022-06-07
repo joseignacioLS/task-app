@@ -1,4 +1,5 @@
-const BACKURL = "https://peaceful-woodland-96091.herokuapp.com"// "http://localhost:4000"
+//const BACKURL = "https://peaceful-woodland-96091.herokuapp.com"
+const BACKURL = "http://localhost:4000"
 
 const login = async (username, password) => {
   const res = await fetch(`${BACKURL}/user/login`, {
@@ -105,8 +106,6 @@ const createTask = async (userId, groupId, title, description, deadline) => {
   })
 
   const data = await res.json()
-
-  console.log(data)
 
   return data.status === 200
 }
