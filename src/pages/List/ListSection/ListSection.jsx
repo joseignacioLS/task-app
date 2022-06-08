@@ -15,31 +15,25 @@ const getTasksList = async (userId, setTasks, setIsLoaded) => {
 const handleCurrentListChange = (
   tasks,
   setCurrentList,
-  userGroups,
-  listIndex = 0,
-  statusFilter = "pending",
-  sortAscending = false
+
+  filter
 ) => {
   const filteredTaskList = tasks
     .filter((task) => {
-      return task.group === userGroups[listIndex]._id
+      return task.group === filter.userGroups[filter.listIndex]._id
     })
     .filter((task) => {
-      return task.status === statusFilter
+      return task.status === filter.statusFilter
     })
     .sort((a, b) => {
-      if (sortAscending) return new Date(a.deadline) - new Date(b.deadline)
+      if (filter.sortAscending)
+        return new Date(a.deadline) - new Date(b.deadline)
       return new Date(b.deadline) - new Date(a.deadline)
     })
   setCurrentList(filteredTaskList)
 }
 
-const ListSection = ({
-  userGroups,
-  listIndex,
-  statusFilter,
-  sortAscending,
-}) => {
+const ListSection = ({ filter }) => {
   const { user } = React.useContext(UserDataContext)
   const [isLoaded, setIsLoaded] = React.useState(false)
 
@@ -53,15 +47,8 @@ const ListSection = ({
   }, [user])
 
   React.useEffect(() => {
-    handleCurrentListChange(
-      tasks,
-      setCurrentList,
-      userGroups,
-      listIndex,
-      statusFilter,
-      sortAscending
-    )
-  }, [tasks, userGroups, listIndex, statusFilter, sortAscending])
+    handleCurrentListChange(tasks, setCurrentList, filter)
+  }, [tasks, filter])
 
   const showCards = () => {
     return isLoaded ? (

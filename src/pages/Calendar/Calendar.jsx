@@ -104,9 +104,9 @@ const Calendar = () => {
       {isLoaded && (
         <>
           <section className="calendar-btns">
-            <button onClick={handleTodayChange(-1)}>{"<"}</button>
-            <button onClick={resetToday}>{"Reset date"}</button>
-            <button onClick={handleTodayChange(1)}>{">"}</button>
+            <button className="calendar-btns__page" onClick={handleTodayChange(-1)}>{"<"}</button>
+            <button className="calendar-btns__reset" onClick={resetToday}>{"Reset date"}</button>
+            <button className="calendar-btns__page" onClick={handleTodayChange(1)}>{">"}</button>
           </section>
           {showWeek()}
         </>

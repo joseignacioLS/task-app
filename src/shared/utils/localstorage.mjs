@@ -7,13 +7,12 @@
  * @param {*} set value del hook
  * @returns devuelve en boolean representando si el user se puede recuperar del localstorage
  */
-const retrieveUserFromLocalStorage = (setUser, set = true) => {
+const retrieveUserFromLocalStorage = () => {
   const storedUser = localStorage.getItem("user")
   if (storedUser) {
-    if (set) setUser(JSON.parse(storedUser))
-    return true
+    return JSON.parse(storedUser)
   }
-  return false
+  return undefined
 }
 
 const clearUserFromLocalStorage = () => {

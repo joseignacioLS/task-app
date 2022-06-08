@@ -14,12 +14,16 @@ import CreateTask from "./pages/CreateTask/CreateTask"
 import Profile from "./pages/Profile/Profile"
 import Group from "./pages/Group/Group"
 import AuthRoute from "./core/Auth/AuthRoute"
-import { clearUserFromLocalStorage, retrieveUserFromLocalStorage } from "./shared/utils/localstorage.mjs"
+import {
+  clearUserFromLocalStorage,
+  retrieveUserFromLocalStorage,
+} from "./shared/utils/localstorage.mjs"
 import Calendar from "./pages/Calendar/Calendar"
 
 function App() {
-  const [user, setUser] = React.useState()
+  const [user, setUser] = React.useState(retrieveUserFromLocalStorage())
   const navigate = useNavigate()
+
   const [modalData, setModalData] = React.useState({
     isVisible: false,
     message: "",
@@ -53,12 +57,6 @@ function App() {
     clearUserFromLocalStorage()
     navigate("/login")
   }
-
-  React.useEffect(() => {
-    if (!user) {
-      retrieveUserFromLocalStorage(setUser)
-    }
-  }, [user])
 
   return (
     <>

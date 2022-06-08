@@ -1,14 +1,17 @@
 .groups {
-  h2{
-    margin-top:1rem;
+  h2 {
+    margin-top: 1rem;
     margin-left: 1rem;
   }
-  h3{
-    margin-top: .5rem;
+  h3 {
+    margin-top: 0.5rem;
     margin-left: 2rem;
   }
   ul {
     margin-left: 3rem;
+    li {
+      animation: grow-from-top 500ms forwards;
+    }
   }
   form {
     margin-left: 2rem;

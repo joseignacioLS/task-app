@@ -65,3 +65,9 @@ button {
     opacity: 0;
   }
 }
+
+@keyframes grow-from-top {
+  from {
+    transform: translateY(-50%) scaleY(0%);
+  }
+}
