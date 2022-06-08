@@ -27,7 +27,8 @@ const handleCurrentListChange = (
   setCurrentList,
   userGroups,
   listIndex = 0,
-  statusFilter = "pending"
+  statusFilter = "pending",
+  sortAscending = false
 ) => {
   const filteredTaskList = tasks
     .filter((task) => {
@@ -36,11 +37,15 @@ const handleCurrentListChange = (
     .filter((task) => {
       return task.status === statusFilter
     })
+    .sort((a, b) => {
+      if (sortAscending) return new Date(a.deadline) - new Date(b.deadline)
+      return new Date(b.deadline) - new Date(a.deadline)
+    })
   setCurrentList(filteredTaskList)
 }
 
 const List = () => {
-  const {user} = React.useContext(UserDataContext)
+  const { user } = React.useContext(UserDataContext)
   const [tasks, setTasks] = React.useState([])
   const [userGroups, setUserGroups] = React.useState([
     { _id: null, name: "Private" },
@@ -51,8 +56,15 @@ const List = () => {
 
   const [currentList, setCurrentList] = React.useState([])
 
+  const [sortAscending, setSortAscending] = React.useState(true)
+
+  const handleToggleSort = () => {
+    setSortAscending((oldValue) => !oldValue)
+  }
+
   const handleListChange = () => {
     setStatusFilter("pending")
+    setSortAscending(true)
     setListIndex((oldValue) => {
       let newValue = oldValue + 1
       if (newValue >= userGroups.length) newValue -= userGroups.length
@@ -73,9 +85,10 @@ const List = () => {
       setCurrentList,
       userGroups,
       listIndex,
-      statusFilter
+      statusFilter,
+      sortAscending
     )
-  }, [tasks, userGroups, listIndex, statusFilter])
+  }, [tasks, userGroups, listIndex, statusFilter, sortAscending])
 
   const handleStatusToggle = () => {
     setStatusFilter((oldValue) => {
@@ -89,8 +102,22 @@ const List = () => {
       {isLoaded && (
         <>
           <section className="filter-section">
-            <button className="filter-section__button" onClick={handleListChange}>{userGroups[listIndex].name}</button>
-            <button className="filter-section__button" onClick={handleStatusToggle}>{statusFilter}</button>
+            <button
+              className="filter-section__button"
+              onClick={handleListChange}
+            >
+              {userGroups[listIndex].name}
+            </button>
+            <button
+              className="filter-section__button"
+              onClick={handleToggleSort}
+            >{`Sort ${sortAscending ? "🔺" : "🔻"}`}</button>
+            <button
+              className="filter-section__button"
+              onClick={handleStatusToggle}
+            >
+              {statusFilter}
+            </button>
           </section>
 
           {currentList.length > 0 ? (
@@ -99,8 +126,8 @@ const List = () => {
             <p>Nothing to complete here!</p>
           )}
 
-          <Link to="/newtask">
-          <button className="new-btn" >+</button>
+          <Link to="/newtask" className="new-task-container">
+            <button className="new-task-container__btn">+</button>
           </Link>
         </>
       )}

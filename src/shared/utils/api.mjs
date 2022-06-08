@@ -2,39 +2,49 @@
 const BACKURL = "http://localhost:4000"
 
 const login = async (username, password) => {
-  const res = await fetch(`${BACKURL}/user/login`, {
-    method: "POST",
-    body: JSON.stringify({
-      username,
-      password,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-  const data = await res.json()
+  try {
+    const res = await fetch(`${BACKURL}/user/login`, {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    const data = await res.json()
 
-  if (data.status !== 200) return false
+    if (data.status !== 200) return false
 
-  return data.data
+    return data.data
+  } catch (err) {
+    console.log(err)
+    return false
+  }
 }
 
 const register = async (username, password) => {
-  const res = await fetch(`${BACKURL}/user/register`, {
-    method: "POST",
-    body: JSON.stringify({
-      username,
-      password,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-  const data = await res.json()
+  try {
+    const res = await fetch(`${BACKURL}/user/register`, {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    const data = await res.json()
 
-  if (data.status !== 200) return false
+    if (data.status !== 200) return false
 
-  return data.data
+    return data.data
+  } catch (err) {
+    console.log(err)
+    return false
+  }
 }
 
 const updateTask = async (taskId, newData) => {
