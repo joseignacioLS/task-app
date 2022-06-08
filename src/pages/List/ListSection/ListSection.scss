@@ -8,4 +8,12 @@
   align-items: center;
   flex-direction: column;
   gap: 0.5rem;
+  animation: list-grow 500ms forwards;
+}
+
+
+@keyframes list-grow {
+  from {
+    transform: translateY(-50%) scaleY(0%);
+  }
 }

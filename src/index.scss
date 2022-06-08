@@ -55,4 +55,13 @@ button {
   &:active {
     background-color: $purple;
   }
+
+  animation: fade-in 500ms forwards;
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
 }

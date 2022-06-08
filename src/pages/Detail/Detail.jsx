@@ -13,11 +13,9 @@ import "./Detail.scss"
 import EditableField from "./EditableField/EditableField"
 import Log from "./Log/Log"
 
-const updateTaskLog = (userId) => {
-  return async (taskId, newMessage) => {
-    if (newMessage !== "") {
-      await addMessageToLog(taskId, userId, newMessage)
-    }
+const updateTaskLog = async (userId, taskId, newMessage) => {
+  if (newMessage !== "") {
+    await addMessageToLog(taskId, userId, newMessage)
   }
 }
 
@@ -42,13 +40,14 @@ const Detail = () => {
       setIsLoaded(true)
     }
   }
+
   const handleCompleteTask = () => {
     updateModalData(`Is '${task.title}' completed?`, true, [
       {
         title: "Yes",
         f: async () => {
           await updateTaskField(task._id, "status", "completed")
-          await updateTaskLog(user._id)(task._id, "Task completed")
+          await updateTaskLog(user._id, task._id, "Task completed")
           await getTaskInformation(id)()
         },
       },
@@ -65,7 +64,7 @@ const Detail = () => {
         title: "Yes",
         f: async () => {
           await updateTaskField(task._id, "status", "pending")
-          await updateTaskLog(user._id)(task._id, "Task reopened")
+          await updateTaskLog(user._id, task._id, "Task reopened")
           await getTaskInformation(id)()
         },
       },
@@ -103,17 +102,17 @@ const Detail = () => {
 
   const handleDescriptionUpdate = async (newDescription) => {
     await updateTaskField(task._id, "description", newDescription)
-    await updateTaskLog(user._id)(task._id, "Description Updated")
+    await updateTaskLog(user._id, task._id, "Description Updated")
     await getTaskInformation(id)()
   }
   const handleTitleUpdate = async (newTitle) => {
     await updateTaskField(task._id, "title", newTitle)
-    await updateTaskLog(user._id)(task._id, "Title Updated")
+    await updateTaskLog(user._id, task._id, "Title Updated")
     await getTaskInformation(id)()
   }
   const handleDeadlineUpdate = async (newDeadline) => {
     await updateTaskField(task._id, "deadline", newDeadline)
-    await updateTaskLog(user._id)(task._id, "Deadline Updated")
+    await updateTaskLog(user._id, task._id, "Deadline Updated")
     await getTaskInformation(id)()
   }
 
@@ -169,7 +168,7 @@ const Detail = () => {
           <Log
             _id={task._id}
             tasklog={task.log}
-            updateTaskLog={updateTaskLog(user._id)}
+            updateTaskLog={updateTaskLog}
             getTaskInformation={getTaskInformation(id)}
           />
         </article>

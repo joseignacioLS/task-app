@@ -15,6 +15,8 @@
   justify-content: flex-start;
   align-items: center;
 
+  animation: card-grow 500ms forwards;
+
   &__team {
     height: 1rem;
     width: 1rem;
@@ -28,5 +30,11 @@
     &--expired {
       color: $red;
     }
+  }
+}
+
+@keyframes card-grow {
+  from {
+    transform: translateY(-50%) scaleY(0%);
   }
 }
