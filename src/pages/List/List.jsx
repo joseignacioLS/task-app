@@ -63,11 +63,20 @@ const List = () => {
   }
 
   const handleListChange = () => {
+    // reset filter and sort order on list change
     setStatusFilter("pending")
     setSortAscending(true)
     setListIndex((oldValue) => {
       let newValue = oldValue + 1
       if (newValue >= userGroups.length) newValue -= userGroups.length
+      return newValue
+    })
+  }
+
+  const handleStatusToggle = () => {
+    setStatusFilter((oldValue) => {
+      // change pending-->completed or completed-->pending
+      const newValue = { pending: "completed", completed: "pending" }[oldValue]
       return newValue
     })
   }
@@ -90,15 +99,9 @@ const List = () => {
     )
   }, [tasks, userGroups, listIndex, statusFilter, sortAscending])
 
-  const handleStatusToggle = () => {
-    setStatusFilter((oldValue) => {
-      const newValue = { pending: "completed", completed: "pending" }[oldValue]
-      return newValue
-    })
-  }
-
   return (
     <>
+      {!isLoaded && <p>Loading</p>}
       {isLoaded && (
         <>
           <section className="filter-section">
@@ -126,8 +129,11 @@ const List = () => {
             <p>Nothing to complete here!</p>
           )}
 
-          <Link to="/newtask" className="new-task-container">
-            <button className="new-task-container__btn">+</button>
+          <Link to="/newtask" className="to-new-task-container">
+            <button className="to-new-task-container__btn">+</button>
+          </Link>
+          <Link to="/calendar" className="to-calendar-container">
+            <button className="to-calendar-container__btn">📅</button>
           </Link>
         </>
       )}

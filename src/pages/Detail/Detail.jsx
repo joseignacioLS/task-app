@@ -26,11 +26,11 @@ const updateTaskField = async (taskId, name, value) => {
 }
 
 const Detail = () => {
-  const {user} = React.useContext(UserDataContext)
+  const { user } = React.useContext(UserDataContext)
   const { id } = useParams()
   const [task, setTask] = React.useState({})
   const [isLoaded, setIsLoaded] = React.useState(false)
-  const {updateModalData} = React.useContext(ModalContext)
+  const { updateModalData } = React.useContext(ModalContext)
   const isExpired = task.status === "pending" && checkExpiration(task.deadline)
 
   const navigate = useNavigate()
@@ -123,6 +123,7 @@ const Detail = () => {
 
   return (
     <>
+      {!isLoaded && <p>Loading</p>}
       {isLoaded && (
         <article className="task-detail">
           <EditableField
@@ -135,7 +136,9 @@ const Detail = () => {
           <p className="task-detail__ownership">
             Owner: {task.user?.username ? task.user?.username : task.group.name}
           </p>
-          <p className="task-detail__status">Status: {isExpired? "missed":task.status}</p>
+          <p className="task-detail__status">
+            Status: {isExpired ? "missed" : task.status}
+          </p>
           <EditableField
             type="date"
             onUpdateF={handleDeadlineUpdate}

@@ -6,4 +6,8 @@ const getTodayDate = () => {
   return new Date().toISOString().split("T")[0]
 }
 
-export { checkExpiration, getTodayDate }
+const dateToFormattedString = (d) => {
+  return d.toISOString().split("T")[0]
+}
+
+export { checkExpiration, getTodayDate,dateToFormattedString }

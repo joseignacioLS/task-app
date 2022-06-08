@@ -15,6 +15,7 @@ import Profile from "./pages/Profile/Profile"
 import Group from "./pages/Group/Group"
 import AuthRoute from "./core/Auth/AuthRoute"
 import { clearUserFromLocalStorage, retrieveUserFromLocalStorage } from "./shared/utils/localstorage.mjs"
+import Calendar from "./pages/Calendar/Calendar"
 
 function App() {
   const [user, setUser] = React.useState()
@@ -82,6 +83,10 @@ function App() {
               <Route
                 path="/profile"
                 element={<AuthRoute component={<Profile />} />}
+              />
+              <Route
+                path="/calendar"
+                element={<AuthRoute component={<Calendar />} />}
               />
               <Route
                 path="/group/:id"

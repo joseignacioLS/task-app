@@ -17,7 +17,7 @@
   }
 }
 
-.new-task-container {
+.to-new-task-container {
   position: absolute;
   right: 1rem;
   bottom: calc(1rem + #{$footer-h});
@@ -27,6 +27,26 @@
     background-color: $red;
 
     font-size: 3rem;
+    border-radius: 50%;
+
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.to-calendar-container {
+  position: absolute;
+  left: 1rem;
+  bottom: calc(1rem + #{$footer-h});
+
+  &__btn {
+    color: $primary-color;
+    background-color: $red;
+
+    font-size: 1.25rem;
     border-radius: 50%;
 
     height: 3rem;

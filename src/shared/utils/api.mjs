@@ -91,8 +91,8 @@ const removeMessageFromLog = async (taskId, index) => {
 
   return data.data
 }
-const getUserTasks = async (userId) => {
-  const res = await fetch(`${BACKURL}/task/userTasks/${userId}`)
+const getUserTasks = async (userId, deadline="") => {
+  const res = await fetch(`${BACKURL}/task/userTasks/${userId}${deadline !== ""? "?deadline="+deadline:""}`)
   const data = await res.json()
 
   if (data.status !== 200) return false
