@@ -14,7 +14,7 @@ import CreateTask from "./pages/CreateTask/CreateTask"
 import Profile from "./pages/Profile/Profile"
 import Group from "./pages/Group/Group"
 import AuthRoute from "./core/Auth/AuthRoute"
-import { retrieveUserFromLocalStorage } from "./shared/utils/localstorage.mjs"
+import { clearUserFromLocalStorage, retrieveUserFromLocalStorage } from "./shared/utils/localstorage.mjs"
 
 function App() {
   const [user, setUser] = React.useState()
@@ -49,7 +49,7 @@ function App() {
 
   const logout = () => {
     setUser(undefined)
-    localStorage.removeItem("user")
+    clearUserFromLocalStorage()
     navigate("/login")
   }
 

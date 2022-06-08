@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
 import { login, register } from "../../shared/utils/api.mjs"
+import { setUserLocalStorage } from "../../shared/utils/localstorage.mjs"
 import "./Login.scss"
 
 const Login = () => {
@@ -35,7 +36,7 @@ const Login = () => {
       response = await register(formData.username, formData.password)
     if (response) {
       setUser(response)
-      localStorage.setItem("user", JSON.stringify(response))
+      setUserLocalStorage(response)
       navigate("/")
     } else {
       updateModalData(`${mode} error`)
