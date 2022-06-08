@@ -8,7 +8,9 @@ const Card = ({ _id, title, status, group, deadline }) => {
     <Link to={`/detail/${_id}`} className="task-item">
       <p
         className={`task-item__title ${
-          status === "pending" && checkExpiration(deadline) ? "task-item__title--expired" : ""
+          status === "pending" && checkExpiration(deadline)
+            ? "task-item__title--expired"
+            : ""
         }`}
       >
         <strong>{title}</strong> ({deadline})

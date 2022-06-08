@@ -14,7 +14,6 @@ const getDayTasks = async (userId, date) => {
 }
 
 const getWeek = async (today, setWeekDates, setIsLoaded) => {
-  console.log("setting week")
   const newWeekDates = []
 
   const refDate = new Date(today)
@@ -33,11 +32,12 @@ const getWeek = async (today, setWeekDates, setIsLoaded) => {
 }
 
 const getWeekData = async (userId, weekDates, setWeekTasks) => {
-  weekDates.forEach((d) =>
-    getDayTasks(userId, d).then((data) => {
-      setWeekTasks((oldValue) => [...oldValue, ...data])
-    })
-  )
+  let newData = []
+  for (let i = 0; i < weekDates.length; i++) {
+    const data = await getDayTasks(userId, weekDates[i])
+    newData = [...newData, ...data]
+  }
+  setWeekTasks(newData)
 }
 
 const Calendar = () => {
@@ -55,6 +55,10 @@ const Calendar = () => {
       const newToday = dateToFormattedString(d)
       setToday(newToday)
     }
+  }
+
+  const resetToday = () => {
+    setToday(getTodayDate())
   }
 
   const showWeek = () => {
@@ -78,7 +82,7 @@ const Calendar = () => {
         {weekTasks
           .filter((t) => t.deadline === d)
           .map((t) => (
-            <li key={JSON.stringify(t)}>
+            <li key={t._id}>
               <Link to={`/detail/${t._id}`}>{t.title}</Link>
             </li>
           ))}
@@ -91,9 +95,9 @@ const Calendar = () => {
   }, [today, user])
 
   React.useEffect(() => {
-    setWeekTasks([])
     getWeekData(user._id, weekDates, setWeekTasks)
   }, [user, weekDates])
+
   return (
     <>
       {!isLoaded && <p>Loading</p>}
@@ -101,6 +105,7 @@ const Calendar = () => {
         <>
           <section className="calendar-btns">
             <button onClick={handleTodayChange(-1)}>{"<"}</button>
+            <button onClick={resetToday}>{"Reset date"}</button>
             <button onClick={handleTodayChange(1)}>{">"}</button>
           </section>
           {showWeek()}
