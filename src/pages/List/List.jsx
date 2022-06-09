@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { UserDataContext } from "../../context/UserDataContext.js"
 import { getUserGroups } from "../../shared/utils/api.mjs"
 import "./List.scss"
@@ -23,6 +23,7 @@ const List = () => {
     statusFilter: "pending",
     sortAscending: true,
   })
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const handleToggleSort = () => {
     setFilter((oldValue) => {
@@ -35,6 +36,7 @@ const List = () => {
       let newIndex = oldValue.listIndex + 1
       if (newIndex >= oldValue.userGroups.length)
         newIndex -= oldValue.userGroups.length
+
       return {
         ...oldValue,
         statusFilter: "pending",
@@ -54,12 +56,23 @@ const List = () => {
   }
 
   React.useEffect(() => {
+    //get query params
+    const userInputList = searchParams.get("list")
+
     getGroups(user._id).then((data) => {
+      let index = 0
+      data.forEach((g, i) => {
+        if (g.name === userInputList) index = i
+      })
       setFilter((oldValue) => {
-        return { ...oldValue, userGroups: data }
+        return { ...oldValue, userGroups: data, listIndex: index }
       })
     })
   }, [])
+
+  React.useEffect(() => {
+    setSearchParams({ list: filter.userGroups[filter.listIndex].name })
+  }, [filter.userGroups, filter.listIndex])
 
   return (
     <>
@@ -77,13 +90,14 @@ const List = () => {
       </section>
 
       <ListSection filter={filter} />
-
-      <Link to="/newtask" className="to-new-task-container">
-        <button className="to-new-task-container__btn">+</button>
-      </Link>
-      <Link to="/calendar" className="to-calendar-container">
-        <button className="to-calendar-container__btn">📅</button>
-      </Link>
+      <section className="sticky-btns">
+        <Link to="/calendar" className="to-calendar">
+          <button className="to-calendar__btn">📅</button>
+        </Link>
+        <Link to="/newtask" className="to-new-task">
+          <button className="to-new-task__btn">+</button>
+        </Link>
+      </section>
     </>
   )
 }

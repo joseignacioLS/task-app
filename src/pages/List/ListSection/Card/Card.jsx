@@ -15,7 +15,6 @@ const Card = ({ _id, title, status, group, deadline }) => {
       >
         <strong>{title}</strong> ({deadline})
       </p>
-      <p className="task-item__team">{group ? "🏣" : ""}</p>
     </Link>
   )
 }

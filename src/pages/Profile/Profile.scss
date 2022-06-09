@@ -1,11 +1,11 @@
 .groups {
+  margin-left: 1rem;
   h2 {
     margin-top: 1rem;
-    margin-left: 1rem;
   }
   h3 {
     margin-top: 0.5rem;
-    margin-left: 2rem;
+    margin-left: 1rem;
   }
   ul {
     margin-left: 3rem;
@@ -14,6 +14,26 @@
     }
   }
   form {
-    margin-left: 2rem;
+    margin-left: 1rem;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+    input {
+      width: 80%;
+      min-width: 0;
+      max-width: 14rem;
+    }
+  }
+}
+
+.user-settings {
+  form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

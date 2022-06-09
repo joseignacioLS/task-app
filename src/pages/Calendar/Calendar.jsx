@@ -100,13 +100,24 @@ const Calendar = () => {
 
   return (
     <>
-      {!isLoaded && <p>Loading</p>}
       {isLoaded && (
         <>
           <section className="calendar-btns">
-            <button className="calendar-btns__page" onClick={handleTodayChange(-1)}>{"<"}</button>
-            <button className="calendar-btns__reset" onClick={resetToday}>{"Reset date"}</button>
-            <button className="calendar-btns__page" onClick={handleTodayChange(1)}>{">"}</button>
+            <button
+              className="calendar-btns__page"
+              onClick={handleTodayChange(-1)}
+            >
+              {"<"}
+            </button>
+            <button className="calendar-btns__reset" onClick={resetToday}>
+              {"Reset date"}
+            </button>
+            <button
+              className="calendar-btns__page"
+              onClick={handleTodayChange(1)}
+            >
+              {">"}
+            </button>
           </section>
           {showWeek()}
         </>

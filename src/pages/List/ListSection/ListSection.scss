@@ -1,6 +1,7 @@
 .tasks-list {
-  margin: 0;
+  margin-bottom: 4rem;
   padding: 0;
+
   list-style: none;
 
   display: flex;
@@ -8,4 +9,6 @@
   align-items: center;
   flex-direction: column;
   gap: 0.5rem;
+
+  animation: grow-from-top 500ms forwards;
 }

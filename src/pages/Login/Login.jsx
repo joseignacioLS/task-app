@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
+import PasswordInput from "../../shared/components/PasswordInput/PasswordInput.jsx"
 import { login, register } from "../../shared/utils/api.mjs"
 import { setUserLocalStorage } from "../../shared/utils/localstorage.mjs"
 import "./Login.scss"
@@ -44,7 +45,7 @@ const Login = () => {
   }
   return (
     <>
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <label className="login-form__field">
           <p>Username</p>
           <input
@@ -56,14 +57,15 @@ const Login = () => {
         </label>
         <label className="login-form__field">
           <p>Password</p>
-          <input
+          <PasswordInput
             onInput={handleInput}
             name="password"
             type="password"
             value={formData.password}
+
           />
         </label>
-        <button onClick={handleSubmit}>{mode}</button>
+        <button type="submit">{mode}</button>
         <p onClick={handleModeTogle}>
           {mode === "login" ? "New? register here" : "Registered? Login here"}
         </p>

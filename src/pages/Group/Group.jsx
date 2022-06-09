@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
+import Loading from "../../shared/components/Loading/Loading.jsx"
 import {
   deleteGroup,
   getGroup,
@@ -86,6 +87,7 @@ const Group = () => {
 
   return (
     <>
+    {!isLoaded && <Loading/>}
       {isLoaded && (
         <div>
           <h1>{groupData.name}</h1>
@@ -94,7 +96,7 @@ const Group = () => {
           <h2>Members</h2>
           {showGroupMembers()}
           {user._id === groupData.user._id && (
-            <form>
+            <form onSubmit={handleInvite}>
               <label>
                 <p>Invite</p>
                 <input
@@ -104,7 +106,7 @@ const Group = () => {
                   value={formData.newUser}
                 />
               </label>
-              <button onClick={handleInvite}>Send Invitation</button>
+              <button type="submit">Send Invitation</button>
             </form>
           )}
           {user._id === groupData.user._id && (

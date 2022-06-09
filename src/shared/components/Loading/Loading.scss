@@ -1,0 +1,28 @@
+@import "../../../styles/variables";
+
+.loading {
+  position: absolute;
+  width: calc(100% - calc(2 * #{$main-container-padding}));
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  &__ball {
+    height: 2rem;
+    width: 2rem;
+
+    margin-top: 2rem;
+
+    background-color: $red;
+    border-radius: 50%;
+
+    animation: levitate 1s infinite;
+  }
+}
+
+@keyframes levitate {
+  50% {
+    transform: translateY(-30%);
+  }
+}

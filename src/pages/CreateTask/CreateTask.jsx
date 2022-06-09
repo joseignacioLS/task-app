@@ -85,7 +85,7 @@ const CreateTask = () => {
   }, [user])
 
   return (
-    <form className="new-task-form">
+    <form className="new-task-form" onSubmit={handleSubmit}>
       <label>
         <p>title</p>
         <input onInput={handleInput} type="text" name="title" />
@@ -102,7 +102,7 @@ const CreateTask = () => {
         <p>Group</p>
         {showSelectGroup()}
       </label>
-      <button onClick={handleSubmit}>Create</button>
+      <button type="submit">Create</button>
     </form>
   )
 }

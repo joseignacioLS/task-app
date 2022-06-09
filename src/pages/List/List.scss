@@ -17,42 +17,45 @@
   }
 }
 
-.to-new-task-container {
-  position: absolute;
-  right: 1rem;
+.sticky-btns {
+  position: fixed;
+  width: calc(100% - calc(2 * #{$main-container-padding}));
   bottom: calc(1rem + #{$footer-h});
 
-  &__btn {
-    color: $primary-color;
-    background-color: $red;
+  margin-top: 1rem;
 
-    font-size: 3rem;
-    border-radius: 50%;
+  display: flex;
+  justify-content: space-between;
 
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .to-new-task {
+    &__btn {
+      color: $primary-color;
+      background-color: $red;
+
+      font-size: 3rem;
+      border-radius: 50%;
+
+      height: 3rem;
+      width: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
-}
 
-.to-calendar-container {
-  position: absolute;
-  left: 1rem;
-  bottom: calc(1rem + #{$footer-h});
+  .to-calendar {
+    &__btn {
+      color: $primary-color;
+      background-color: $red;
 
-  &__btn {
-    color: $primary-color;
-    background-color: $red;
+      font-size: 1.25rem;
+      border-radius: 50%;
 
-    font-size: 1.25rem;
-    border-radius: 50%;
-
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      height: 3rem;
+      width: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

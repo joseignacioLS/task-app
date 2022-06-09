@@ -48,10 +48,10 @@ const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
     ))
   }
   return (
-    <section className="task-log">
+    <section className="task-log" onSubmit={handleSubmit}>
       <form className="task-log__form">
         <input type="text" value={newMessage} onInput={handleInput} />
-        <button onClick={handleSubmit}>Add log</button>
+        <button type="submit">Add log</button>
       </form>
       <section className="task-log__list">{showLogEntries()}</section>
     </section>

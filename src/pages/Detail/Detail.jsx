@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext"
 import { UserDataContext } from "../../context/UserDataContext"
+import Loading from "../../shared/components/Loading/Loading"
 import {
   addMessageToLog,
   deleteTask,
@@ -90,7 +91,8 @@ const Detail = () => {
             ])
             return
           }
-          navigate("/")
+          const query = task.group?.name ?? "Private"
+          navigate(`/?list=${query}`)
         },
       },
       {
@@ -122,7 +124,7 @@ const Detail = () => {
 
   return (
     <>
-      {!isLoaded && <p>Loading</p>}
+      {!isLoaded && <Loading/>}
       {isLoaded && (
         <article className="task-detail">
           <EditableField

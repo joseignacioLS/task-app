@@ -1,5 +1,6 @@
 import React from "react"
 import { UserDataContext } from "../../../context/UserDataContext.js"
+import Loading from "../../../shared/components/Loading/Loading.jsx"
 import { getUserTasks } from "../../../shared/utils/api.mjs"
 import Card from "./Card/Card.jsx"
 import "./ListSection.scss"
@@ -51,9 +52,9 @@ const ListSection = ({ filter }) => {
   }, [tasks, filter])
 
   const showCards = () => {
-    return isLoaded ? (
+    return (
       <ul className="tasks-list">
-        {currentList.map((task) => {
+        {currentList.map((task, index) => {
           return (
             <Card
               key={task._id}
@@ -66,11 +67,15 @@ const ListSection = ({ filter }) => {
           )
         })}
       </ul>
-    ) : (
-      "Loading"
     )
   }
-  return showCards()
+
+  return (
+    <>
+      {!isLoaded && <Loading />}
+      {isLoaded && showCards()}
+    </>
+  )
 }
 
 export default ListSection

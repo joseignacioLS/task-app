@@ -1,5 +1,5 @@
-const BACKURL = "https://peaceful-woodland-96091.herokuapp.com"
-//const BACKURL = "http://localhost:4000"
+//const BACKURL = "https://peaceful-woodland-96091.herokuapp.com"
+const BACKURL = "http://localhost:4000"
 
 const login = async (username, password) => {
   try {
@@ -43,6 +43,27 @@ const register = async (username, password) => {
     return data.data
   } catch (err) {
     console.log(err)
+    return false
+  }
+}
+
+const updatePassword = async (userId, oldPassword, newPassword) => {
+  try {
+    const res = await fetch(`${BACKURL}/user/updatePassword`, {
+      method: "PUT",
+      body: JSON.stringify({
+        userId,
+        oldPassword,
+        newPassword,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    const data = await res.json()
+
+    return data.status === 200
+  } catch (err) {
     return false
   }
 }
@@ -91,8 +112,12 @@ const removeMessageFromLog = async (taskId, index) => {
 
   return data.data
 }
-const getUserTasks = async (userId, deadline="") => {
-  const res = await fetch(`${BACKURL}/task/userTasks/${userId}${deadline !== ""? "?deadline="+deadline:""}`)
+const getUserTasks = async (userId, deadline = "") => {
+  const res = await fetch(
+    `${BACKURL}/task/userTasks/${userId}${
+      deadline !== "" ? "?deadline=" + deadline : ""
+    }`
+  )
   const data = await res.json()
 
   if (data.status !== 200) return false
@@ -117,7 +142,7 @@ const createTask = async (userId, groupId, title, description, deadline) => {
 
   const data = await res.json()
 
-  return data.status === 200
+  return data.status === 200 ? data.data : false
 }
 
 const deleteTask = async (taskId) => {
@@ -127,7 +152,7 @@ const deleteTask = async (taskId) => {
 
   const data = await res.json()
 
-  return data.status === 200
+  return data.status === 200 ? data.data : false
 }
 const getTask = async (taskId) => {
   const res = await fetch(`${BACKURL}/task/${taskId}`)
@@ -216,6 +241,7 @@ const handleInvitation = async (invitationId, action) => {
 export {
   login,
   register,
+  updatePassword,
   updateTask,
   getUserTasks,
   createTask,

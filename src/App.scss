@@ -1,10 +1,12 @@
 @import "./styles/variables";
 
 .page-container {
-  padding: 1rem;
+  padding: $main-container-padding;
   margin-top: 3rem;
 
-  min-height: calc(calc(100% - #{$footer-h}) - #{$header-h});
+  position: relative;
+
+  min-height: calc(calc(100vh - #{$footer-h}) - #{$header-h});
 
   background-color: $primary-color;
 }
