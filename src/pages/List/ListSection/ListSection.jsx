@@ -37,15 +37,15 @@ const handleCurrentListChange = (
 const showCards = (currentList) => {
   return (
     <ul className="tasks-list">
-      {currentList.map((task, index) => {
+      {currentList.map(({ _id, title, status, group, deadline }) => {
         return (
           <Card
-            key={task._id}
-            _id={task._id}
-            title={task.title}
-            status={task.status}
-            group={task.group}
-            deadline={task.deadline}
+            key={_id}
+            _id={_id}
+            title={title}
+            status={status}
+            group={group}
+            deadline={deadline}
           />
         )
       })}

@@ -45,9 +45,16 @@ const showTasks = (d, weekTasks) => {
     <ul className="day__tasks">
       {weekTasks
         .filter((t) => t.deadline === d)
-        .map((t) => (
-          <li key={t._id}>
-            <Link to={`/detail/${t._id}`}>{t.title}</Link>
+        .map(({_id, title, status}) => (
+          <li key={_id}>
+            <Link
+              className={`task ${
+                status === "completed" ? "task--completed" : ""
+              }`}
+              to={`/detail/${_id}`}
+            >
+              {title}
+            </Link>
           </li>
         ))}
     </ul>

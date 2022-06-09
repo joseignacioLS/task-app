@@ -31,9 +31,9 @@ const getInvitations = async (userId, setUserInvitations) => {
 const showOwnedGroups = (userGroups) => {
   return (
     <ul>
-      {userGroups.ownedGroups.map((group) => (
-        <li key={JSON.stringify(group)}>
-          <Link to={`/group/${group._id}`}>{group.name}</Link>
+      {userGroups.ownedGroups.map(({ _id, name }) => (
+        <li key={_id}>
+          <Link to={`/group/${_id}`}>{name}</Link>
         </li>
       ))}
     </ul>
@@ -43,9 +43,9 @@ const showOwnedGroups = (userGroups) => {
 const showMemberGroups = (userGroups) => {
   return (
     <ul>
-      {userGroups.memberGroups.map((group) => (
-        <li key={JSON.stringify(group)}>
-          <Link to={`/group/${group._id}`}>{group.name}</Link>
+      {userGroups.memberGroups.map(({ _id, name }) => (
+        <li key={_id}>
+          <Link to={`/group/${_id}`}>{name}</Link>
         </li>
       ))}
     </ul>
@@ -55,13 +55,13 @@ const showMemberGroups = (userGroups) => {
 const showUserInvitations = (userInvitations, handleInvitationAction) => {
   return (
     <ul>
-      {userInvitations.map((i) => (
-        <li key={JSON.stringify(i)}>
-          {i.group.name}
-          <button onClick={handleInvitationAction(i._id, "accept")}>
+      {userInvitations.map(({ _id, group: { name } }) => (
+        <li key={_id}>
+          {name}
+          <button onClick={handleInvitationAction(_id, "accept")}>
             Accept
           </button>
-          <button onClick={handleInvitationAction(i._id, "decline")}>
+          <button onClick={handleInvitationAction(_id, "decline")}>
             Decline
           </button>
         </li>

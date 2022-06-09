@@ -19,8 +19,10 @@ const EditableField = ({
   }
   const handleEditToggle = (e) => {
     setIsEdit((oldValue) => !oldValue)
+  }
 
-    if (isEdit && value !== data) {
+  React.useEffect(() => {
+    if (!isEdit && value !== data) {
       //validation
       const isValue = data.length > 0
       if (!isValue) {
@@ -30,7 +32,7 @@ const EditableField = ({
 
       onUpdateF(data)
     }
-  }
+  }, [isEdit])
 
   return (
     <>

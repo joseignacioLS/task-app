@@ -1,4 +1,5 @@
-@import "../../index";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 .filter-section {
   display: flex;
@@ -7,8 +8,13 @@
   gap: 1rem;
 
   margin-bottom: 1rem;
+
+  @include for-desktop-up {
+    justify-content: flex-start;
+  }
   &__button {
     flex: 1;
+    height: 2.5rem;
     max-width: 8rem;
     padding: 0.5rem;
     background-color: $green;

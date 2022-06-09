@@ -1,4 +1,5 @@
-@import "../../index";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 .calendar-btns {
   width: 100%;
@@ -47,6 +48,9 @@
     &__tasks {
       height: 100%;
       margin-left: 1rem;
+      .task--completed {
+        text-decoration: line-through;
+      }
     }
   }
 }

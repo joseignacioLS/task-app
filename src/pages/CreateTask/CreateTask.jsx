@@ -65,7 +65,7 @@ const CreateTask = () => {
       return
     }
 
-    navigate("/")
+    navigate(`/?list=${selectedGroup}`)
   }
 
   React.useEffect(() => {
