@@ -17,17 +17,23 @@
   align-items: center;
 
   @include for-desktop-up {
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
     width: 20rem;
     height: 30%;
   }
 
   &__title {
+    flex-shrink: 1;
+    flex-grow: 1;
     color: $primary-color;
     font-weight: bold;
     &--expired {
       color: $red;
     }
+  }
+
+  &__date {
+    flex-shrink: 0;
   }
 }

@@ -44,7 +44,6 @@ const showCards = (currentList) => {
             _id={_id}
             title={title}
             status={status}
-            group={group}
             deadline={deadline}
           />
         )
