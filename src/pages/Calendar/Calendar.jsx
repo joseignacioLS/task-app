@@ -40,6 +40,35 @@ const getWeekData = async (userId, weekDates, setWeekTasks) => {
   setWeekTasks(newData)
 }
 
+const showTasks = (d, weekTasks) => {
+  return (
+    <ul className="day__tasks">
+      {weekTasks
+        .filter((t) => t.deadline === d)
+        .map((t) => (
+          <li key={t._id}>
+            <Link to={`/detail/${t._id}`}>{t.title}</Link>
+          </li>
+        ))}
+    </ul>
+  )
+}
+
+const showWeek = (weekDates, weekTasks) => {
+  return (
+    <div className="week">
+      {weekDates.map((d) => {
+        return (
+          <div className="day" key={d}>
+            <p className="day__date">{d}</p>
+            {weekTasks.length > 0 && showTasks(d, weekTasks)}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 const Calendar = () => {
   const { user } = React.useContext(UserDataContext)
   const [weekDates, setWeekDates] = React.useState([])
@@ -59,35 +88,6 @@ const Calendar = () => {
 
   const resetToday = () => {
     setToday(getTodayDate())
-  }
-
-  const showWeek = () => {
-    return (
-      <div className="week">
-        {weekDates.map((d) => {
-          return (
-            <div className="day" key={d}>
-              <p className="day__date">{d}</p>
-              {weekTasks.length > 0 && showTasks(d)}
-            </div>
-          )
-        })}
-      </div>
-    )
-  }
-
-  const showTasks = (d) => {
-    return (
-      <ul className="day__tasks">
-        {weekTasks
-          .filter((t) => t.deadline === d)
-          .map((t) => (
-            <li key={t._id}>
-              <Link to={`/detail/${t._id}`}>{t.title}</Link>
-            </li>
-          ))}
-      </ul>
-    )
   }
 
   React.useEffect(() => {
@@ -119,7 +119,7 @@ const Calendar = () => {
               {">"}
             </button>
           </section>
-          {showWeek()}
+          {showWeek(weekDates, weekTasks)}
         </>
       )}
     </>

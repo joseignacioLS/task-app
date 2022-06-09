@@ -17,6 +17,16 @@ const getGroupData = async (id, setGroupData, setIsLoaded) => {
   }
 }
 
+const showGroupMembers = (members) => {
+  return (
+    <ul>
+      {members.map((member) => (
+        <li key={JSON.stringify(member)}>{member.username}</li>
+      ))}
+    </ul>
+  )
+}
+
 const Group = () => {
   const { user } = React.useContext(UserDataContext)
   const { id } = useParams()
@@ -75,26 +85,16 @@ const Group = () => {
     getGroupData(id, setGroupData, setIsLoaded)
   }, [id])
 
-  const showGroupMembers = () => {
-    return (
-      <ul>
-        {groupData.members.map((member) => (
-          <li key={JSON.stringify(member)}>{member.username}</li>
-        ))}
-      </ul>
-    )
-  }
-
   return (
     <>
-    {!isLoaded && <Loading/>}
+      {!isLoaded && <Loading />}
       {isLoaded && (
         <div>
           <h1>{groupData.name}</h1>
           <h2>Owner</h2>
           <p>{groupData.user.username}</p>
           <h2>Members</h2>
-          {showGroupMembers()}
+          {showGroupMembers(groupData.members)}
           {user._id === groupData.user._id && (
             <form onSubmit={handleInvite}>
               <label>

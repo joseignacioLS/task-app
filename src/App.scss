@@ -1,4 +1,4 @@
-@import "./styles/variables";
+@import "./index";
 
 .page-container {
   padding: $main-container-padding;
@@ -9,4 +9,8 @@
   min-height: calc(calc(100vh - #{$footer-h}) - #{$header-h});
 
   background-color: $primary-color;
+
+  @include for-desktop-up {
+    max-height: calc(calc(100vh - #{$footer-h}) - #{$header-h});
+  }
 }

@@ -28,6 +28,48 @@ const getInvitations = async (userId, setUserInvitations) => {
   }
 }
 
+const showOwnedGroups = (userGroups) => {
+  return (
+    <ul>
+      {userGroups.ownedGroups.map((group) => (
+        <li key={JSON.stringify(group)}>
+          <Link to={`/group/${group._id}`}>{group.name}</Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+const showMemberGroups = (userGroups) => {
+  return (
+    <ul>
+      {userGroups.memberGroups.map((group) => (
+        <li key={JSON.stringify(group)}>
+          <Link to={`/group/${group._id}`}>{group.name}</Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+const showUserInvitations = (userInvitations, handleInvitationAction) => {
+  return (
+    <ul>
+      {userInvitations.map((i) => (
+        <li key={JSON.stringify(i)}>
+          {i.group.name}
+          <button onClick={handleInvitationAction(i._id, "accept")}>
+            Accept
+          </button>
+          <button onClick={handleInvitationAction(i._id, "decline")}>
+            Decline
+          </button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 const Profile = () => {
   const { user } = React.useContext(UserDataContext)
   const [formDataGroup, setFormDataGroup] = React.useState({ groupName: "" })
@@ -108,48 +150,6 @@ const Profile = () => {
     }
   }, [user])
 
-  const showOwnedGroups = () => {
-    return (
-      <ul>
-        {userGroups.ownedGroups.map((group) => (
-          <li key={JSON.stringify(group)}>
-            <Link to={`/group/${group._id}`}>{group.name}</Link>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-
-  const showMemberGroups = () => {
-    return (
-      <ul>
-        {userGroups.memberGroups.map((group) => (
-          <li key={JSON.stringify(group)}>
-            <Link to={`/group/${group._id}`}>{group.name}</Link>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-
-  const showUserInvitations = () => {
-    return (
-      <ul>
-        {userInvitations.map((i) => (
-          <li key={JSON.stringify(i)}>
-            {i.group.name}
-            <button onClick={handleInvitationAction(i._id, "accept")}>
-              Accept
-            </button>
-            <button onClick={handleInvitationAction(i._id, "decline")}>
-              Decline
-            </button>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-
   return (
     <>
       {!isLoaded && <Loading />}
@@ -160,21 +160,22 @@ const Profile = () => {
             <div className="groups">
               <h2>Groups</h2>
               <h3>Owner</h3>
-              {showOwnedGroups()}
+              {showOwnedGroups(userGroups)}
               <form onSubmit={handleSubmitNewGroup}>
                 <input
                   type="text"
                   name="groupName"
                   onInput={handleInputGroup}
                   value={formDataGroup.groupName}
+                  placeholder="New Group Name"
                 />
                 <button type="submit">Create Group</button>
               </form>
               <h3>Member</h3>
-              {showMemberGroups()}
+              {showMemberGroups(userGroups)}
 
               <h3>Invitations</h3>
-              {showUserInvitations()}
+              {showUserInvitations(userInvitations, handleInvitationAction)}
             </div>
           </div>
           <section className="user-settings">

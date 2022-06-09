@@ -94,7 +94,10 @@ const List = () => {
         <Link to="/calendar" className="to-calendar">
           <button className="to-calendar__btn">📅</button>
         </Link>
-        <Link to="/newtask" className="to-new-task">
+        <Link
+          to={`/newtask?list=${filter.userGroups[filter.listIndex].name}`}
+          className="to-new-task"
+        >
           <button className="to-new-task__btn">+</button>
         </Link>
       </section>

@@ -1,5 +1,5 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
 import { createTask, getUserGroups } from "../../shared/utils/api.mjs"
@@ -10,9 +10,10 @@ const getGroups = async (userId, setUserGroups) => {
   if (data) {
     const owned = data.ownedGroups.map((g) => ({ _id: g._id, name: g.name }))
     const member = data.memberGroups.map((g) => ({ _id: g._id, name: g.name }))
-    setUserGroups([{ _id: null, name: "Private" }, ...owned, ...member])
+    setUserGroups([{ _id: "", name: "Private" }, ...owned, ...member])
   }
 }
+
 const CreateTask = () => {
   const { user } = React.useContext(UserDataContext)
   const [formData, setFormData] = React.useState({
@@ -22,12 +23,14 @@ const CreateTask = () => {
     group: "",
   })
 
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const navigate = useNavigate()
   const { updateModalData } = React.useContext(ModalContext)
-  const [userLists, setUserLists] = React.useState([])
   const [userGroups, setUserGroups] = React.useState([
-    { _id: null, name: "Private" },
+    { _id: "", name: "Private" },
   ])
+  const [selectedGroup, setSelectedGroup] = React.useState("")
 
   const handleInput = (e) => {
     const key = e.target.name
@@ -47,6 +50,7 @@ const CreateTask = () => {
       ])
       return
     }
+
     const response = await createTask(
       user._id,
       formData.group,
@@ -64,19 +68,21 @@ const CreateTask = () => {
     navigate("/")
   }
 
-  const showSelectGroup = () => {
-    return (
-      <select name="group" onInput={handleInput}>
-        {userGroups.map((list) => {
-          return (
-            <option key={JSON.stringify(list)} value={list._id}>
-              {list.name}
-            </option>
-          )
-        })}
-      </select>
-    )
-  }
+  React.useEffect(() => {
+    if (userGroups.length <= 1) {
+      return
+    }
+
+    const list = searchParams.get("list") ?? "Private"
+    const group = userGroups.find((g) => g.name === list)
+
+    if (!group) return navigate("/")
+
+    setSelectedGroup(group ? group.name : "Private")
+    setFormData((oldValue) => {
+      return { ...oldValue, group: group ? group._id : "" }
+    })
+  }, [userGroups])
 
   React.useEffect(() => {
     if (user) {
@@ -85,25 +91,24 @@ const CreateTask = () => {
   }, [user])
 
   return (
-    <form className="new-task-form" onSubmit={handleSubmit}>
-      <label>
-        <p>title</p>
-        <input onInput={handleInput} type="text" name="title" />
-      </label>
-      <label>
-        <p>description</p>
-        <textarea onInput={handleInput} type="text" name="description" />
-      </label>
-      <label>
-        <p>Deadline</p>
-        <input onInput={handleInput} type="date" name="deadline" />
-      </label>
-      <label>
-        <p>Group</p>
-        {showSelectGroup()}
-      </label>
-      <button type="submit">Create</button>
-    </form>
+    <>
+      <h2>Adding task to {selectedGroup}</h2>
+      <form className="new-task-form" onSubmit={handleSubmit}>
+        <label>
+          <p>title</p>
+          <input onInput={handleInput} type="text" name="title" />
+        </label>
+        <label>
+          <p>description</p>
+          <textarea onInput={handleInput} type="text" name="description" />
+        </label>
+        <label>
+          <p>Deadline</p>
+          <input onInput={handleInput} type="date" name="deadline" />
+        </label>
+        <button type="submit">Create</button>
+      </form>
+    </>
   )
 }
 

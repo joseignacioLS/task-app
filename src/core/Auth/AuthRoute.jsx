@@ -4,15 +4,17 @@ import { UserDataContext } from "../../context/UserDataContext"
 import { retrieveUserFromLocalStorage } from "../../shared/utils/localstorage.mjs"
 
 const AuthRoute = ({ component }) => {
-  const { user, setUser  } = React.useContext(UserDataContext)
+  const { user, setUser } = React.useContext(UserDataContext)
   if (user) return component
 
   const retrievedUser = retrieveUserFromLocalStorage()
+  
   if (!retrievedUser) {
     return (
       <Navigate to="/login" state={{ prevRoute: window.location.pathname }} />
     )
   }
+
   setUser(retrievedUser)
 }
 

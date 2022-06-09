@@ -34,6 +34,25 @@ const handleCurrentListChange = (
   setCurrentList(filteredTaskList)
 }
 
+const showCards = (currentList) => {
+  return (
+    <ul className="tasks-list">
+      {currentList.map((task, index) => {
+        return (
+          <Card
+            key={task._id}
+            _id={task._id}
+            title={task.title}
+            status={task.status}
+            group={task.group}
+            deadline={task.deadline}
+          />
+        )
+      })}
+    </ul>
+  )
+}
+
 const ListSection = ({ filter }) => {
   const { user } = React.useContext(UserDataContext)
   const [isLoaded, setIsLoaded] = React.useState(false)
@@ -51,29 +70,10 @@ const ListSection = ({ filter }) => {
     handleCurrentListChange(tasks, setCurrentList, filter)
   }, [tasks, filter])
 
-  const showCards = () => {
-    return (
-      <ul className="tasks-list">
-        {currentList.map((task, index) => {
-          return (
-            <Card
-              key={task._id}
-              _id={task._id}
-              title={task.title}
-              status={task.status}
-              group={task.group}
-              deadline={task.deadline}
-            />
-          )
-        })}
-      </ul>
-    )
-  }
-
   return (
     <>
       {!isLoaded && <Loading />}
-      {isLoaded && showCards()}
+      {isLoaded && showCards(currentList)}
     </>
   )
 }
