@@ -92,17 +92,17 @@ const CreateTask = () => {
 
   return (
     <>
-      <h2>Adding task to {selectedGroup}</h2>
+      <h2>New task in list: {selectedGroup}</h2>
       <form className="new-task-form" onSubmit={handleSubmit}>
-        <label>
-          <p>title</p>
+        <label className="input-block">
+          <p>Title</p>
           <input onInput={handleInput} type="text" name="title" />
         </label>
-        <label>
-          <p>description</p>
+        <label className="input-block">
+          <p>Description</p>
           <textarea onInput={handleInput} type="text" name="description" />
         </label>
-        <label>
+        <label className="input-block">
           <p>Deadline</p>
           <input onInput={handleInput} type="date" name="deadline" />
         </label>

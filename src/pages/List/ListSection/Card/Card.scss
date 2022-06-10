@@ -9,12 +9,15 @@
 
   position: relative;
 
-  background-color: grey;
+  background-color: rgb(220,220,220);
+  box-shadow: 2px 2px 0px $secondary-color;
   border-radius: 1rem;
 
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  font-weight: bold;
 
   @include for-desktop-up {
     justify-content: space-between;
@@ -26,14 +29,16 @@
   &__title {
     flex-shrink: 1;
     flex-grow: 1;
-    color: $primary-color;
-    font-weight: bold;
-    &--expired {
-      color: $red;
-    }
+    color: $secondary-color;
   }
 
   &__date {
     flex-shrink: 0;
+
+    color: $green;
+
+    &--expired {
+      color: $red;
+    }
   }
 }

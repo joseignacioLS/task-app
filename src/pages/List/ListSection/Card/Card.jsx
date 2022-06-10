@@ -14,8 +14,7 @@ const Card = ({ _id, title, status, deadline }) => {
     <Link to={`/detail/${_id}`} className="task-item">
       <p
         className={
-          "task-item__title " +
-          generateClass(status, "task-item__title", deadline)
+          "task-item__title"
         }
       >
         {title}
