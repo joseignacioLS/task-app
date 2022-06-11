@@ -1,20 +1,40 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
+.detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+
+  gap: 4rem;
+  @include for-desktop-up {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
 .task-detail {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
 
-  &__title, &__title-input {
+  @include for-desktop-up{
+    width: 50%;
+  }
+
+  &__title,
+  &__title-input {
     outline: none;
     width: 100%;
     border: 2px solid transparent;
     border-bottom: 1px solid $secondary-color;
     font-size: 2rem;
     font-weight: 700;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
   }
   &__title-input {
     border: 1.5px solid $red;
@@ -29,7 +49,7 @@
 
   &__deadline,
   &__deadline-input {
-    outline:none;
+    outline: none;
     color: grey;
     margin-top: 1rem;
     border: 2px solid transparent;

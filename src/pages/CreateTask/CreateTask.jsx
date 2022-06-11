@@ -15,7 +15,11 @@ const getGroups = async (userId, setUserGroups) => {
 }
 
 const CreateTask = () => {
+  // contexts
   const { user } = React.useContext(UserDataContext)
+  const { updateModalData } = React.useContext(ModalContext)
+
+  // forms
   const [formData, setFormData] = React.useState({
     title: "",
     description: "",
@@ -23,14 +27,17 @@ const CreateTask = () => {
     group: "",
   })
 
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const navigate = useNavigate()
-  const { updateModalData } = React.useContext(ModalContext)
+  // fetched data
   const [userGroups, setUserGroups] = React.useState([
     { _id: "", name: "Private" },
   ])
+
+  // variables
   const [selectedGroup, setSelectedGroup] = React.useState("")
+
+  // other
+  const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const handleInput = (e) => {
     const key = e.target.name

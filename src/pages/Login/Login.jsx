@@ -4,17 +4,22 @@ import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
 import PasswordInput from "../../shared/components/PasswordInput/PasswordInput.jsx"
 import { login, register } from "../../shared/utils/api.mjs"
-import { setUserLocalStorage } from "../../shared/utils/localstorage.mjs"
 import "./Login.scss"
 
 const Login = () => {
-  const navigate = useNavigate()
+  // context
+  const { updateModalData } = React.useContext(ModalContext)
+  const { storeUser } = React.useContext(UserDataContext)
+
+  // forms
   const [formData, setFormData] = React.useState({ username: "", password: "" })
+
+  // variables
   const [mode, setMode] = React.useState("login")
 
-  const { setUser } = React.useContext(UserDataContext)
+  // other
+  const navigate = useNavigate()
 
-  const { updateModalData } = React.useContext(ModalContext)
 
   const handleInput = (e) => {
     const key = e.target.name
@@ -33,11 +38,10 @@ const Login = () => {
     let response
     if (mode === "login")
       response = await login(formData.username, formData.password)
-    if (mode === "register")
+    else if (mode === "register")
       response = await register(formData.username, formData.password)
     if (response) {
-      setUser(response)
-      setUserLocalStorage(response)
+      storeUser(response)
       navigate("/")
     } else {
       updateModalData(`${mode} error`)
@@ -62,7 +66,6 @@ const Login = () => {
             name="password"
             type="password"
             value={formData.password}
-
           />
         </label>
         <button type="submit">{mode}</button>

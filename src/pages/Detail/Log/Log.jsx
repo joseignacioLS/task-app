@@ -17,9 +17,12 @@ const showLogEntries = (tasklog, handleDelete) => {
 }
 
 const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
+  // contexts
   const { user } = React.useContext(UserDataContext)
-  const [newMessage, setNewMessage] = React.useState("")
   const { updateModalData } = React.useContext(ModalContext)
+
+  // forms
+  const [newMessage, setNewMessage] = React.useState("")
 
   const handleInput = (e) => {
     setNewMessage(e.target.value)
@@ -50,6 +53,7 @@ const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
 
   return (
     <section className="task-log" onSubmit={handleSubmit}>
+      <h2>Task Log</h2>
       <form className="task-log__form">
         <input type="text" value={newMessage} onInput={handleInput} />
         <button type="submit">Add log</button>

@@ -16,14 +16,17 @@ const getGroups = async (userId) => {
 }
 
 const List = () => {
+  // contexts
   const { user } = React.useContext(UserDataContext)
+
+  // variables
+  const [searchParams, setSearchParams] = useSearchParams()
   const [filter, setFilter] = React.useState({
     userGroups: [{ _id: null, name: "Private" }],
     listIndex: 0,
     statusFilter: "pending",
     sortAscending: true,
   })
-  const [searchParams, setSearchParams] = useSearchParams()
 
   const handleToggleSort = () => {
     setFilter((oldValue) => {

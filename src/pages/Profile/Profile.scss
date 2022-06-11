@@ -1,4 +1,18 @@
-.groups {
+@import "../../styles/mixins";
+
+.profile-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+
+  @include for-desktop-up {
+    align-items: center;
+    section {
+      width: 20rem;
+    }
+  }
+
   margin-left: 1rem;
   h2 {
     margin-top: 1rem;
@@ -7,33 +21,31 @@
     margin-top: 0.5rem;
     margin-left: 1rem;
   }
-  ul {
-    margin-left: 3rem;
-    li {
-      animation: grow-from-top 500ms forwards;
+
+  .groups {
+    
+    ul {
+      margin-left: 3rem;
+      li {
+        animation: grow-from-top 500ms forwards;
+      }
+    }
+    form {
+      margin-left: 3rem;
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+
+      input {
+        width: 80%;
+        min-width: 0;
+        max-width: 14rem;
+      }
     }
   }
-  form {
-    margin-left: 3rem;
 
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
-
-    input {
-      width: 80%;
-      min-width: 0;
-      max-width: 14rem;
-    }
-  }
-}
-
-.user-settings {
-  form {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
+  .user-settings {
   }
 }

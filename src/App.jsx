@@ -1,104 +1,36 @@
-import { Route, Routes, useNavigate, Navigate } from "react-router-dom"
-import "./App.scss"
+import { Route, Routes } from "react-router-dom"
 import Footer from "./core/Footer/Footer"
 import Modal from "./core/Modal/Modal"
 import Navbar from "./core/Navbar/Navbar"
-import About from "./pages/About/About"
-import Detail from "./pages/Detail/Detail"
-import List from "./pages/List/List"
-import Login from "./pages/Login/Login"
 import React from "react"
-import { ModalContext } from "./context/ModalContext.js"
-import { UserDataContext } from "./context/UserDataContext.js"
-import CreateTask from "./pages/CreateTask/CreateTask"
-import Profile from "./pages/Profile/Profile"
-import Group from "./pages/Group/Group"
-import AuthRoute from "./core/Auth/AuthRoute"
-import {
-  clearUserFromLocalStorage,
-  retrieveUserFromLocalStorage,
-} from "./shared/utils/localstorage.mjs"
-import Calendar from "./pages/Calendar/Calendar"
+import ModalProvider from "./context/ModalContext.js"
+import UserProvider from "./context/UserDataContext.js"
+import routes, { secureRoute } from "./config/routes"
+import styles from "./App.module.scss"
 
 function App() {
-  const [user, setUser] = React.useState(retrieveUserFromLocalStorage())
-  const navigate = useNavigate()
-
-  const [modalData, setModalData] = React.useState({
-    isVisible: false,
-    message: "",
-    options: [
-      {
-        title: "Ok",
-        f: () => {},
-      },
-    ],
-  })
-
-  const updateModalData = (
-    message,
-    isVisible = true,
-    options = [
-      {
-        title: "Ok",
-        f: () => {},
-      },
-    ]
-  ) => {
-    setModalData({
-      isVisible,
-      message,
-      options,
-    })
-  }
-
-  const logout = () => {
-    setUser(undefined)
-    clearUserFromLocalStorage()
-    navigate("/login")
-  }
-
   return (
     <>
-      <UserDataContext.Provider value={{ user, setUser, logout }}>
-        <ModalContext.Provider
-          value={{ isVisible: modalData.isVisible, updateModalData }}
-        >
+      <UserProvider>
+        <ModalProvider>
           <Navbar />
-          <main className="page-container">
+          <main className={styles.pageContainer}>
             <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/" element={<AuthRoute component={<List />} />} />
-              <Route
-                path="/detail/:id"
-                element={<AuthRoute component={<Detail />} />}
-              />
-              <Route path="/about" element={<About />} />
-              <Route
-                path="/newtask"
-                element={<AuthRoute component={<CreateTask />} />}
-              />
-              <Route
-                path="/profile"
-                element={<AuthRoute component={<Profile />} />}
-              />
-              <Route
-                path="/calendar"
-                element={<AuthRoute component={<Calendar />} />}
-              />
-              <Route
-                path="/group/:id"
-                element={<AuthRoute component={<Group />} />}
-              />
-              <Route path="*" element={<Navigate to="/" />} />
+              {routes.map((route) => {
+                return (
+                  <Route
+                    path={route.path}
+                    key={route.path}
+                    element={secureRoute(route.element, route.secured)}
+                  />
+                )
+              })}
             </Routes>
           </main>
           <Footer />
-          {modalData.isVisible && (
-            <Modal message={modalData.message} options={modalData.options} />
-          )}
-        </ModalContext.Provider>
-      </UserDataContext.Provider>
+          <Modal />
+        </ModalProvider>
+      </UserProvider>
     </>
   )
 }

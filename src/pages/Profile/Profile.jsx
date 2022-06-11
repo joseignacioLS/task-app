@@ -71,19 +71,26 @@ const showUserInvitations = (userInvitations, handleInvitationAction) => {
 }
 
 const Profile = () => {
+  // contexts
   const { user } = React.useContext(UserDataContext)
+  const { updateModalData } = React.useContext(ModalContext)
+
+  // forms
   const [formDataGroup, setFormDataGroup] = React.useState({ groupName: "" })
   const [formDataPwd, setFormDataPwd] = React.useState({
     oldPassword: "",
     newPassword: "",
   })
+
+  // fetched data
   const [userGroups, setUserGroups] = React.useState({
     ownedGroups: [],
     memberGroups: [],
   })
   const [userInvitations, setUserInvitations] = React.useState([])
+
+  // variables
   const [isLoaded, setIsLoaded] = React.useState(false)
-  const { updateModalData } = React.useContext(ModalContext)
 
   const handleInputGroup = (e) => {
     const key = e.target.name
@@ -154,30 +161,28 @@ const Profile = () => {
     <>
       {!isLoaded && <Loading />}
       {isLoaded && (
-        <>
-          <div>
-            <h1>{user.username}</h1>
-            <div className="groups">
-              <h2>Groups</h2>
-              <h3>Owner</h3>
-              {showOwnedGroups(userGroups)}
-              <form onSubmit={handleSubmitNewGroup}>
-                <input
-                  type="text"
-                  name="groupName"
-                  onInput={handleInputGroup}
-                  value={formDataGroup.groupName}
-                  placeholder="New Group Name"
-                />
-                <button type="submit">Create Group</button>
-              </form>
-              <h3>Member</h3>
-              {showMemberGroups(userGroups)}
+        <div className="profile-container">
+          <h1>{user.username}</h1>
+          <section className="groups">
+            <h2>Groups</h2>
+            <h3>Owner</h3>
+            {showOwnedGroups(userGroups)}
+            <form onSubmit={handleSubmitNewGroup}>
+              <input
+                type="text"
+                name="groupName"
+                onInput={handleInputGroup}
+                value={formDataGroup.groupName}
+                placeholder="New Group Name"
+              />
+              <button type="submit">Create Group</button>
+            </form>
+            <h3>Member</h3>
+            {showMemberGroups(userGroups)}
 
-              <h3>Invitations</h3>
-              {showUserInvitations(userInvitations, handleInvitationAction)}
-            </div>
-          </div>
+            <h3>Invitations</h3>
+            {showUserInvitations(userInvitations, handleInvitationAction)}
+          </section>
           <section className="user-settings">
             <h2>Change Password</h2>
             <form onSubmit={handleSubmitUpdatePassword}>
@@ -202,7 +207,7 @@ const Profile = () => {
               <button type="submit">Update Password</button>
             </form>
           </section>
-        </>
+        </div>
       )}
     </>
   )

@@ -77,9 +77,14 @@ const showWeek = (weekDates, weekTasks) => {
 }
 
 const Calendar = () => {
+  // context
   const { user } = React.useContext(UserDataContext)
+
+  // fetch data
   const [weekDates, setWeekDates] = React.useState([])
   const [weekTasks, setWeekTasks] = React.useState([])
+
+  // varriables
   const [today, setToday] = React.useState(getTodayDate())
   const [isLoaded, setIsLoaded] = React.useState(false)
 

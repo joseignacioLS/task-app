@@ -25,11 +25,16 @@ const updateTaskField = async (taskId, name, value) => {
 }
 
 const Detail = () => {
+  // contexts
   const { user } = React.useContext(UserDataContext)
-  const { id } = useParams()
-  const [task, setTask] = React.useState({})
-  const [isLoaded, setIsLoaded] = React.useState(false)
   const { updateModalData } = React.useContext(ModalContext)
+
+  // fetched data
+  const [task, setTask] = React.useState({})
+
+  // variables
+  const { id } = useParams()
+  const [isLoaded, setIsLoaded] = React.useState(false)
   const isExpired = task.status === "pending" && checkExpiration(task.deadline)
 
   const navigate = useNavigate()
@@ -124,56 +129,59 @@ const Detail = () => {
 
   return (
     <>
-      {!isLoaded && <Loading/>}
+      {!isLoaded && <Loading />}
       {isLoaded && (
-        <article className="task-detail">
-          <EditableField
-            value={task.title}
-            onUpdateF={handleTitleUpdate}
-            textClass="task-detail__title"
-            inputClass="task-detail__title-input"
-            type="input"
-          />
-          <p className="task-detail__ownership">
-            Owner: {task.user?.username ? task.user?.username : task.group.name}
-          </p>
-          <p className="task-detail__status">
-            Status: {isExpired ? "missed" : task.status}
-          </p>
-          <EditableField
-            type="date"
-            onUpdateF={handleDeadlineUpdate}
-            value={task.deadline}
-            textClass="task-detail__deadline"
-            inputClass="task-detail__deadline-input"
-            classMod="--expired"
-            classModCheck={isExpired}
-          />
-          <EditableField
-            value={task.description}
-            onUpdateF={handleDescriptionUpdate}
-            textClass="task-detail__description"
-            inputClass="task-detail__description-input"
-            maxLength={25600}
-            type="textarea"
-          />
+        <div className="detail-container">
+          <div className="task-detail">
+            <EditableField
+              value={task.title}
+              onUpdateF={handleTitleUpdate}
+              textClass="task-detail__title"
+              inputClass="task-detail__title-input"
+              type="input"
+            />
+            <p className="task-detail__ownership">
+              Owner:{" "}
+              {task.user?.username ? task.user?.username : task.group.name}
+            </p>
+            <p className="task-detail__status">
+              Status: {isExpired ? "missed" : task.status}
+            </p>
+            <EditableField
+              type="date"
+              onUpdateF={handleDeadlineUpdate}
+              value={task.deadline}
+              textClass="task-detail__deadline"
+              inputClass="task-detail__deadline-input"
+              classMod="--expired"
+              classModCheck={isExpired}
+            />
+            <EditableField
+              value={task.description}
+              onUpdateF={handleDescriptionUpdate}
+              textClass="task-detail__description"
+              inputClass="task-detail__description-input"
+              maxLength={25600}
+              type="textarea"
+            />
 
-          <section className="task-detail__handler">
-            {task.status === "pending" && (
-              <button onClick={handleCompleteTask}>Complete Task</button>
-            )}
-            {task.status === "completed" && (
-              <button onClick={handleUnCompleteTask}>Reopen Task</button>
-            )}
-            <button onClick={handleRemoveTask}>Remove Task</button>
-          </section>
+            <section className="task-detail__handler">
+              {task.status === "pending" && (
+                <button onClick={handleCompleteTask}>Complete Task</button>
+              )}
+              {task.status === "completed" && (
+                <button onClick={handleUnCompleteTask}>Reopen Task</button>
+              )}
+              <button onClick={handleRemoveTask}>Remove Task</button>
+            </section>
+          </div>
           <Log
             _id={task._id}
             tasklog={task.log}
             updateTaskLog={updateTaskLog}
             getTaskInformation={getTaskInformation(id)}
           />
-        </article>
+        </div>
       )}
     </>
   )

@@ -12,8 +12,9 @@ const showOptions = (options, handleAcceptModal) => {
   })
 }
 
-const Modal = ({ message, options }) => {
-  const { updateModalData } = React.useContext(ModalContext)
+const Modal = () => {
+  const { message, options, isVisible, updateModalData } =
+    React.useContext(ModalContext)
 
   const handleAcceptModal = (f) => {
     return () => {
@@ -23,14 +24,18 @@ const Modal = ({ message, options }) => {
   }
 
   return (
-    <div className="screen">
-      <div className="modal">
-        <p>{message}</p>
-        <div className="modal__actions">
-          {showOptions(options, handleAcceptModal)}
+    <>
+      {isVisible && (
+        <div className="screen">
+          <div className="modal">
+            <p>{message}</p>
+            <div className="modal__actions">
+              {showOptions(options, handleAcceptModal)}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   )
 }
 

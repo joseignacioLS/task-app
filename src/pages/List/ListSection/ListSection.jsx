@@ -53,11 +53,15 @@ const showCards = (currentList) => {
 }
 
 const ListSection = ({ filter }) => {
+  // contexts
   const { user } = React.useContext(UserDataContext)
-  const [isLoaded, setIsLoaded] = React.useState(false)
 
+  // fetched data
   const [tasks, setTasks] = React.useState([])
+
+  // variables
   const [currentList, setCurrentList] = React.useState([])
+  const [isLoaded, setIsLoaded] = React.useState(false)
 
   React.useEffect(() => {
     if (user) {

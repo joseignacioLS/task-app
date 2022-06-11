@@ -28,14 +28,22 @@ const showGroupMembers = (members) => {
 }
 
 const Group = () => {
+  // contexts
   const { user } = React.useContext(UserDataContext)
+  const { updateModalData } = React.useContext(ModalContext)
+
+  //forms
+  const [formData, setFormData] = React.useState({ newUser: "" })
+
+  // fetched data
+  const [groupData, setGroupData] = React.useState({})
+
+  //variables
   const { id } = useParams()
   const [isLoaded, setIsLoaded] = React.useState(false)
-  const [groupData, setGroupData] = React.useState({})
-  const { updateModalData } = React.useContext(ModalContext)
-  const navigate = useNavigate()
 
-  const [formData, setFormData] = React.useState({ newUser: "" })
+  // others
+  const navigate = useNavigate()
 
   const handleDeleteGroup = (e) => {
     e.preventDefault()
