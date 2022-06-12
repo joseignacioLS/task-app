@@ -2,11 +2,11 @@ import React from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
-import { createTask, getUserGroups } from "../../shared/utils/api.mjs"
+import { requestCreateTask, requestGetUserGroups } from "../../shared/utils/api.mjs"
 import "./CreateTask.scss"
 
 const getGroups = async (userId, setUserGroups) => {
-  const data = await getUserGroups(userId)
+  const data = await requestGetUserGroups(userId)
   if (data) {
     const owned = data.ownedGroups.map((g) => ({ _id: g._id, name: g.name }))
     const member = data.memberGroups.map((g) => ({ _id: g._id, name: g.name }))
@@ -58,7 +58,7 @@ const CreateTask = () => {
       return
     }
 
-    const response = await createTask(
+    const response = await requestCreateTask(
       user._id,
       formData.group,
       formData.title,

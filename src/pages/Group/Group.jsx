@@ -4,13 +4,13 @@ import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
 import Loading from "../../shared/components/Loading/Loading.jsx"
 import {
-  deleteGroup,
-  getGroup,
-  sendInvitation,
+  requestDeleteGroup,
+  requestGetGroup,
+  requestSendInvitation,
 } from "../../shared/utils/api.mjs"
 
 const getGroupData = async (id, setGroupData, setIsLoaded) => {
-  const data = await getGroup(id)
+  const data = await requestGetGroup(id)
   if (data) {
     setGroupData(data)
     setIsLoaded(true)
@@ -51,7 +51,7 @@ const Group = () => {
       {
         title: "Yes",
         f: async () => {
-          const response = await deleteGroup(id)
+          const response = await requestDeleteGroup(id)
           if (response) {
             updateModalData("Group deleted", true, [
               {
@@ -73,7 +73,7 @@ const Group = () => {
 
   const handleInvite = async (e) => {
     e.preventDefault()
-    const response = await sendInvitation(formData.newUser, id)
+    const response = await requestSendInvitation(formData.newUser, id)
     if (response) {
       setFormData({ newUser: "" })
     } else {

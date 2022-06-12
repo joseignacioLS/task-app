@@ -1,25 +1,21 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { UserDataContext } from "../../context/UserDataContext"
-import "./Navbar.scss"
+
+import styles from "./Navbar.module.scss"
 
 const Navbar = () => {
-  const {user, logout} = React.useContext(UserDataContext)
-  const logged = user !== undefined
+  const { user, logout } = React.useContext(UserDataContext)
+  const isLogged = user !== undefined
+
   return (
-    <header className="navbar">
-      <Link className="navbar__item" to="/">
-        Tasks
+    <header className={styles.navbar}>
+      <Link className={styles.navbarItem} to="/">
+        My Tasks
       </Link>
-      <div className="account-actions">
-        {logged ? (
-          <Link to="/profile">
-            {user.username}
-          </Link>
-        ) : (
-          ""
-        )}
-        {logged && <button onClick={logout}>Logout</button>}
+      <div className={styles.accountActions}>
+        {isLogged ? <Link to="/profile">{user.username}</Link> : ""}
+        {isLogged && <button onClick={logout}>Logout</button>}
       </div>
     </header>
   )

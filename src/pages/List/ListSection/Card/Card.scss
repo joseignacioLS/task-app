@@ -9,7 +9,7 @@
 
   position: relative;
 
-  background-color: rgb(220,220,220);
+  background-color: rgb(220, 220, 220);
   box-shadow: 2px 2px 0px $secondary-color;
   border-radius: 1rem;
 
@@ -19,11 +19,30 @@
 
   font-weight: bold;
 
+  overflow: hidden;
+
   @include for-desktop-up {
     justify-content: space-between;
     align-items: flex-start;
     width: 20rem;
     height: 30%;
+    min-height: 5rem;
+  }
+
+  .color-filter {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0px;
+    left: 0px;
+
+    mix-blend-mode: multiply;
+
+    opacity: var(--deadline);
+
+    background-color: $red;
   }
 
   &__title {

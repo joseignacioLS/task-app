@@ -5,24 +5,24 @@ import { UserDataContext } from "../../context/UserDataContext.js"
 import Loading from "../../shared/components/Loading/Loading.jsx"
 import PasswordInput from "../../shared/components/PasswordInput/PasswordInput.jsx"
 import {
-  createGroup,
-  getUserGroups,
-  getUserInvitations,
-  handleInvitation,
-  updatePassword,
+  requestCreateGroup,
+  requestGetUserGroups,
+  requestGetUserInvitations,
+  requestHandleInvitation,
+  requestUpdatePassword,
 } from "../../shared/utils/api.mjs"
 import { passwordValidator } from "../../shared/utils/passwordValidation.mjs"
 import "./Profile.scss"
 
 const getGroups = async (userId, setUserGroups) => {
-  const data = await getUserGroups(userId)
+  const data = await requestGetUserGroups(userId)
   if (data) {
     setUserGroups(data)
   }
 }
 
 const getInvitations = async (userId, setUserInvitations) => {
-  const data = await getUserInvitations(userId)
+  const data = await requestGetUserInvitations(userId)
   if (data) {
     setUserInvitations(data)
   }
@@ -107,7 +107,7 @@ const Profile = () => {
       return
     }
 
-    const response = await createGroup(user._id, formDataGroup.groupName)
+    const response = await requestCreateGroup(user._id, formDataGroup.groupName)
     if (response) {
       setFormDataGroup({ groupName: "" })
       getGroups(user._id, setUserGroups)
@@ -129,7 +129,7 @@ const Profile = () => {
       return
     }
 
-    const response = await updatePassword(
+    const response = await requestUpdatePassword(
       user._id,
       formDataPwd.oldPassword,
       formDataPwd.newPassword
@@ -143,7 +143,7 @@ const Profile = () => {
   const handleInvitationAction = (id, action) => {
     return async (e) => {
       e.preventDefault()
-      handleInvitation(id, action)
+      requestHandleInvitation(id, action)
       getGroups(user._id, setUserGroups)
       getInvitations(user._id, setUserInvitations)
     }

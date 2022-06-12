@@ -4,10 +4,10 @@ import { ModalContext } from "../../context/ModalContext"
 import { UserDataContext } from "../../context/UserDataContext"
 import Loading from "../../shared/components/Loading/Loading"
 import {
-  addMessageToLog,
-  deleteTask,
-  getTask,
-  updateTask,
+  requestAddMessageToLog,
+  requestDeleteTask,
+  requestGetTask,
+  requestUpdateTask,
 } from "../../shared/utils/api.mjs"
 import { checkExpiration } from "../../shared/utils/date.mjs"
 import "./Detail.scss"
@@ -16,12 +16,12 @@ import Log from "./Log/Log"
 
 const updateTaskLog = async (userId, taskId, newMessage) => {
   if (newMessage !== "") {
-    await addMessageToLog(taskId, userId, newMessage)
+    await requestAddMessageToLog(taskId, userId, newMessage)
   }
 }
 
 const updateTaskField = async (taskId, name, value) => {
-  await updateTask(taskId, { [name]: value })
+  await requestUpdateTask(taskId, { [name]: value })
 }
 
 const Detail = () => {
@@ -37,11 +37,12 @@ const Detail = () => {
   const [isLoaded, setIsLoaded] = React.useState(false)
   const isExpired = task.status === "pending" && checkExpiration(task.deadline)
 
+  // others
   const navigate = useNavigate()
 
   const getTaskInformation = (id) => {
     return async () => {
-      const newData = await getTask(id)
+      const newData = await requestGetTask(id)
       setTask(newData)
       setIsLoaded(true)
     }
@@ -54,7 +55,7 @@ const Detail = () => {
         f: async () => {
           await updateTaskField(task._id, "status", "completed")
           await updateTaskLog(user._id, task._id, "Task completed")
-          await getTaskInformation(id)()
+          navigate(`/?list=${task.group.name}`)
         },
       },
       {
@@ -86,7 +87,7 @@ const Detail = () => {
       {
         title: "Yes",
         f: async () => {
-          const response = await deleteTask(task._id)
+          const response = await requestDeleteTask(task._id)
           if (!response) {
             updateModalData("Error deleting the task", true, [
               {

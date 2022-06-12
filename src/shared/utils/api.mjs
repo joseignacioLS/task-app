@@ -1,7 +1,7 @@
 const BACKURL = "https://peaceful-woodland-96091.herokuapp.com"
 //const BACKURL = "http://localhost:4000"
 
-const login = async (username, password) => {
+const requestLogin = async (username, password) => {
   try {
     const res = await fetch(`${BACKURL}/user/login`, {
       method: "POST",
@@ -24,7 +24,7 @@ const login = async (username, password) => {
   }
 }
 
-const register = async (username, password) => {
+const requestRegister = async (username, password) => {
   try {
     const res = await fetch(`${BACKURL}/user/register`, {
       method: "POST",
@@ -47,7 +47,7 @@ const register = async (username, password) => {
   }
 }
 
-const updatePassword = async (userId, oldPassword, newPassword) => {
+const requestUpdatePassword = async (userId, oldPassword, newPassword) => {
   try {
     const res = await fetch(`${BACKURL}/user/updatePassword`, {
       method: "PUT",
@@ -68,7 +68,7 @@ const updatePassword = async (userId, oldPassword, newPassword) => {
   }
 }
 
-const updateTask = async (taskId, newData) => {
+const requestUpdateTask = async (taskId, newData) => {
   const res = await fetch(`${BACKURL}/task/${taskId}`, {
     method: "PATCH",
     body: JSON.stringify(newData),
@@ -83,7 +83,7 @@ const updateTask = async (taskId, newData) => {
   return data.data
 }
 
-const addMessageToLog = async (taskId, userId, message) => {
+const requestAddMessageToLog = async (taskId, userId, message) => {
   const res = await fetch(`${BACKURL}/task/addlog/${taskId}`, {
     method: "PATCH",
     body: JSON.stringify({ userId, message }),
@@ -98,7 +98,7 @@ const addMessageToLog = async (taskId, userId, message) => {
   return data.data
 }
 
-const removeMessageFromLog = async (taskId, index) => {
+const requestRemoveMessageFromLog = async (taskId, index) => {
   const res = await fetch(`${BACKURL}/task/removelog/${taskId}`, {
     method: "PATCH",
     body: JSON.stringify({ index }),
@@ -112,7 +112,7 @@ const removeMessageFromLog = async (taskId, index) => {
 
   return data.data
 }
-const getUserTasks = async (userId, deadline = "") => {
+const requestGetUserTasks = async (userId, deadline = "") => {
   const res = await fetch(
     `${BACKURL}/task/userTasks/${userId}${
       deadline !== "" ? "?deadline=" + deadline : ""
@@ -125,7 +125,13 @@ const getUserTasks = async (userId, deadline = "") => {
   return data.data
 }
 
-const createTask = async (userId, groupId, title, description, deadline) => {
+const requestCreateTask = async (
+  userId,
+  groupId,
+  title,
+  description,
+  deadline
+) => {
   const res = await fetch(`${BACKURL}/task/`, {
     method: "POST",
     body: JSON.stringify({
@@ -145,7 +151,7 @@ const createTask = async (userId, groupId, title, description, deadline) => {
   return data.status === 200 ? data.data : false
 }
 
-const deleteTask = async (taskId) => {
+const requestDeleteTask = async (taskId) => {
   const res = await fetch(`${BACKURL}/task/${taskId}`, {
     method: "DELETE",
   })
@@ -154,7 +160,7 @@ const deleteTask = async (taskId) => {
 
   return data.status === 200 ? data.data : false
 }
-const getTask = async (taskId) => {
+const requestGetTask = async (taskId) => {
   const res = await fetch(`${BACKURL}/task/${taskId}`)
   const data = await res.json()
 
@@ -163,7 +169,7 @@ const getTask = async (taskId) => {
   return data.data
 }
 
-const createGroup = async (userId, name) => {
+const requestCreateGroup = async (userId, name) => {
   const res = await fetch(`${BACKURL}/group`, {
     method: "POST",
     body: JSON.stringify({
@@ -180,7 +186,7 @@ const createGroup = async (userId, name) => {
   return data.status === 200
 }
 
-const getGroup = async (id) => {
+const requestGetGroup = async (id) => {
   const res = await fetch(`${BACKURL}/group/${id}`)
   const data = await res.json()
 
@@ -188,7 +194,7 @@ const getGroup = async (id) => {
   return data.data
 }
 
-const getUserGroups = async (userId) => {
+const requestGetUserGroups = async (userId) => {
   const res = await fetch(`${BACKURL}/group/userGroups/${userId}`)
 
   const data = await res.json()
@@ -198,7 +204,7 @@ const getUserGroups = async (userId) => {
   return data.data
 }
 
-const deleteGroup = async (groupId) => {
+const requestDeleteGroup = async (groupId) => {
   const res = await fetch(`${BACKURL}/group/${groupId}`, {
     method: "DELETE",
   })
@@ -209,14 +215,14 @@ const deleteGroup = async (groupId) => {
   return data.status === 200
 }
 
-const getUserInvitations = async (id) => {
+const requestGetUserInvitations = async (id) => {
   const res = await fetch(`${BACKURL}/invitation/userInvitations/${id}`)
   const data = await res.json()
   if (data.status !== 200) return false
   return data.data
 }
 
-const sendInvitation = async (username, groupId) => {
+const requestSendInvitation = async (username, groupId) => {
   const res = await fetch(`${BACKURL}/invitation`, {
     method: "POST",
     body: JSON.stringify({
@@ -232,28 +238,28 @@ const sendInvitation = async (username, groupId) => {
   return data.status === 200
 }
 
-const handleInvitation = async (invitationId, action) => {
+const requestHandleInvitation = async (invitationId, action) => {
   const res = await fetch(`${BACKURL}/invitation/${invitationId}/${action}`, {
     method: "DELETE",
   })
 }
 
 export {
-  login,
-  register,
-  updatePassword,
-  updateTask,
-  getUserTasks,
-  createTask,
-  getTask,
-  addMessageToLog,
-  removeMessageFromLog,
-  deleteTask,
-  getGroup,
-  createGroup,
-  getUserGroups,
-  deleteGroup,
-  sendInvitation,
-  handleInvitation,
-  getUserInvitations,
+  requestLogin,
+  requestRegister,
+  requestUpdatePassword,
+  requestUpdateTask,
+  requestGetUserTasks,
+  requestCreateTask,
+  requestGetTask,
+  requestAddMessageToLog,
+  requestRemoveMessageFromLog,
+  requestDeleteTask,
+  requestGetGroup,
+  requestCreateGroup,
+  requestGetUserGroups,
+  requestDeleteGroup,
+  requestSendInvitation,
+  requestHandleInvitation,
+  requestGetUserInvitations,
 }

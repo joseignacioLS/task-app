@@ -1,7 +1,7 @@
 import React from "react"
 import { ModalContext } from "../../../context/ModalContext"
 import { UserDataContext } from "../../../context/UserDataContext"
-import { removeMessageFromLog } from "../../../shared/utils/api.mjs"
+import { requestRemoveMessageFromLog } from "../../../shared/utils/api.mjs"
 import "./Log.scss"
 import LogEntry from "./LogEntry/LogEntry"
 
@@ -43,7 +43,7 @@ const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
         title: "Yes",
         f: async () => {
           const index = e.target.name
-          await removeMessageFromLog(_id, index)
+          await requestRemoveMessageFromLog(_id, index)
           await getTaskInformation()
         },
       },

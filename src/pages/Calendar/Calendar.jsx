@@ -1,28 +1,22 @@
 import React from "react"
-import {
-  dateToFormattedString,
-  getTodayDate,
-} from "../../shared/utils/date.mjs"
+import { addDaysToDate, getTodayDate } from "../../shared/utils/date.mjs"
 import "./Calendar.scss"
 import { UserDataContext } from "../../context/UserDataContext.js"
-import { getUserTasks } from "../../shared/utils/api.mjs"
+import { requestGetUserTasks } from "../../shared/utils/api.mjs"
 import { Link } from "react-router-dom"
 
 const getDayTasks = async (userId, date) => {
-  const tasks = await getUserTasks(userId, date)
+  const tasks = await requestGetUserTasks(userId, date)
   return tasks
 }
 
 const getWeek = async (today, setWeekDates, setIsLoaded) => {
   const newWeekDates = []
 
-  const refDate = new Date(today)
-  refDate.setDate(refDate.getDate() - 1)
+  const refDate = addDaysToDate(today, -1)
 
   for (let i = 0; i < 3; i++) {
-    const d = new Date(refDate)
-    d.setDate(refDate.getDate() + i)
-    const newDate = dateToFormattedString(d)
+    const newDate = addDaysToDate(refDate, i)
     newWeekDates.push(newDate)
   }
 
@@ -40,12 +34,16 @@ const getWeekData = async (userId, weekDates, setWeekTasks) => {
   setWeekTasks(newData)
 }
 
+const resetToday = (setToday) => {
+  setToday(getTodayDate())
+}
+
 const showTasks = (d, weekTasks) => {
   return (
     <ul className="day__tasks">
       {weekTasks
         .filter((t) => t.deadline === d)
-        .map(({_id, title, status}) => (
+        .map(({ _id, title, status }) => (
           <li key={_id}>
             <Link
               className={`task ${
@@ -91,15 +89,9 @@ const Calendar = () => {
   const handleTodayChange = (delta) => {
     return (e) => {
       e.preventDefault()
-      let d = new Date(today)
-      d.setDate(d.getDate() + delta)
-      const newToday = dateToFormattedString(d)
+      const newToday = addDaysToDate(today, delta)
       setToday(newToday)
     }
-  }
-
-  const resetToday = () => {
-    setToday(getTodayDate())
   }
 
   React.useEffect(() => {
@@ -121,7 +113,10 @@ const Calendar = () => {
             >
               {"<"}
             </button>
-            <button className="calendar-btns__reset" onClick={resetToday}>
+            <button
+              className="calendar-btns__reset"
+              onClick={() => resetToday(setToday)}
+            >
               {"Reset date"}
             </button>
             <button

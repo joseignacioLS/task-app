@@ -1,12 +1,12 @@
 import React from "react"
 import { UserDataContext } from "../../../context/UserDataContext.js"
 import Loading from "../../../shared/components/Loading/Loading.jsx"
-import { getUserTasks } from "../../../shared/utils/api.mjs"
+import { requestGetUserTasks } from "../../../shared/utils/api.mjs"
 import Card from "./Card/Card.jsx"
 import "./ListSection.scss"
 
 const getTasksList = async (userId, setTasks, setIsLoaded) => {
-  const data = await getUserTasks(userId)
+  const data = await requestGetUserTasks(userId)
   if (data) {
     setTasks(data)
     setIsLoaded(true)

@@ -1,21 +1,15 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
 import { UserDataContext } from "../../context/UserDataContext"
-import { retrieveUserFromLocalStorage } from "../../shared/utils/localstorage.mjs"
 
 const AuthRoute = ({ component }) => {
-  const { user, setUser } = React.useContext(UserDataContext)
+  const { user } = React.useContext(UserDataContext)
+
   if (user) return component
 
-  const retrievedUser = retrieveUserFromLocalStorage()
-  
-  if (!retrievedUser) {
-    return (
-      <Navigate to="/login" state={{ prevRoute: window.location.pathname }} />
-    )
-  }
-
-  setUser(retrievedUser)
+  return (
+    <Navigate to="/login" state={{ prevRoute: window.location.pathname }} />
+  )
 }
 
 export default AuthRoute

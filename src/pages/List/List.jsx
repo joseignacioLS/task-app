@@ -1,12 +1,12 @@
 import React from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import { UserDataContext } from "../../context/UserDataContext.js"
-import { getUserGroups } from "../../shared/utils/api.mjs"
+import { requestGetUserGroups } from "../../shared/utils/api.mjs"
 import "./List.scss"
 import ListSection from "./ListSection/ListSection.jsx"
 
 const getGroups = async (userId) => {
-  const data = await getUserGroups(userId)
+  const data = await requestGetUserGroups(userId)
   if (data) {
     const owned = data.ownedGroups.map((g) => ({ _id: g._id, name: g.name }))
     const member = data.memberGroups.map((g) => ({ _id: g._id, name: g.name }))

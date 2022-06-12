@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
 import PasswordInput from "../../shared/components/PasswordInput/PasswordInput.jsx"
-import { login, register } from "../../shared/utils/api.mjs"
+import { requestLogin, requestRegister } from "../../shared/utils/api.mjs"
 import "./Login.scss"
 
 const Login = () => {
@@ -37,9 +37,9 @@ const Login = () => {
     e.preventDefault()
     let response
     if (mode === "login")
-      response = await login(formData.username, formData.password)
+      response = await requestLogin(formData.username, formData.password)
     else if (mode === "register")
-      response = await register(formData.username, formData.password)
+      response = await requestRegister(formData.username, formData.password)
     if (response) {
       storeUser(response)
       navigate("/")

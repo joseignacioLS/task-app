@@ -13,7 +13,7 @@
   align-items: center;
   flex-direction: column;
 
-  background-color: rgba(64, 64, 64, 0.5);
+  background-color: rgba(64, 64, 64, 0.8);
 
   text-align: center;
 
@@ -38,12 +38,18 @@
 
     animation: slide-in 500ms forwards;
     p {
-      color: $secondary-color;
+      color: $red;
       font-weight: bold;
     }
     &__actions {
       display: flex;
       gap: 1rem;
+      button{
+        background-color: $secondary-color;
+        color: $primary-color;
+        font-weight: bold;
+        padding: .5rem
+      }
     }
   }
 }

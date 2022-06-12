@@ -1,13 +1,14 @@
+import React from "react"
 import { Navigate } from "react-router-dom"
 import AuthRoute from "../core/Auth/AuthRoute"
-import About from "../pages/About/About"
-import Calendar from "../pages/Calendar/Calendar"
-import CreateTask from "../pages/CreateTask/CreateTask"
-import Detail from "../pages/Detail/Detail"
-import Group from "../pages/Group/Group"
-import List from "../pages/List/List"
-import Login from "../pages/Login/Login"
-import Profile from "../pages/Profile/Profile"
+const About = React.lazy(() => import("../pages/About/About"))
+const Calendar = React.lazy(() => import("../pages/Calendar/Calendar"))
+const CreateTask = React.lazy(() => import("../pages/CreateTask/CreateTask"))
+const Detail = React.lazy(() => import("../pages/Detail/Detail"))
+const Group = React.lazy(() => import("../pages/Group/Group"))
+const List = React.lazy(() => import("../pages/List/List"))
+const Login = React.lazy(() => import("../pages/Login/Login"))
+const Profile = React.lazy(() => import("../pages/Profile/Profile"))
 
 const routes = [
   {
@@ -21,7 +22,7 @@ const routes = [
     secured: true,
   },
   {
-    path: "/detail:id",
+    path: "/detail/:id",
     element: <Detail />,
     secured: true,
   },
@@ -59,7 +60,10 @@ const routes = [
 ]
 
 export const secureRoute = (component, isSecured) => {
-  if (isSecured) return <AuthRoute component={component}/>
+  if (isSecured)
+    return (
+      <AuthRoute component={<React.Suspense>{component}</React.Suspense>} />
+    )
   return component
 }
 
