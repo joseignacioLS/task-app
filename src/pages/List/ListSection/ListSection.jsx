@@ -62,6 +62,7 @@ const ListSection = ({ filter }) => {
   // variables
   const [currentList, setCurrentList] = React.useState([])
   const [isLoaded, setIsLoaded] = React.useState(false)
+  const [listDom, setListDom] = React.useState(null)
 
   React.useEffect(() => {
     if (user) {
@@ -72,6 +73,20 @@ const ListSection = ({ filter }) => {
   React.useEffect(() => {
     handleCurrentListChange(tasks, setCurrentList, filter)
   }, [tasks, filter])
+
+  React.useEffect(() => {
+    if (listDom) {
+      listDom.style.animation = "none"
+      setTimeout(
+        () => (listDom.style.animation = "grow-from-top 500ms forwards"),
+        0
+      )
+    } else {
+      setListDom(() => {
+        return document.querySelector(".tasks-list")
+      })
+    }
+  }, [filter, isLoaded])
 
   return (
     <>

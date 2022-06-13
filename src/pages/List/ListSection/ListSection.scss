@@ -4,6 +4,7 @@
 .tasks-list {
   margin-bottom: 4rem;
   padding: 0;
+  opacity: 0;
 
   list-style: none;
 
@@ -16,7 +17,7 @@
   animation: grow-from-top 500ms forwards;
 
   @include for-desktop-up {
-    display:flex;
+    display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
