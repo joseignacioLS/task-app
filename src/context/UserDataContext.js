@@ -1,5 +1,4 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
 import {
   clearUserFromLocalStorage,
   retrieveUserFromLocalStorage,
@@ -11,8 +10,6 @@ export const UserDataContext = React.createContext()
 const UserProvider = ({ children }) => {
   const [user, setUser] = React.useState(retrieveUserFromLocalStorage())
 
-  const navigate = useNavigate()
-
   const storeUser = (data) => {
     setUserLocalStorage(data)
     setUser(data)
@@ -21,7 +18,6 @@ const UserProvider = ({ children }) => {
   const logout = () => {
     setUser(undefined)
     clearUserFromLocalStorage()
-    navigate("/login")
   }
 
   return (

@@ -43,6 +43,8 @@
     opacity: var(--deadline);
 
     background-color: $red;
+
+    border-radius: inherit;
   }
 
   &__title {
