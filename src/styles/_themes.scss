@@ -1,0 +1,11 @@
+@import "./variables";
+
+.darkMode {
+  color: $primary-color;
+  background-color: $secondary-color;
+}
+
+.lightMode {
+  color: $secondary-color;
+  background-color: $primary-color;
+}

@@ -1,0 +1,69 @@
+.profile-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-left: 1rem;
+}
+
+@media (min-width: 550px) {
+  .profile-container {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .profile-container section {
+    width: 20rem;
+  }
+}
+
+.profile-container h2 {
+  margin-top: 1rem;
+}
+
+.profile-container h3 {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+}
+
+.profile-container .groups ul {
+  margin-left: 3rem;
+}
+
+.profile-container .groups ul li {
+  -webkit-animation: grow-from-top 500ms forwards;
+          animation: grow-from-top 500ms forwards;
+}
+
+.profile-container .groups form {
+  margin-left: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile-container .groups form input {
+  width: 80%;
+  min-width: 0;
+  max-width: 14rem;
+}
+/*# sourceMappingURL=Profile.css.map */

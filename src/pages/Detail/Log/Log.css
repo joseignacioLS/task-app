@@ -1,0 +1,64 @@
+.task-log {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 1rem;
+}
+
+@media (min-width: 550px) {
+  .task-log {
+    width: 50%;
+  }
+}
+
+.task-log__form {
+  margin-bottom: 0.25rem;
+}
+
+.task-log__list {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  list-style: none;
+}
+
+.task-log__list .log-item {
+  width: 100%;
+  color: #222;
+}
+
+.task-log__list .log-item--self {
+  text-align: right;
+}
+
+.task-log__list .log-item--other {
+  text-align: left;
+}
+
+.task-log__list .log-item button {
+  background-color: #f45b69;
+  color: #222;
+}
+/*# sourceMappingURL=Log.css.map */

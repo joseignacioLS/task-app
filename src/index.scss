@@ -1,5 +1,6 @@
 @import "./styles/variables";
 @import "./styles/mixins";
+@import "./styles/themes";
 
 body {
   margin: 0;
@@ -24,21 +25,16 @@ code {
   font-family: sans-serif;
 }
 
-p,
-input,
-div,
-strong,
-textarea {
-  color: $secondary-color;
-  font-size: 1rem;
-}
-
 a,
 Link,
-button {
+button,
+input,
+textarea {
   text-decoration: none;
   cursor: pointer;
-  color: $secondary-color;
+  color: inherit;
+  background-color: inherit;
+  font-family: inherit;
 }
 
 button {
@@ -57,6 +53,11 @@ button {
 
 .growing-element {
   animation: grow-from-top 1s forwards;
+}
+
+.darkMode {
+  color: $primary-color;
+  background-color: $secondary-color;
 }
 
 @keyframes fade-in {

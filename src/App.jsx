@@ -7,14 +7,20 @@ import ModalProvider from "./context/ModalContext.js"
 import UserProvider from "./context/UserDataContext.js"
 import routes, { secureRoute } from "./config/routes"
 import styles from "./App.module.scss"
+import { ThemeContext } from "./context/ThemeContext"
 
 function App() {
+  const { theme } = React.useContext(ThemeContext)
   return (
     <>
       <UserProvider>
         <ModalProvider>
           <Navbar />
-          <main className={styles.pageContainer}>
+          <main
+            className={`${styles.pageContainer} ${
+              theme === "dark" ? "darkMode" : "lightMode"
+            }`}
+          >
             <Routes>
               {routes.map((route) => {
                 return (

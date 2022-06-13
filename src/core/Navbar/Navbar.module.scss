@@ -1,5 +1,6 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
+@import "../../styles/themes";
 
 .navbar {
   padding: 1rem;
@@ -11,8 +12,6 @@
   right: 0;
 
   height: $header-h;
-
-  background-color: $primary-color;
   box-shadow: $default-shadow;
 
   display: flex;
@@ -21,16 +20,29 @@
 
   z-index: 10;
 
+  transition: background-color 500ms;
+
+  .themeBtn {
+    position: absolute;
+    left: 1rem;
+  }
+
   &Item {
     font-weight: bold;
+    color: inherit;
   }
 
   .accountActions {
+    color: inherit;
     position: absolute;
     right: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
+
+    a {
+      color: inherit;
+    }
   }
 }

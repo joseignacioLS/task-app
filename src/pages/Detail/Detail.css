@@ -1,0 +1,124 @@
+.detail-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 4rem;
+}
+
+@media (min-width: 550px) {
+  .detail-container {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+
+.task-detail {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (min-width: 550px) {
+  .task-detail {
+    width: 50%;
+  }
+}
+
+.task-detail__title, .task-detail__title-input {
+  outline: none;
+  width: 100%;
+  border: 2px solid transparent;
+  border-bottom: 1px solid #222;
+  font-size: 2rem;
+  font-weight: 700;
+  border-radius: 0.25rem;
+}
+
+.task-detail__title-input {
+  border: 1.5px solid #f45b69;
+}
+
+.task-detail__ownership {
+  color: grey;
+}
+
+.task-detail__status {
+  color: grey;
+}
+
+.task-detail__deadline, .task-detail__deadline-input {
+  outline: none;
+  color: grey;
+  margin-top: 1rem;
+  border: 2px solid transparent;
+}
+
+.task-detail__deadline--expired, .task-detail__deadline-input--expired {
+  color: #f45b69;
+}
+
+.task-detail__deadline-input {
+  border: 1px solid #f45b69;
+}
+
+.task-detail__description, .task-detail__description-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  height: 6rem;
+  overflow-y: auto;
+  border: 1px solid #222;
+  border-radius: 0.5rem;
+}
+
+.task-detail__description-input {
+  outline: none;
+  border: 1.5px solid #f45b69;
+}
+
+.task-detail__handler {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
+}
+
+.task-detail__handler button {
+  color: #222;
+  background-color: #f45b69;
+}
+/*# sourceMappingURL=Detail.css.map */

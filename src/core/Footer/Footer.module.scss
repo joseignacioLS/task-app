@@ -1,5 +1,6 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
+@import "../../styles/themes";
 
 .footer {
   position: sticky;
@@ -9,8 +10,6 @@
 
   height: $footer-h;
 
-  color: $secondary-color;
-  background-color: $primary-color;
   box-shadow: $default-shadow;
 
   display: flex;
@@ -19,4 +18,5 @@
   gap: 1rem;
 
   z-index: 10;
+  transition: background-color 500ms;
 }

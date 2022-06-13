@@ -1,0 +1,14 @@
+.pageContainer {
+  padding: 1rem;
+  margin-top: 3rem;
+  position: relative;
+  min-height: calc(calc(100vh - 3rem) - 3rem);
+  background-color: #eee;
+}
+
+@media (min-width: 550px) {
+  .pageContainer {
+    max-height: calc(calc(100vh - 3rem) - 3rem);
+  }
+}
+/*# sourceMappingURL=App.module.css.map */
