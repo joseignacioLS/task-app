@@ -29,6 +29,25 @@ const getDayOfTheWeek = (date) => {
   return normDay > 7 ? normDay - 7 : normDay
 }
 
+const doubleDigitMonthToText = (dd) => {
+  const dict = {
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    10: "October",
+    11: "November",
+    12: "December",
+  }
+
+  return dict[dd]
+}
+
 export {
   checkExpiration,
   getTodayDate,
@@ -36,4 +55,5 @@ export {
   daysUntilDeadline,
   addDaysToDate,
   getDayOfTheWeek,
+  doubleDigitMonthToText
 }

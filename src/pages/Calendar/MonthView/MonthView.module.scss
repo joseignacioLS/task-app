@@ -1,34 +1,23 @@
 @import "../../../styles/variables";
 @import "../../../styles/mixins";
 
-.week {
-  height: calc(100vh / 8);
-  .day {
-    position: relative;
-    display: inline-block;
-    height: 100%;
-    width: calc(100% / 7);
-    border: 1px solid rgb(128, 128, 128);
-    background-color: inherit;
+.calendarContainer {
+  position: relative;
 
-    &SameMonth {
-      color: $primary-color;
-      background-color: $green;
-    }
+  .week {
+    height: calc(100vh / 7);
+  }
+  .currentMonth {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
 
-    &Today {
-      color: black;
-      background-color: $red;
-    }
+    color: $secondary-color;
+    font-size: 2rem;
+    font-weight: bold;
 
-    &WithTasks::after {
-      content: "❌";
-      font-size: 2rem;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-
-      transform: translate(-50%, -50%);
-    }
+    padding: 0 .5rem;
+    background-color: $gray;
+    border-radius: 1rem;
   }
 }

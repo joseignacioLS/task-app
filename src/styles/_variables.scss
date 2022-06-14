@@ -5,9 +5,12 @@ $green: #0b7a75;
 $purple: #918ef4;
 $red: #f45b69;
 
+$gray: rgb(128, 128, 128);
+$gray-alpha: rgba(128, 128, 128, 0.5);
+
 $footer-h: 3rem;
 $header-h: 3rem;
 
 $main-container-padding: 1rem;
 
-$default-shadow: 0px 0px 3px 3px rgba(128, 128, 128, 0.5);
+$default-shadow: 0px 0px 3px 3px $gray-alpha;
