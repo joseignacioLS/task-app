@@ -71,10 +71,12 @@ const MonthView = ({ date, setToday }) => {
   }
 
   React.useEffect(() => {
-    const monday = addDaysToDate(date, 8 - getDayOfTheWeek(date))
-    const newMondays = [-3, -2, -1, 0, 1].map((delta) =>
+    const monday = addDaysToDate(date, -(getDayOfTheWeek(date) - 1))
+    const newMondays = [-2, -1, 0, 1, 2].map((delta) =>
       addDaysToDate(monday, 7 * delta)
     )
+
+    console.log(monday)
 
     if (mondays === []) {
       setMondays(() => newMondays)
