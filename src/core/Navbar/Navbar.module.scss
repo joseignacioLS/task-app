@@ -14,35 +14,38 @@
   height: $header-h;
   box-shadow: $default-shadow;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   z-index: 10;
 
   transition: background-color 500ms;
 
-  .themeBtn {
-    position: absolute;
-    left: 1rem;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  &Item {
-    font-weight: bold;
-    color: inherit;
-  }
+  &Section {
+    overflow: auto;
 
-  .accountActions {
-    color: inherit;
-    position: absolute;
-    right: 1rem;
+    white-space: nowrap;
+
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 1rem;
 
-    a {
-      color: inherit;
+    &Left {
+      justify-content: flex-start;
     }
+
+    &Center {
+      justify-content: center;
+    }
+
+    &Right {
+      justify-content: flex-end;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+    color: inherit;
   }
 }

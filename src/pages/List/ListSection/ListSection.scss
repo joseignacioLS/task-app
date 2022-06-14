@@ -16,6 +16,9 @@
 
   animation: grow-from-top 500ms forwards;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @include for-desktop-up {
     display: flex;
     justify-content: flex-start;

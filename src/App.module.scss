@@ -13,6 +13,6 @@
   transition: background-color 500ms;
 
   @include for-desktop-up {
-    max-height: calc(calc(100vh - #{$footer-h}) - #{$header-h});
+    max-height: 100vh;
   }
 }

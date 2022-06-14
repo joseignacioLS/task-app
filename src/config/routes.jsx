@@ -1,6 +1,7 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
 import AuthRoute from "../core/Auth/AuthRoute"
+import DayView from "../pages/Calendar/MonthView/DayView/DayView"
 const About = React.lazy(() => import("../pages/About/About"))
 const Calendar = React.lazy(() => import("../pages/Calendar/Calendar"))
 const CreateTask = React.lazy(() => import("../pages/CreateTask/CreateTask"))
@@ -39,6 +40,11 @@ const routes = [
   {
     path: "/calendar",
     element: <Calendar />,
+    secured: true,
+  },
+  {
+    path: "/dayview/:date",
+    element: <DayView />,
     secured: true,
   },
   {

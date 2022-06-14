@@ -1,0 +1,28 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.week {
+  height: calc(100vh / 8);
+  .day {
+    display: inline-block;
+    height: 100%;
+    width: calc(100% / 7);
+    border: 1px solid $secondary-color;
+    background-color: $primary-color;
+
+    &SameMonth {
+      color: $primary-color;
+      background-color: $green;
+    }
+
+    &Today {
+      color: black;
+      background-color: $red;
+    }
+
+    &WithTasks::after {
+      content: "💼";
+      position: absolute;
+    }
+  }
+}

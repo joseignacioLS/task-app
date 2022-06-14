@@ -12,18 +12,36 @@ const Navbar = () => {
 
   return (
     <header
-      className={`${styles.navbar} ${theme === "dark" ? "darkMode" : "lightMode"}`}
+      className={`${styles.navbar} ${
+        theme === "dark" ? "darkMode" : "lightMode"
+      }`}
     >
-      <button className={styles.themeBtn} onClick={toggleTheme}>
-        {theme}
-      </button>
-      <Link className={styles.navbarItem} to="/">
-        My Tasks
-      </Link>
-      <div className={styles.accountActions}>
-        {isLogged ? <Link to="/profile">{user.username}</Link> : ""}
+      <section
+        className={`${styles.navbarSection} ${styles.navbarSectionLeft}`}
+      >
+        <button className={styles.themeBtn} onClick={toggleTheme}>
+          {theme}
+        </button>
+      </section>
+      <section
+        className={`${styles.navbarSection} ${styles.navbarSectionCenter}`}
+      >
+        <Link className={styles.title} to="/">
+          My Tasks
+        </Link>
+      </section>
+      <section
+        className={`accountActionsSelector ${styles.navbarSection} ${styles.navbarSectionRight}`}
+      >
+        {isLogged ? (
+          <Link to="/profile" className={styles.username}>
+            {user.username}
+          </Link>
+        ) : (
+          ""
+        )}
         {isLogged && <button onClick={logout}>Logout</button>}
-      </div>
+      </section>
     </header>
   )
 }
