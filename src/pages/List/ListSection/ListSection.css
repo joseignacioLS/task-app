@@ -21,6 +21,10 @@
           animation: grow-from-top 500ms forwards;
 }
 
+.tasks-list::-webkit-scrollbar {
+  display: none;
+}
+
 @media (min-width: 550px) {
   .tasks-list {
     display: -webkit-box;

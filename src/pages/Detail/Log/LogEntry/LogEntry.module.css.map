@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,SAAS,CAAC;EACR,KAAK,EAAE,OAAO;CACf",
+    "sources": [
+        "LogEntry.module.scss"
+    ],
+    "names": [],
+    "file": "LogEntry.module.css"
+}

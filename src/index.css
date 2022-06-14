@@ -1,3 +1,13 @@
+.darkMode {
+  color: #eee;
+  background-color: #222;
+}
+
+.lightMode {
+  color: #222;
+  background-color: #eee;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -17,21 +27,16 @@ code {
   font-family: sans-serif;
 }
 
-p,
-input,
-div,
-strong,
-textarea {
-  color: #222;
-  font-size: 1rem;
-}
-
 a,
 Link,
-button {
+button,
+input,
+textarea {
   text-decoration: none;
   cursor: pointer;
-  color: #222;
+  color: inherit;
+  background-color: inherit;
+  font-family: inherit;
 }
 
 button {
@@ -51,6 +56,11 @@ button:active {
 .growing-element {
   -webkit-animation: grow-from-top 1s forwards;
           animation: grow-from-top 1s forwards;
+}
+
+.darkMode {
+  color: #eee;
+  background-color: #222;
 }
 
 @-webkit-keyframes fade-in {

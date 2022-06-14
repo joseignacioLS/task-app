@@ -4,8 +4,8 @@
   padding: 1rem;
   position: relative;
   background-color: gainsboro;
-  -webkit-box-shadow: 2px 2px 0px #222;
-          box-shadow: 2px 2px 0px #222;
+  -webkit-box-shadow: 2px 2px 0px gray;
+          box-shadow: 2px 2px 0px gray;
   border-radius: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;

@@ -1,14 +1,25 @@
+.darkMode {
+  color: #eee;
+  background-color: #222;
+}
+
+.lightMode {
+  color: #222;
+  background-color: #eee;
+}
+
 .pageContainer {
   padding: 1rem;
   margin-top: 3rem;
   position: relative;
   min-height: calc(calc(100vh - 3rem) - 3rem);
-  background-color: #eee;
+  -webkit-transition: background-color 500ms;
+  transition: background-color 500ms;
 }
 
 @media (min-width: 550px) {
   .pageContainer {
-    max-height: calc(calc(100vh - 3rem) - 3rem);
+    max-height: 100vh;
   }
 }
 /*# sourceMappingURL=App.module.css.map */

@@ -1,13 +1,14 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { UserDataContext } from "../../../context/UserDataContext.js"
+import Loading from "../../../shared/components/Loading/Loading.jsx"
 import { requestGetUserTasks } from "../../../shared/utils/api.mjs"
 import { addDaysToDate, getDayOfTheWeek } from "../../../shared/utils/date.mjs"
 import styles from "./MonthView.module.scss"
 
 const getTasksList = async (userId, setTasks, setIsLoaded) => {
+  setIsLoaded(false)
   const data = await requestGetUserTasks(userId)
-  console.log(data)
   if (data) {
     setTasks(data)
     setIsLoaded(true)
@@ -53,6 +54,7 @@ const MonthView = ({ date }) => {
   const [mondays, setMondays] = React.useState([])
   const [tasks, setTasks] = React.useState([])
   const { user } = React.useContext(UserDataContext)
+  const [isLoaded, setIsLoaded] = React.useState(false)
 
   React.useEffect(() => {
     const monday = addDaysToDate(date, 8 - getDayOfTheWeek(date))
@@ -68,11 +70,19 @@ const MonthView = ({ date }) => {
   }, [date, user])
 
   React.useEffect(() => {
-    getTasksList(user._id, setTasks, () => {})
-  }, [mondays])
+    getTasksList(user._id, setTasks, setIsLoaded)
+  }, [])
 
   return (
-    <div className="calendarContainer">{showWeeks(mondays, date, tasks)}</div>
+    <>
+      {isLoaded ? (
+        <div className="calendarContainer">
+          {showWeeks(mondays, date, tasks)}
+        </div>
+      ) : (
+        <Loading />
+      )}
+    </>
   )
 }
 

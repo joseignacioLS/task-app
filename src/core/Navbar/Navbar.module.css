@@ -1,3 +1,13 @@
+.darkMode {
+  color: #eee;
+  background-color: #222;
+}
+
+.lightMode {
+  color: #222;
+  background-color: #eee;
+}
+
 .navbar {
   padding: 1rem;
   position: fixed;
@@ -5,37 +15,54 @@
   left: 0;
   right: 0;
   height: 3rem;
-  background-color: #eee;
   -webkit-box-shadow: 0px 0px 3px 3px rgba(128, 128, 128, 0.5);
           box-shadow: 0px 0px 3px 3px rgba(128, 128, 128, 0.5);
+  z-index: 10;
+  -webkit-transition: background-color 500ms;
+  transition: background-color 500ms;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 10;
 }
 
-.navbarItem {
-  font-weight: bold;
-}
-
-.navbar .accountActions {
-  position: absolute;
-  right: 1rem;
+.navbarSection {
+  overflow: auto;
+  white-space: nowrap;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   gap: 1rem;
+}
+
+.navbarSectionLeft {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.navbarSectionCenter {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.navbarSectionRight {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.navbar .title {
+  font-weight: bold;
+  color: inherit;
 }
 /*# sourceMappingURL=Navbar.module.css.map */
