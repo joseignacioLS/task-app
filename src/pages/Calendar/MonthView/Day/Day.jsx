@@ -6,9 +6,15 @@ const Day = ({ date, today, hasTasks, sameMonth, handleClick }) => {
     <span
       onClick={handleClick}
       key={JSON.stringify(date)}
-      className={`${hasTasks? styles.dayWithTasks: ""} ${
-        sameMonth ? styles.daySameMonth : ""
-      } ${today ? styles.dayToday : ""} ${styles.day}`}
+      className={`${
+        hasTasks[0]
+          ? styles.dayWithTasks
+          : hasTasks[1]
+          ? styles.dayCompleted
+          : ""
+      } ${sameMonth ? styles.daySameMonth : ""} ${
+        today ? styles.dayToday : ""
+      } ${styles.day}`}
     >
       {date.slice(8)}
     </span>

@@ -4,6 +4,8 @@
 .calendarContainer {
   position: relative;
 
+  background-color: $primary-color;
+
   .week {
     height: calc(100vh / 7);
   }

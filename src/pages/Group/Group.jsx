@@ -118,7 +118,7 @@ const Group = () => {
             </form>
           )}
           {user._id === groupData.user._id && (
-            <button onClick={handleDeleteGroup}>X</button>
+            <button onClick={handleDeleteGroup}>Delete Group</button>
           )}
         </div>
       )}

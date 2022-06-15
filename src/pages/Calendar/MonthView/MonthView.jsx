@@ -27,14 +27,20 @@ const showWeeks = (mondays, date, tasks, handleClick) => {
         const newDate = addDaysToDate(monday, delta)
         const today = newDate === date
         const sameMonth = newDate.split("-")[1] === date.split("-")[1]
-        const isTasks = tasks.filter((t) => t.deadline === newDate).length > 0
-        if (isTasks)
+        const pendingTasks =
+          tasks.filter((t) => t.deadline === newDate && t.status === "pending")
+            .length > 0
+        const completedTasks =
+          tasks.filter(
+            (t) => t.deadline === newDate && t.status === "completed"
+          ).length > 0
+        if (pendingTasks || completedTasks)
           return (
             <Day
               key={newDate}
               date={newDate}
               today={today}
-              hasTasks={true}
+              hasTasks={[pendingTasks, completedTasks]}
               sameMonth={sameMonth}
               handleClick={handleClick(newDate, date, true)}
             />
@@ -44,7 +50,7 @@ const showWeeks = (mondays, date, tasks, handleClick) => {
             key={newDate}
             date={newDate}
             today={today}
-            hasTasks={false}
+            hasTasks={[false, false]}
             sameMonth={sameMonth}
             handleClick={handleClick(newDate, date, false)}
           />
@@ -95,7 +101,9 @@ const MonthView = ({ date, setToday }) => {
         <div className={styles.calendarContainer}>
           {showWeeks(mondays, date, tasks, handleClick)}
           <span className={styles.currentMonth}>
-            {doubleDigitMonthToText(date.split("-")[1])}
+            {`${doubleDigitMonthToText(date.split("-")[1])} ${
+              date.split("-")[0]
+            }`}
           </span>
         </div>
       ) : (

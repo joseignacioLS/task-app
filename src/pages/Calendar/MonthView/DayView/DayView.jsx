@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import { UserDataContext } from "../../../../context/UserDataContext"
 import Loading from "../../../../shared/components/Loading/Loading"
 import { requestGetUserTasks } from "../../../../shared/utils/api.mjs"
+import style from "./DayView.module.scss"
 
 const getDayTasks = async (userId, date, setTasks, setIsLoaded) => {
   setIsLoaded(false)
@@ -11,6 +12,20 @@ const getDayTasks = async (userId, date, setTasks, setIsLoaded) => {
     setTasks(data)
     setIsLoaded(true)
   }
+}
+const showTasks = (tasks) => {
+  return tasks.map((t) => {
+    return (
+      <li
+        className={`${style.taskListItem} ${
+          t.status === "completed" ? style.completed : ""
+        }`}
+        key={t._id}
+      >
+        <Link to={`/detail/${t._id}`}>{t.title}</Link>
+      </li>
+    )
+  })
 }
 
 const DayView = () => {
@@ -24,22 +39,14 @@ const DayView = () => {
   }, [user, date])
 
   return (
-    <>
-      <div>{date}</div>
+    <div className={style.container}>
+      <p className={style.date}>{date}</p>
       {isLoaded ? (
-        <div>
-          {tasks.map((t) => {
-            return (
-              <li key={t._id}>
-                <Link to={`/detail/${t._id}`}>{t.title}</Link>
-              </li>
-            )
-          })}
-        </div>
+        <ul className={style.taskList}>{showTasks(tasks)}</ul>
       ) : (
         <Loading />
       )}
-    </>
+    </div>
   )
 }
 

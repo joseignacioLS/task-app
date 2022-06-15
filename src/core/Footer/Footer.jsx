@@ -11,7 +11,7 @@ const Footer = () => {
       }`}
     >
       <Link to="/about">About</Link>
-      <a target="_blank" href="https://github.com/joseignacioLS">
+      <a target="_blank" href="https://github.com/joseignacioLS/task-app" rel="noopener noreferrer">
         Github
       </a>
     </footer>
