@@ -29,6 +29,8 @@ const Detail = () => {
   const { user } = React.useContext(UserDataContext)
   const { updateModalData } = React.useContext(ModalContext)
 
+  const isLogged = user !== undefined
+
   // fetched data
   const [task, setTask] = React.useState({})
 
@@ -137,6 +139,7 @@ const Detail = () => {
               textClass="task-detail__title"
               inputClass="task-detail__title-input"
               type="input"
+              isEditable={isLogged}
             />
             <p className="task-detail__ownership">
               Owner:{" "}
@@ -153,6 +156,7 @@ const Detail = () => {
               inputClass="task-detail__deadline-input"
               classMod="--expired"
               classModCheck={isExpired}
+              isEditable={isLogged}
             />
             <EditableField
               value={task.description}
@@ -161,9 +165,10 @@ const Detail = () => {
               inputClass="task-detail__description-input"
               maxLength={25600}
               type="textarea"
+              isEditable={isLogged}
             />
 
-            <section className="task-detail__handler">
+            {user?._id && <section className="task-detail__handler">
               {task.status === "pending" && (
                 <button onClick={handleCompleteTask}>Complete Task</button>
               )}
@@ -171,7 +176,7 @@ const Detail = () => {
                 <button onClick={handleUnCompleteTask}>Reopen Task</button>
               )}
               <button onClick={handleRemoveTask}>Remove Task</button>
-            </section>
+            </section>}
           </div>
           <Log
             _id={task._id}

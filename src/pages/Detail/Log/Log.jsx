@@ -54,10 +54,12 @@ const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
   return (
     <section className="task-log" onSubmit={handleSubmit}>
       <h2>Task Log</h2>
-      <form className="task-log__form">
-        <input type="text" value={newMessage} onInput={handleInput} />
-        <button type="submit">Add log</button>
-      </form>
+      {user?._id && (
+        <form className="task-log__form">
+          <input type="text" value={newMessage} onInput={handleInput} />
+          <button type="submit">Add log</button>
+        </form>
+      )}
       <section className="task-log__list">
         {showLogEntries(tasklog, handleDelete)}
       </section>

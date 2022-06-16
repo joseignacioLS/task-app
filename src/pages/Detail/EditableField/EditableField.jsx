@@ -10,6 +10,7 @@ const EditableField = ({
   type,
   classMod,
   classModCheck,
+  isEditable = false,
 }) => {
   const [data, setData] = React.useState(value)
   const [isEdit, setIsEdit] = React.useState(false)
@@ -18,7 +19,7 @@ const EditableField = ({
     setData(e.target.value)
   }
   const handleEditToggle = (e) => {
-    setIsEdit((oldValue) => !oldValue)
+    if (isEditable) setIsEdit((oldValue) => !oldValue)
   }
 
   React.useEffect(() => {

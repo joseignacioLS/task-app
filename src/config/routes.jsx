@@ -25,7 +25,7 @@ const routes = [
   {
     path: "/detail/:id",
     element: <Detail />,
-    secured: true,
+    secured: false,
   },
   {
     path: "/newtask",
@@ -70,7 +70,7 @@ export const secureRoute = (component, isSecured) => {
     return (
       <AuthRoute component={<React.Suspense>{component}</React.Suspense>} />
     )
-  return component
+  return <React.Suspense>{component}</React.Suspense>
 }
 
 export default routes

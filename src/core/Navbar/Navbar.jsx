@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { ThemeContext } from "../../context/ThemeContext"
 import { UserDataContext } from "../../context/UserDataContext"
 
@@ -7,8 +7,11 @@ import styles from "./Navbar.module.scss"
 
 const Navbar = () => {
   const { user, logout } = React.useContext(UserDataContext)
-  const isLogged = user !== undefined
   const { theme, toggleTheme } = React.useContext(ThemeContext)
+
+  const location = useLocation()
+
+  const isLogged = user !== undefined
 
   return (
     <header
@@ -33,14 +36,17 @@ const Navbar = () => {
       <section
         className={`accountActionsSelector ${styles.navbarSection} ${styles.navbarSectionRight}`}
       >
-        {isLogged ? (
-          <Link to="/profile" className={styles.username}>
-            {user.username}
-          </Link>
-        ) : (
-          ""
+        {isLogged && (
+          <>
+            <Link to="/profile" className={styles.username}>
+              {user.username}
+            </Link>
+            <button onClick={logout}>Logout</button>
+          </>
         )}
-        {isLogged && <button onClick={logout}>Logout</button>}
+        {!isLogged && location.pathname !== "/login" && (
+          <Link to="/login">Login</Link>
+        )}
       </section>
     </header>
   )

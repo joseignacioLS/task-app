@@ -8,14 +8,18 @@ const LogEntry = ({ entry, userId, index, handleDelete }) => {
 
   return (
     <div
-      className={`log-item log-item--${userId === user._id ? "self" : "other"}`}
+      className={`log-item log-item--${
+        userId === user?._id ? "self" : "other"
+      }`}
     >
       <span className={styles.logEntry}>
         {entry.message} - {entry.user.username}{" "}
       </span>
-      <button name={index} onClick={handleDelete}>
-        X
-      </button>
+      {user?._id && (
+        <button name={index} onClick={handleDelete}>
+          X
+        </button>
+      )}
     </div>
   )
 }
