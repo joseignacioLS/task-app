@@ -159,8 +159,7 @@ const Profile = () => {
 
   return (
     <>
-      {!isLoaded && <Loading />}
-      {isLoaded && (
+      {isLoaded? (
         <div className="profile-container">
           <h1>{user.username}</h1>
           <section className="groups">
@@ -208,7 +207,7 @@ const Profile = () => {
             </form>
           </section>
         </div>
-      )}
+      ): <Loading/>}
     </>
   )
 }

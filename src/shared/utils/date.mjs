@@ -16,10 +16,13 @@ const dateToFormattedString = (d) => {
 }
 
 const addDaysToDate = (date, days) => {
-  let d = new Date(date)
-  d.setDate(d.getDate() + days)
-  const newDate = dateToFormattedString(d)
-  return newDate
+  const oldDate = new Date(date)
+  const newDate = new Date(
+    oldDate.getFullYear(),
+    oldDate.getMonth(),
+    oldDate.getDate() + (days + 1)
+  )
+  return dateToFormattedString(newDate)
 }
 
 const getDayOfTheWeek = (date) => {
@@ -55,5 +58,5 @@ export {
   daysUntilDeadline,
   addDaysToDate,
   getDayOfTheWeek,
-  doubleDigitMonthToText
+  doubleDigitMonthToText,
 }

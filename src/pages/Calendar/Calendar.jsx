@@ -10,8 +10,6 @@ const Calendar = () => {
   // varriables
   const [today, setToday] = React.useState(getTodayDate())
 
-
-
   return (
     <>
       <section className="calendar-btns">

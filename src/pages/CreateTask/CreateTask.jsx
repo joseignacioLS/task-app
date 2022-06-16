@@ -2,7 +2,10 @@ import React from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
-import { requestCreateTask, requestGetUserGroups } from "../../shared/utils/api.mjs"
+import {
+  requestCreateTask,
+  requestGetUserGroups,
+} from "../../shared/utils/api.mjs"
 import "./CreateTask.scss"
 
 const getGroups = async (userId, setUserGroups) => {

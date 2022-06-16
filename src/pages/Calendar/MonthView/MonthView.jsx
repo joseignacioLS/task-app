@@ -20,7 +20,17 @@ const getTasksList = async (userId, setTasks, setIsLoaded) => {
   }
 }
 
-const showWeeks = (mondays, date, tasks, handleClick) => {
+const generateMondays = (date) => {
+  const monday = addDaysToDate(date, -(getDayOfTheWeek(date) - 1))
+  const newMondays = [-2, -1, 0, 1, 2].map((delta) => {
+    console.log(monday, delta * 7, addDaysToDate(monday, 7 * delta))
+    return addDaysToDate(monday, 7 * delta)
+  })
+  return newMondays
+}
+
+const showWeeks = (date, tasks, handleClick) => {
+  const mondays = generateMondays(date)
   return mondays.map((monday) => (
     <div key={JSON.stringify(monday)} className={styles.week}>
       {[0, 1, 2, 3, 4, 5, 6].map((delta) => {
@@ -61,7 +71,6 @@ const showWeeks = (mondays, date, tasks, handleClick) => {
 }
 
 const MonthView = ({ date, setToday }) => {
-  const [mondays, setMondays] = React.useState([])
   const [tasks, setTasks] = React.useState([])
   const { user } = React.useContext(UserDataContext)
   const [isLoaded, setIsLoaded] = React.useState(false)
@@ -77,29 +86,14 @@ const MonthView = ({ date, setToday }) => {
   }
 
   React.useEffect(() => {
-    const monday = addDaysToDate(date, -(getDayOfTheWeek(date) - 1))
-    const newMondays = [-2, -1, 0, 1, 2].map((delta) =>
-      addDaysToDate(monday, 7 * delta)
-    )
-
-    console.log(monday)
-
-    if (mondays === []) {
-      setMondays(() => newMondays)
-    } else if (mondays[0] !== newMondays[0]) {
-      setMondays(() => newMondays)
-    }
-  }, [date, user])
-
-  React.useEffect(() => {
     getTasksList(user._id, setTasks, setIsLoaded)
-  }, [])
+  }, [user._id])
 
   return (
     <>
       {isLoaded ? (
         <div className={styles.calendarContainer}>
-          {showWeeks(mondays, date, tasks, handleClick)}
+          {showWeeks(date, tasks, handleClick)}
           <span className={styles.currentMonth}>
             {`${doubleDigitMonthToText(date.split("-")[1])} ${
               date.split("-")[0]

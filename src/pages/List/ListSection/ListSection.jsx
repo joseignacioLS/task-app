@@ -13,12 +13,7 @@ const getTasksList = async (userId, setTasks, setIsLoaded) => {
   }
 }
 
-const handleCurrentListChange = (
-  tasks,
-  setCurrentList,
-
-  filter
-) => {
+const handleCurrentListChange = (tasks, setCurrentList, filter) => {
   const filteredTaskList = tasks
     .filter((task) => {
       return task.group === filter.userGroups[filter.listIndex]._id
@@ -88,12 +83,7 @@ const ListSection = ({ filter }) => {
     }
   }, [filter, isLoaded])
 
-  return (
-    <>
-      {!isLoaded && <Loading />}
-      {isLoaded && showCards(currentList)}
-    </>
-  )
+  return <>{isLoaded ? showCards(currentList) : <Loading />}</>
 }
 
 export default ListSection

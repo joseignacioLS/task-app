@@ -52,16 +52,15 @@ const Group = () => {
         title: "Yes",
         f: async () => {
           const response = await requestDeleteGroup(id)
-          if (response) {
-            updateModalData("Group deleted", true, [
-              {
-                title: "ok",
-                f: () => {
-                  navigate("/profile")
-                },
+          if (!response) return
+          updateModalData("Group deleted", true, [
+            {
+              title: "ok",
+              f: () => {
+                navigate("/profile")
               },
-            ])
-          }
+            },
+          ])
         },
       },
       {
@@ -95,8 +94,7 @@ const Group = () => {
 
   return (
     <>
-      {!isLoaded && <Loading />}
-      {isLoaded && (
+      {isLoaded ? (
         <div>
           <h1>{groupData.name}</h1>
           <h2>Owner</h2>
@@ -121,7 +119,7 @@ const Group = () => {
             <button onClick={handleDeleteGroup}>Delete Group</button>
           )}
         </div>
-      )}
+      ):<Loading/>}
     </>
   )
 }

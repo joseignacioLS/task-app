@@ -40,12 +40,10 @@ const Detail = () => {
   // others
   const navigate = useNavigate()
 
-  const getTaskInformation = (id) => {
-    return async () => {
-      const newData = await requestGetTask(id)
-      setTask(newData)
-      setIsLoaded(true)
-    }
+  const getTaskInformation = async (id) => {
+    const newData = await requestGetTask(id)
+    setTask(newData)
+    setIsLoaded(true)
   }
 
   const handleCompleteTask = () => {
@@ -72,7 +70,7 @@ const Detail = () => {
         f: async () => {
           await updateTaskField(task._id, "status", "pending")
           await updateTaskLog(user._id, task._id, "Task reopened")
-          await getTaskInformation(id)()
+          await getTaskInformation(id)
         },
       },
       {
@@ -111,27 +109,26 @@ const Detail = () => {
   const handleDescriptionUpdate = async (newDescription) => {
     await updateTaskField(task._id, "description", newDescription)
     await updateTaskLog(user._id, task._id, "Description Updated")
-    await getTaskInformation(id)()
+    await getTaskInformation(id)
   }
   const handleTitleUpdate = async (newTitle) => {
     await updateTaskField(task._id, "title", newTitle)
     await updateTaskLog(user._id, task._id, "Title Updated")
-    await getTaskInformation(id)()
+    await getTaskInformation(id)
   }
   const handleDeadlineUpdate = async (newDeadline) => {
     await updateTaskField(task._id, "deadline", newDeadline)
     await updateTaskLog(user._id, task._id, "Deadline Updated")
-    await getTaskInformation(id)()
+    await getTaskInformation(id)
   }
 
   React.useEffect(() => {
-    getTaskInformation(id)()
+    getTaskInformation(id)
   }, [id])
 
   return (
     <>
-      {!isLoaded && <Loading />}
-      {isLoaded && (
+      {isLoaded ? (
         <div className="detail-container">
           <div className="task-detail">
             <EditableField
@@ -180,10 +177,10 @@ const Detail = () => {
             _id={task._id}
             tasklog={task.log}
             updateTaskLog={updateTaskLog}
-            getTaskInformation={getTaskInformation(id)}
+            getTaskInformation={() => getTaskInformation(id)}
           />
         </div>
-      )}
+      ):<Loading/>}
     </>
   )
 }
