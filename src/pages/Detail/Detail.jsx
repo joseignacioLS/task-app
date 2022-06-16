@@ -10,16 +10,29 @@ import {
   requestUpdateTask,
 } from "../../shared/utils/api.mjs"
 import { checkExpiration } from "../../shared/utils/date.mjs"
-import "./Detail.scss"
 import EditableField from "./EditableField/EditableField"
 import Log from "./Log/Log"
+import style from "./Detail.module.scss"
 
+/**
+ * Makes a request to Add a new message by the user to the log of the tasks  *
+ * @param {*} userId id of the user
+ * @param {*} taskId id of the tasks
+ * @param {*} newMessage new message to add to the log
+ */
 const updateTaskLog = async (userId, taskId, newMessage) => {
   if (newMessage !== "") {
     await requestAddMessageToLog(taskId, userId, newMessage)
   }
 }
 
+/**
+ * Makes a request to update the the desired field of a tasks with a new value
+ *
+ * @param {*} taskId id of the task
+ * @param {*} name name of the field to update
+ * @param {*} value new value of the field
+ */
 const updateTaskField = async (taskId, name, value) => {
   await requestUpdateTask(taskId, { [name]: value })
 }
@@ -131,52 +144,54 @@ const Detail = () => {
   return (
     <>
       {isLoaded ? (
-        <div className="detail-container">
-          <div className="task-detail">
+        <div className={style.detailContainer}>
+          <div className={style.taskDetail}>
             <EditableField
               value={task.title}
               onUpdateF={handleTitleUpdate}
-              textClass="task-detail__title"
-              inputClass="task-detail__title-input"
+              textClass={style.taskDetailTitle}
+              inputClass={style.taskDetailTitleInput}
               type="input"
               isEditable={isLogged}
             />
-            <p className="task-detail__ownership">
+            <p className={style.taskDetailOwnership}>
               Owner:{" "}
               {task.user?.username ? task.user?.username : task.group.name}
             </p>
-            <p className="task-detail__status">
+            <p className={style.taskDetailStatus}>
               Status: {isExpired ? "missed" : task.status}
             </p>
             <EditableField
               type="date"
               onUpdateF={handleDeadlineUpdate}
               value={task.deadline}
-              textClass="task-detail__deadline"
-              inputClass="task-detail__deadline-input"
-              classMod="--expired"
+              textClass={style.taskDetailDeadline}
+              inputClass={style.taskDetailDeadlineInput}
+              classMod={style.expired}
               classModCheck={isExpired}
               isEditable={isLogged}
             />
             <EditableField
               value={task.description}
               onUpdateF={handleDescriptionUpdate}
-              textClass="task-detail__description"
-              inputClass="task-detail__description-input"
+              textClass={style.taskDetailDescription}
+              inputClass={style.taskDetailDescriptionInput}
               maxLength={25600}
               type="textarea"
               isEditable={isLogged}
             />
 
-            {user?._id && <section className="task-detail__handler">
-              {task.status === "pending" && (
-                <button onClick={handleCompleteTask}>Complete Task</button>
-              )}
-              {task.status === "completed" && (
-                <button onClick={handleUnCompleteTask}>Reopen Task</button>
-              )}
-              <button onClick={handleRemoveTask}>Remove Task</button>
-            </section>}
+            {user?._id && (
+              <section className={style.taskDetailHandle}>
+                {task.status === "pending" && (
+                  <button onClick={handleCompleteTask}>Complete Task</button>
+                )}
+                {task.status === "completed" && (
+                  <button onClick={handleUnCompleteTask}>Reopen Task</button>
+                )}
+                <button onClick={handleRemoveTask}>Remove Task</button>
+              </section>
+            )}
           </div>
           <Log
             _id={task._id}
@@ -185,7 +200,9 @@ const Detail = () => {
             getTaskInformation={() => getTaskInformation(id)}
           />
         </div>
-      ):<Loading/>}
+      ) : (
+        <Loading />
+      )}
     </>
   )
 }

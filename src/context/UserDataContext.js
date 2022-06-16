@@ -7,21 +7,28 @@ import {
 
 export const UserDataContext = React.createContext()
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "set":
+      console.log(action.userData)
+      setUserLocalStorage(action.userData)
+      return action.userData
+    case "logout":
+      clearUserFromLocalStorage()
+      return undefined
+    default:
+      throw new Error()
+  }
+}
+
 const UserProvider = ({ children }) => {
-  const [user, setUser] = React.useState(retrieveUserFromLocalStorage())
-
-  const storeUser = (data) => {
-    setUserLocalStorage(data)
-    setUser(data)
-  }
-
-  const logout = () => {
-    setUser(undefined)
-    clearUserFromLocalStorage()
-  }
+  const [user, userDispatcher] = React.useReducer(
+    reducer,
+    retrieveUserFromLocalStorage()
+  )
 
   return (
-    <UserDataContext.Provider value={{ user, setUser, logout, storeUser }}>
+    <UserDataContext.Provider value={{ user, userDispatcher }}>
       {children}
     </UserDataContext.Provider>
   )

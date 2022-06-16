@@ -1,21 +1,23 @@
 import React from "react"
 import { UserDataContext } from "../../../../context/UserDataContext"
-import styles from "./LogEntry.module.scss"
+import style from "./LogEntry.module.scss"
 
 const LogEntry = ({ entry, userId, index, handleDelete }) => {
   // contexts
   const { user } = React.useContext(UserDataContext)
 
+  const isLogged = user !== undefined
+
   return (
     <div
-      className={`log-item log-item--${
-        userId === user?._id ? "self" : "other"
+      className={`${style.logItem} ${
+        isLogged && userId === user._id ? style.logItemSelf : style.logItemOther
       }`}
     >
-      <span className={styles.logEntry}>
+      <span className={style.logEntry}>
         {entry.message} - {entry.user.username}{" "}
       </span>
-      {user?._id && (
+      {isLogged && (
         <button name={index} onClick={handleDelete}>
           X
         </button>

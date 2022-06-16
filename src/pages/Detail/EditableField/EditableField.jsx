@@ -1,5 +1,4 @@
 import React from "react"
-import "./EditableField.scss"
 
 const EditableField = ({
   value,
@@ -40,7 +39,7 @@ const EditableField = ({
       {!isEdit && (
         <p
           className={`${textClass} ${
-            classModCheck ? textClass + classMod : ""
+            classModCheck ? classMod : ""
           }`}
           onClick={handleEditToggle}
         >
@@ -54,7 +53,7 @@ const EditableField = ({
           value={data}
           type="text"
           className={`${inputClass} ${
-            classModCheck ? inputClass + classMod : ""
+            classModCheck ? classMod : ""
           }`}
           onBlur={handleEditToggle}
           onInput={handleInput}
@@ -67,7 +66,7 @@ const EditableField = ({
           value={data}
           type="text"
           className={`${inputClass} ${
-            classModCheck ? inputClass + classMod : ""
+            classModCheck ? classMod : ""
           }`}
           onBlur={handleEditToggle}
           onInput={handleInput}
@@ -79,7 +78,7 @@ const EditableField = ({
           value={data}
           type="date"
           className={`${inputClass} ${
-            classModCheck ? inputClass + classMod : ""
+            classModCheck ? classMod : ""
           }`}
           onBlur={handleEditToggle}
           onInput={handleInput}

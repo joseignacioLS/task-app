@@ -1,8 +1,12 @@
 import React from "react"
-import { addDaysToDate, getTodayDate } from "../../shared/utils/date.mjs"
+import { getTodayDate } from "../../shared/utils/date.mjs"
 import "./Calendar.scss"
 import MonthView from "./MonthView/MonthView.jsx"
 
+/**
+ * Resets the state today to the current date
+ * @param {*} setToday setter of the state today
+ */
 const resetToday = (setToday) => {
   setToday(getTodayDate())
 }

@@ -1,24 +1,23 @@
 /**
- * Funcion para recuperar y almacenar (opcional esto ultimo, gestionado por set) el user del
- * localstorage. Es necesario el set para poder utilizarlo dentro del authroute si quiero
- * usar esta funcion para comprobar si el user esta loggeado al hacer refresh
- *
- * @param {*} setUser setter del hook
- * @param {*} set value del hook
- * @returns devuelve en boolean representando si el user se puede recuperar del localstorage
+ * Tries to retrieve the stored user in the localstorage and returns it
+ * @returns An object with the stored user if defined, else undefined
  */
 const retrieveUserFromLocalStorage = () => {
   const storedUser = localStorage.getItem("user")
-  if (storedUser) {
-    return JSON.parse(storedUser)
-  }
-  return undefined
+  return JSON.parse(storedUser) ?? undefined
 }
 
+/**
+ * Removes stored data of user in localstorage
+ */
 const clearUserFromLocalStorage = () => {
   localStorage.removeItem("user")
 }
 
+/**
+ * stores user data in localstorage
+ * @param {*} userData date of the user
+ */
 const setUserLocalStorage = (userData) => {
   localStorage.setItem("user", JSON.stringify(userData))
 }

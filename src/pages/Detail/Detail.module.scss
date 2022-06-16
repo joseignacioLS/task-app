@@ -1,7 +1,7 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
-.detail-container {
+.detailContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,55 +15,60 @@
   }
 }
 
-.task-detail {
+.taskDetail {
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
 
-  @include for-desktop-up{
+  @include for-desktop-up {
     width: 50%;
   }
 
-  &__title,
-  &__title-input {
+  &Title,
+  &TitleInput {
     outline: none;
     width: 100%;
+
     border: 2px solid transparent;
     border-bottom: 1px solid $secondary-color;
+
     font-size: 2rem;
     font-weight: 700;
+
     border-radius: 0.25rem;
+
+    font-family: inherit;
   }
-  &__title-input {
+  &TitleInput {
     border: 1.5px solid $red;
   }
 
-  &__ownership {
-    color: grey;
+  &Wwnership {
+    color: $gray;
   }
   &__status {
-    color: grey;
+    color: $gray;
   }
 
-  &__deadline,
-  &__deadline-input {
+  &Deadline,
+  &DeadlineInput {
     outline: none;
-    color: grey;
+
     margin-top: 1rem;
     border: 2px solid transparent;
 
-    &--expired {
-      color: $red;
-    }
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
   }
-  &__deadline-input {
+  &DeadlineInput {
     border: 1px solid $red;
   }
 
-  &__description,
-  &__description-input {
+  &Description,
+  &DescriptionInput {
     width: 100%;
     padding: 0.5rem;
     margin-top: 1rem;
@@ -73,14 +78,17 @@
 
     border: 1px solid $secondary-color;
     border-radius: 0.5rem;
+
+    font-size: inherit;
+    font-family: inherit;
   }
 
-  &__description-input {
+  &DescriptionInput {
     outline: none;
     border: 1.5px solid $red;
   }
 
-  &__handler {
+  &Handler {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -92,4 +100,8 @@
       background-color: $red;
     }
   }
+}
+
+.expired {
+  color: $red;
 }

@@ -6,8 +6,8 @@ import { UserDataContext } from "../../context/UserDataContext"
 import styles from "./Navbar.module.scss"
 
 const Navbar = () => {
-  const { user, logout } = React.useContext(UserDataContext)
-  const { theme, toggleTheme } = React.useContext(ThemeContext)
+  const { user, userDispatcher } = React.useContext(UserDataContext)
+  const { theme } = React.useContext(ThemeContext)
 
   const location = useLocation()
 
@@ -19,13 +19,6 @@ const Navbar = () => {
         theme === "dark" ? "darkMode" : "lightMode"
       }`}
     >
-      <section
-        className={`${styles.navbarSection} ${styles.navbarSectionLeft}`}
-      >
-        <button className={styles.themeBtn} onClick={toggleTheme}>
-          {theme}
-        </button>
-      </section>
       <section
         className={`${styles.navbarSection} ${styles.navbarSectionCenter}`}
       >
@@ -41,7 +34,9 @@ const Navbar = () => {
             <Link to="/profile" className={styles.username}>
               {user.username}
             </Link>
-            <button onClick={logout}>Logout</button>
+            <button onClick={() => userDispatcher({ type: "logout" })}>
+              Logout
+            </button>
           </>
         )}
         {!isLogged && location.pathname !== "/login" && (

@@ -1,3 +1,8 @@
+/**
+ * Tests whether a password passes all the validations
+ * @param {*} password string, password to test
+ * @returns boolean
+ */
 const passwordValidator = (password) => {
   // length
   if (password.length < 4) return false
@@ -6,4 +11,4 @@ const passwordValidator = (password) => {
   return true
 }
 
-export {passwordValidator}
+export { passwordValidator }

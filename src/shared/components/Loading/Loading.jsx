@@ -1,8 +1,8 @@
 import React from "react"
-import "./Loading.scss"
+import style from "./Loading.module.scss"
 
 const Loading = () => {
-  return <div className="loading"><div className="loading__ball"></div></div>
+  return <div className={style.loading}><div className={style.loadingBall}></div></div>
 }
 
 export default Loading

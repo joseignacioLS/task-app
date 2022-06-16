@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
+import { ThemeContext } from "../../context/ThemeContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
 import Loading from "../../shared/components/Loading/Loading.jsx"
 import PasswordInput from "../../shared/components/PasswordInput/PasswordInput.jsx"
@@ -14,6 +15,11 @@ import {
 import { passwordValidator } from "../../shared/utils/passwordValidation.mjs"
 import "./Profile.scss"
 
+/**
+ * Makes a request to retrieve the groups of the user
+ * @param {*} userId id of the user
+ * @param {*} setUserGroups setter of the userGroups state
+ */
 const getGroups = async (userId, setUserGroups) => {
   const data = await requestGetUserGroups(userId)
   if (data) {
@@ -21,6 +27,11 @@ const getGroups = async (userId, setUserGroups) => {
   }
 }
 
+/**
+ * Makes a request to retrieve the invitations to groups of an user
+ * @param {*} userId id of the user
+ * @param {*} setUserInvitations setter of the userInvitations state
+ */
 const getInvitations = async (userId, setUserInvitations) => {
   const data = await requestGetUserInvitations(userId)
   if (data) {
@@ -28,6 +39,11 @@ const getInvitations = async (userId, setUserInvitations) => {
   }
 }
 
+/**
+ * Generates the view of the list of groups owned by the user
+ * @param {*} userGroups array of groups of a user
+ * @returns A JSX object with the list of groups
+ */
 const showOwnedGroups = (userGroups) => {
   return (
     <ul>
@@ -40,6 +56,11 @@ const showOwnedGroups = (userGroups) => {
   )
 }
 
+/**
+ * Generates the view of the list of groups the user is member of
+ * @param {*} userGroups array of groups of a user
+ * @returns A JSX object with the list of groups
+ */
 const showMemberGroups = (userGroups) => {
   return (
     <ul>
@@ -52,6 +73,12 @@ const showMemberGroups = (userGroups) => {
   )
 }
 
+/**
+ * Generates the view of the list of invitations
+ * @param {*} userInvitations array of invitations of an user
+ * @param {*} handleInvitationAction function to handle the invitation
+ * @returns A JSX object with the list of invitations
+ */
 const showUserInvitations = (userInvitations, handleInvitationAction) => {
   return (
     <ul>
@@ -74,6 +101,7 @@ const Profile = () => {
   // contexts
   const { user } = React.useContext(UserDataContext)
   const { updateModalData } = React.useContext(ModalContext)
+  const { theme, toggleTheme } = React.useContext(ThemeContext)
 
   // forms
   const [formDataGroup, setFormDataGroup] = React.useState({ groupName: "" })
@@ -159,7 +187,7 @@ const Profile = () => {
 
   return (
     <>
-      {isLoaded? (
+      {isLoaded ? (
         <div className="profile-container">
           <h1>{user.username}</h1>
           <section className="groups">
@@ -183,6 +211,10 @@ const Profile = () => {
             {showUserInvitations(userInvitations, handleInvitationAction)}
           </section>
           <section className="user-settings">
+            <h2>Change Theme</h2>
+            <p>
+              Currently in <button onClick={toggleTheme}>{theme}</button> mode
+            </p>
             <h2>Change Password</h2>
             <form onSubmit={handleSubmitUpdatePassword}>
               <label>
@@ -207,7 +239,9 @@ const Profile = () => {
             </form>
           </section>
         </div>
-      ): <Loading/>}
+      ) : (
+        <Loading />
+      )}
     </>
   )
 }

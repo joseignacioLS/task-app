@@ -2,9 +2,15 @@ import React from "react"
 import { ModalContext } from "../../../context/ModalContext"
 import { UserDataContext } from "../../../context/UserDataContext"
 import { requestRemoveMessageFromLog } from "../../../shared/utils/api.mjs"
-import "./Log.scss"
+import style from "./Log.module.scss"
 import LogEntry from "./LogEntry/LogEntry"
 
+/**
+ * Generates the view of the log of the task
+ * @param {*} tasklog log of the task
+ * @param {*} handleDelete function to handle the deletion of a log entry
+ * @returns A JSX object containing the log
+ */
 const showLogEntries = (tasklog, handleDelete) => {
   return tasklog?.map((entry, index) => (
     <LogEntry
@@ -19,6 +25,9 @@ const showLogEntries = (tasklog, handleDelete) => {
 const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
   // contexts
   const { user } = React.useContext(UserDataContext)
+
+  const isLogged = user !== undefined
+
   const { updateModalData } = React.useContext(ModalContext)
 
   // forms
@@ -52,15 +61,15 @@ const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
   }
 
   return (
-    <section className="task-log" onSubmit={handleSubmit}>
+    <section className={style.taskLog} onSubmit={handleSubmit}>
       <h2>Task Log</h2>
-      {user?._id && (
-        <form className="task-log__form">
+      {isLogged && (
+        <form className={style.taskLogFrom}>
           <input type="text" value={newMessage} onInput={handleInput} />
           <button type="submit">Add log</button>
         </form>
       )}
-      <section className="task-log__list">
+      <section className={style.taskLogList}>
         {showLogEntries(tasklog, handleDelete)}
       </section>
     </section>

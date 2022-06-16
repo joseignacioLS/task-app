@@ -9,7 +9,7 @@ import "./Login.scss"
 const Login = () => {
   // context
   const { updateModalData } = React.useContext(ModalContext)
-  const { storeUser } = React.useContext(UserDataContext)
+  const { userDispatcher } = React.useContext(UserDataContext)
 
   // forms
   const [formData, setFormData] = React.useState({ username: "", password: "" })
@@ -19,7 +19,6 @@ const Login = () => {
 
   // other
   const navigate = useNavigate()
-
 
   const handleInput = (e) => {
     const key = e.target.name
@@ -41,7 +40,7 @@ const Login = () => {
     else if (mode === "register")
       response = await requestRegister(formData.username, formData.password)
     if (response) {
-      storeUser(response)
+      userDispatcher({ type: "set", userData: response })
       navigate("/")
     } else {
       updateModalData(`${mode} error`)

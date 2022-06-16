@@ -5,28 +5,19 @@ import { requestGetUserTasks } from "../../../shared/utils/api.mjs"
 import Card from "./Card/Card.jsx"
 import "./ListSection.scss"
 
+/**
+ * Makes a request to retrieve the tasks of an user
+ *
+ * @param {*} userId id of the user
+ * @param {*} setTasks setter for the tasks state
+ * @param {*} setIsLoaded setter for the isLoaded state
+ */
 const getTasksList = async (userId, setTasks, setIsLoaded) => {
   const data = await requestGetUserTasks(userId)
   if (data) {
     setTasks(data)
     setIsLoaded(true)
   }
-}
-
-const handleCurrentListChange = (tasks, setCurrentList, filter) => {
-  const filteredTaskList = tasks
-    .filter((task) => {
-      return task.group === filter.userGroups[filter.listIndex]._id
-    })
-    .filter((task) => {
-      return task.status === filter.statusFilter
-    })
-    .sort((a, b) => {
-      if (filter.sortAscending)
-        return new Date(a.deadline) - new Date(b.deadline)
-      return new Date(b.deadline) - new Date(a.deadline)
-    })
-  setCurrentList(filteredTaskList)
 }
 
 const showCards = (currentList) => {
@@ -58,6 +49,22 @@ const ListSection = ({ filter }) => {
   const [currentList, setCurrentList] = React.useState([])
   const [isLoaded, setIsLoaded] = React.useState(false)
   const [listDom, setListDom] = React.useState(null)
+
+  const handleCurrentListChange = () => {
+    const filteredTaskList = tasks
+      .filter((task) => {
+        return task.group === filter.userGroups[filter.listIndex]._id
+      })
+      .filter((task) => {
+        return task.status === filter.statusFilter
+      })
+      .sort((a, b) => {
+        if (filter.sortAscending)
+          return new Date(a.deadline) - new Date(b.deadline)
+        return new Date(b.deadline) - new Date(a.deadline)
+      })
+    setCurrentList(filteredTaskList)
+  }
 
   React.useEffect(() => {
     if (user) {

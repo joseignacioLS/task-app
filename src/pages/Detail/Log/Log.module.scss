@@ -1,7 +1,7 @@
 @import "../../../styles/variables";
 @import "../../../styles/mixins";
 
-.task-log {
+.taskLog {
   width: 100%;
 
   display: flex;
@@ -15,29 +15,15 @@
     width: 50%;
   }
 
-  &__form {
+  &Form {
     margin-bottom: 0.25rem;
   }
-  &__list {
+  &List {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     list-style: none;
-
-    .log-item {
-      width: 100%;
-      &--self {
-        text-align: right;
-      }
-      &--other {
-        text-align: left;
-      }
-      button {
-        background-color: $red;
-        color: $secondary-color;
-      }
-    }
   }
 }

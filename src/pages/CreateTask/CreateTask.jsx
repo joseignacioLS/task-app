@@ -8,6 +8,12 @@ import {
 } from "../../shared/utils/api.mjs"
 import "./CreateTask.scss"
 
+/**
+ * Makes a request to retrieve the groups of the user
+ *
+ * @param {*} userId id of the user
+ * @param {*} setUserGroups setter of the userGroups state
+ */
 const getGroups = async (userId, setUserGroups) => {
   const data = await requestGetUserGroups(userId)
   if (data) {

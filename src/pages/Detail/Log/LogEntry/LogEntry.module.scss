@@ -1,3 +1,18 @@
-.logEntry {
-  color: inherit;
+@import "../../../../styles/variables";
+
+.logItem {
+  width: 100%;
+  &Self {
+    text-align: right;
+  }
+  &Other {
+    text-align: left;
+  }
+  button {
+    background-color: $red;
+    color: $secondary-color;
+  }
+  .logEntry {
+    color: inherit;
+  }
 }

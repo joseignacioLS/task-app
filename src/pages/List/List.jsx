@@ -5,6 +5,11 @@ import { requestGetUserGroups } from "../../shared/utils/api.mjs"
 import "./List.scss"
 import ListSection from "./ListSection/ListSection.jsx"
 
+/**
+ * Makes a request to retrieve the groups of the user
+ * @param {*} userId id of the user
+ * @returns an array of objects with the _id and name of the groups
+ */
 const getGroups = async (userId) => {
   const data = await requestGetUserGroups(userId)
   if (data) {

@@ -9,6 +9,12 @@ import {
   requestSendInvitation,
 } from "../../shared/utils/api.mjs"
 
+/**
+ * Makes a request to retrieve the groups of an user
+ * @param {*} id id of the group
+ * @param {*} setGroupData setter of the groupData state
+ * @param {*} setIsLoaded setter of the isLoaded state
+ */
 const getGroupData = async (id, setGroupData, setIsLoaded) => {
   const data = await requestGetGroup(id)
   if (data) {
@@ -17,6 +23,11 @@ const getGroupData = async (id, setGroupData, setIsLoaded) => {
   }
 }
 
+/**
+ * Generates the view of the list of users of the group
+ * @param {*} members array of users
+ * @returns A JSX object with the user list
+ */
 const showGroupMembers = (members) => {
   return (
     <ul>
@@ -119,7 +130,9 @@ const Group = () => {
             <button onClick={handleDeleteGroup}>Delete Group</button>
           )}
         </div>
-      ):<Loading/>}
+      ) : (
+        <Loading />
+      )}
     </>
   )
 }
