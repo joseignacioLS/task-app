@@ -37,20 +37,24 @@
     min-width: 264px;
 
     animation: slide-in 500ms forwards;
-    p {
-      color: $red;
-      font-weight: bold;
-    }
+
+    color: $secondary-color;
+    font-weight: bold;
+
     &__actions {
       display: flex;
       gap: 1rem;
-      button{
+      button {
         background-color: $secondary-color;
         color: $primary-color;
         font-weight: bold;
-        padding: .5rem
+        padding: 0.5rem;
       }
     }
+  }
+
+  .error {
+    color: $red;
   }
 }
 

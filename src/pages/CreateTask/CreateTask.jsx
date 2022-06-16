@@ -26,7 +26,7 @@ const getGroups = async (userId, setUserGroups) => {
 const CreateTask = () => {
   // contexts
   const { user } = React.useContext(UserDataContext)
-  const { updateModalData } = React.useContext(ModalContext)
+  const { modalDispatcher } = React.useContext(ModalContext)
 
   // forms
   const [formData, setFormData] = React.useState({
@@ -61,9 +61,10 @@ const CreateTask = () => {
     e.preventDefault()
 
     if (!formData.title || !formData.description || !formData.deadline) {
-      updateModalData("Please, fill all fields", true, [
-        { title: "Ok", f: () => {} },
-      ])
+      modalDispatcher({
+        type: "error",
+        payload: { message: "Please, fill all the fields" },
+      })
       return
     }
 
@@ -75,9 +76,10 @@ const CreateTask = () => {
       formData.deadline
     )
     if (!response) {
-      updateModalData("Task could not be created", true, [
-        { title: "Ok", f: () => {} },
-      ])
+      modalDispatcher({
+        type: "error",
+        payload: { message: "Task could not be created" },
+      })
       return
     }
 

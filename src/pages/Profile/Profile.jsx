@@ -100,7 +100,7 @@ const showUserInvitations = (userInvitations, handleInvitationAction) => {
 const Profile = () => {
   // contexts
   const { user } = React.useContext(UserDataContext)
-  const { updateModalData } = React.useContext(ModalContext)
+  const { modalDispatcher } = React.useContext(ModalContext)
   const { theme, toggleTheme } = React.useContext(ThemeContext)
 
   // forms
@@ -131,7 +131,12 @@ const Profile = () => {
     e.preventDefault()
 
     if (formDataGroup.groupName.length < 4) {
-      updateModalData("Group name too short")
+      modalDispatcher({
+        type: "error",
+        payload: {
+          message: "Group name too short",
+        },
+      })
       return
     }
 
@@ -153,7 +158,12 @@ const Profile = () => {
     e.preventDefault()
 
     if (!passwordValidator(formDataPwd.newPassword)) {
-      updateModalData("Password too short")
+      modalDispatcher({
+        type: "error",
+        payload: {
+          message: "Password too short",
+        },
+      })
       return
     }
 
@@ -164,7 +174,12 @@ const Profile = () => {
     )
     if (response) {
       setFormDataPwd({ oldPassword: "", newPassword: "" })
-      updateModalData("Password updated successfuly")
+      modalDispatcher({
+        type: "message",
+        payload: {
+          message: "Password updated",
+        },
+      })
     }
   }
 

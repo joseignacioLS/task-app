@@ -28,7 +28,7 @@ const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
 
   const isLogged = user !== undefined
 
-  const { updateModalData } = React.useContext(ModalContext)
+  const { modalDispatcher } = React.useContext(ModalContext)
 
   // forms
   const [newMessage, setNewMessage] = React.useState("")
@@ -47,17 +47,23 @@ const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
 
   const handleDelete = (e) => {
     e.preventDefault()
-    updateModalData("Delete the comment?", true, [
-      {
-        title: "Yes",
-        f: async () => {
-          const index = e.target.name
-          await requestRemoveMessageFromLog(_id, index)
-          await getTaskInformation()
-        },
+    modalDispatcher({
+      type: "options",
+      payload: {
+        message: "Delete the comment?",
+        options: [
+          {
+            title: "Yes",
+            f: async () => {
+              const index = e.target.name
+              await requestRemoveMessageFromLog(_id, index)
+              await getTaskInformation()
+            },
+          },
+          { title: "No", f: null },
+        ],
       },
-      { title: "No", f: () => {} },
-    ])
+    })
   }
 
   return (

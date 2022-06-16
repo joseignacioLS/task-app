@@ -27,7 +27,7 @@ const reducer = (state, action) => {
         message: action.payload.message,
         isVisible: true,
         isError: false,
-        options: null,
+        options: action.payload.options,
       }
     case "options":
       return {
@@ -36,50 +36,21 @@ const reducer = (state, action) => {
         isError: false,
         options: action.payload.options,
       }
+    case "hide":
+      return { message: "", isVisible: false, isError: false, options: [] }
     default:
       throw new Error()
   }
 }
 
 const ModalProvider = ({ children }) => {
-  const [modalData2, modalDispatcher] = React.useReducer(reducer, INITIAL_STATE)
-
-  const [modalData, setModalData] = React.useState({
-    isVisible: false,
-    message: "",
-    options: [
-      {
-        title: "Ok",
-        f: () => {},
-      },
-    ],
-  })
-  const updateModalData = (
-    message,
-    isVisible = true,
-    options = [
-      {
-        title: "Ok",
-        f: () => {},
-      },
-    ]
-  ) => {
-    setModalData({
-      isVisible,
-      message,
-      options,
-    })
-  }
+  const [modalData, modalDispatcher] = React.useReducer(reducer, INITIAL_STATE)
 
   return (
     <ModalContext.Provider
       value={{
-        isVisible: modalData.isVisible,
-        message: modalData.message,
-        options: modalData.options,
-        updateModalData,
         modalDispatcher,
-        modalData2,
+        modalData,
       }}
     >
       {children}

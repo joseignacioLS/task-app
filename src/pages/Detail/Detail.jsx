@@ -40,7 +40,7 @@ const updateTaskField = async (taskId, name, value) => {
 const Detail = () => {
   // contexts
   const { user } = React.useContext(UserDataContext)
-  const { updateModalData } = React.useContext(ModalContext)
+  const { modalDispatcher } = React.useContext(ModalContext)
 
   const isLogged = user !== undefined
 
@@ -62,63 +62,83 @@ const Detail = () => {
   }
 
   const handleCompleteTask = () => {
-    updateModalData(`Is '${task.title}' completed?`, true, [
-      {
-        title: "Yes",
-        f: async () => {
-          await updateTaskField(task._id, "status", "completed")
-          await updateTaskLog(user._id, task._id, "Task completed")
-          navigate(`/?list=${task.group.name}`)
-        },
+    modalDispatcher({
+      type: "options",
+      payload: {
+        message: `Is '${task.title}' completed?`,
+        options: [
+          {
+            title: "Yes",
+            f: async () => {
+              await updateTaskField(task._id, "status", "completed")
+              await updateTaskLog(user._id, task._id, "Task completed")
+              navigate(
+                `/?list=${task.group?.name ? task.group.name : "Private"}`
+              )
+            },
+          },
+          {
+            title: "No",
+            f: null,
+          },
+        ],
       },
-      {
-        title: "No",
-        f: () => {},
-      },
-    ])
+    })
   }
 
   const handleUnCompleteTask = () => {
-    updateModalData(`Reopen '${task.title}'?`, true, [
-      {
-        title: "Yes",
-        f: async () => {
-          await updateTaskField(task._id, "status", "pending")
-          await updateTaskLog(user._id, task._id, "Task reopened")
-          await getTaskInformation(id)
-        },
+    modalDispatcher({
+      type: "options",
+      payload: {
+        message: `Reopen '${task.title}'?`,
+        options: [
+          {
+            title: "Yes",
+            f: async () => {
+              await updateTaskField(task._id, "status", "pending")
+              await updateTaskLog(user._id, task._id, "Task reopened")
+              await getTaskInformation(id)
+            },
+          },
+          {
+            title: "No",
+            f: null,
+          },
+        ],
       },
-      {
-        title: "No",
-        f: () => {},
-      },
-    ])
+    })
   }
 
   const handleRemoveTask = () => {
-    updateModalData(`Delete '${task.title}'?`, true, [
-      {
-        title: "Yes",
-        f: async () => {
-          const response = await requestDeleteTask(task._id)
-          if (!response) {
-            updateModalData("Error deleting the task", true, [
-              {
-                title: "ok",
-                f: () => {},
-              },
-            ])
-            return
-          }
-          const query = task.group?.name ?? "Private"
-          navigate(`/?list=${query}`)
-        },
+    modalDispatcher({
+      type: "options",
+      payload: {
+        message: `Delete '${task.title}'?`,
+        options: [
+          {
+            title: "Yes",
+            f: async () => {
+              const response = await requestDeleteTask(task._id)
+              if (!response) {
+                modalDispatcher({
+                  type: "error",
+                  payload: {
+                    message: "Error deleting the task",
+                  },
+                })
+                return
+              }
+              const query = task.group?.name ?? "Private"
+              navigate(`/?list=${query}`)
+            },
+          },
+          {
+            title: "No",
+            f: () => {},
+          },
+        ],
       },
-      {
-        title: "No",
-        f: () => {},
-      },
-    ])
+    })
   }
 
   const handleDescriptionUpdate = async (newDescription) => {

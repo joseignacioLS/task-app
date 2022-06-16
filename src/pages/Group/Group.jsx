@@ -41,7 +41,7 @@ const showGroupMembers = (members) => {
 const Group = () => {
   // contexts
   const { user } = React.useContext(UserDataContext)
-  const { updateModalData } = React.useContext(ModalContext)
+  const { modalDispatcher } = React.useContext(ModalContext)
 
   //forms
   const [formData, setFormData] = React.useState({ newUser: "" })
@@ -58,27 +58,39 @@ const Group = () => {
 
   const handleDeleteGroup = (e) => {
     e.preventDefault()
-    updateModalData("Delete Group?", true, [
-      {
-        title: "Yes",
-        f: async () => {
-          const response = await requestDeleteGroup(id)
-          if (!response) return
-          updateModalData("Group deleted", true, [
-            {
-              title: "ok",
-              f: () => {
-                navigate("/profile")
-              },
+    modalDispatcher({
+      type: "options",
+      payload: {
+        message: "Delete group?",
+        options: [
+          {
+            title: "Yes",
+            f: async () => {
+              const response = await requestDeleteGroup(id)
+              if (!response) return
+              modalDispatcher({
+                type: "message",
+                payload: {
+                  message: "Group deleted",
+                  options: [
+                    {
+                      title: "ok",
+                      f: () => {
+                        navigate("/profile")
+                      },
+                    },
+                  ],
+                },
+              })
             },
-          ])
-        },
+          },
+          {
+            title: "No",
+            f: null,
+          },
+        ],
       },
-      {
-        title: "No",
-        f: () => {},
-      },
-    ])
+    })
   }
 
   const handleInvite = async (e) => {
@@ -87,7 +99,12 @@ const Group = () => {
     if (response) {
       setFormData({ newUser: "" })
     } else {
-      updateModalData(`Error sending the invitation to '${formData.newUser}'`)
+      modalDispatcher({
+        type: "error",
+        payload: {
+          message: `Error sending the invitation to '${formData.newUser}'`,
+        },
+      })
     }
   }
 

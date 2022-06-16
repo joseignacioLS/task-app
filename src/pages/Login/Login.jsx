@@ -8,7 +8,7 @@ import "./Login.scss"
 
 const Login = () => {
   // context
-  const { updateModalData } = React.useContext(ModalContext)
+  const { modalDispatcher } = React.useContext(ModalContext)
   const { userDispatcher } = React.useContext(UserDataContext)
 
   // forms
@@ -43,7 +43,12 @@ const Login = () => {
       userDispatcher({ type: "set", userData: response })
       navigate("/")
     } else {
-      updateModalData(`${mode} error`)
+      modalDispatcher({
+        type: "error",
+        payload: {
+          message: `${mode} error`,
+        },
+      })
     }
   }
   return (
