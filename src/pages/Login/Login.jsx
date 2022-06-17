@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
@@ -8,14 +8,14 @@ import "./Login.scss"
 
 const Login = () => {
   // context
-  const { modalDispatcher } = React.useContext(ModalContext)
-  const { userDispatcher } = React.useContext(UserDataContext)
+  const { modalDispatcher } = useContext(ModalContext)
+  const { userDispatcher } = useContext(UserDataContext)
 
   // forms
-  const [formData, setFormData] = React.useState({ username: "", password: "" })
+  const [formData, setFormData] = useState({ username: "", password: "" })
 
   // variables
-  const [mode, setMode] = React.useState("login")
+  const [mode, setMode] = useState("login")
 
   // other
   const navigate = useNavigate()

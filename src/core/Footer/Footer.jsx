@@ -1,9 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 import { ThemeContext } from "../../context/ThemeContext"
 import styles from "./Footer.module.scss"
 const Footer = () => {
-  const { theme } = React.useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext)
   return (
     <footer
       className={`${styles.footer} ${

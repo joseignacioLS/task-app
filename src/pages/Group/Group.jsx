@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
@@ -6,6 +6,7 @@ import Loading from "../../shared/components/Loading/Loading.jsx"
 import {
   requestDeleteGroup,
   requestGetGroup,
+  requestRemoveUserFromGroup,
   requestSendInvitation,
 } from "../../shared/utils/api.mjs"
 
@@ -40,18 +41,18 @@ const showGroupMembers = (members) => {
 
 const Group = () => {
   // contexts
-  const { user } = React.useContext(UserDataContext)
-  const { modalDispatcher } = React.useContext(ModalContext)
+  const { user } = useContext(UserDataContext)
+  const { modalDispatcher } = useContext(ModalContext)
 
   //forms
-  const [formData, setFormData] = React.useState({ newUser: "" })
+  const [formData, setFormData] = useState({ newUser: "" })
 
   // fetched data
-  const [groupData, setGroupData] = React.useState({})
+  const [groupData, setGroupData] = useState({})
 
   //variables
   const { id } = useParams()
-  const [isLoaded, setIsLoaded] = React.useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   // others
   const navigate = useNavigate()
@@ -68,20 +69,31 @@ const Group = () => {
             f: async () => {
               const response = await requestDeleteGroup(id)
               if (!response) return
-              modalDispatcher({
-                type: "message",
-                payload: {
-                  message: "Group deleted",
-                  options: [
-                    {
-                      title: "ok",
-                      f: () => {
-                        navigate("/profile")
-                      },
-                    },
-                  ],
-                },
-              })
+              navigate("/profile")
+            },
+          },
+          {
+            title: "No",
+            f: null,
+          },
+        ],
+      },
+    })
+  }
+
+  const handleLeaveGroup = (e) => {
+    e.preventDefault()
+    modalDispatcher({
+      type: "options",
+      payload: {
+        message: "Leave group?",
+        options: [
+          {
+            title: "Yes",
+            f: async () => {
+              const response = await requestRemoveUserFromGroup(user._id, id)
+              if (!response) return
+              navigate("/profile")
             },
           },
           {
@@ -115,7 +127,7 @@ const Group = () => {
     setFormData((oldValue) => ({ ...oldValue, [key]: value }))
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     // get group
     getGroupData(id, setGroupData, setIsLoaded)
   }, [id])
@@ -143,8 +155,10 @@ const Group = () => {
               <button type="submit">Send Invitation</button>
             </form>
           )}
-          {user._id === groupData.user._id && (
+          {user._id === groupData.user._id ? (
             <button onClick={handleDeleteGroup}>Delete Group</button>
+          ) : (
+            <button onClick={handleLeaveGroup}>Leave Group</button>
           )}
         </div>
       ) : (

@@ -1,6 +1,6 @@
-import React from "react"
+import React, { createContext, useReducer } from "react"
 
-export const ModalContext = React.createContext()
+export const ModalContext = createContext()
 
 const INITIAL_STATE = {
   isVisible: false,
@@ -44,7 +44,7 @@ const reducer = (state, action) => {
 }
 
 const ModalProvider = ({ children }) => {
-  const [modalData, modalDispatcher] = React.useReducer(reducer, INITIAL_STATE)
+  const [modalData, modalDispatcher] = useReducer(reducer, INITIAL_STATE)
 
   return (
     <ModalContext.Provider

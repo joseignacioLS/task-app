@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import { UserDataContext } from "../../context/UserDataContext.js"
 import { requestGetUserGroups } from "../../shared/utils/api.mjs"
@@ -22,11 +22,11 @@ const getGroups = async (userId) => {
 
 const List = () => {
   // contexts
-  const { user } = React.useContext(UserDataContext)
+  const { user } = useContext(UserDataContext)
 
   // variables
   const [searchParams, setSearchParams] = useSearchParams()
-  const [filter, setFilter] = React.useState({
+  const [filter, setFilter] = useState({
     userGroups: [{ _id: null, name: "Private" }],
     listIndex: 0,
     statusFilter: "pending",
@@ -63,7 +63,7 @@ const List = () => {
     })
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     //get query params
     const userInputList = searchParams.get("list")
 
@@ -78,7 +78,7 @@ const List = () => {
     })
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setSearchParams({ list: filter.userGroups[filter.listIndex].name })
   }, [filter.userGroups, filter.listIndex])
 

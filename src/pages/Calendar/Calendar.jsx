@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { getTodayDate } from "../../shared/utils/date.mjs"
 import "./Calendar.scss"
 import MonthView from "./MonthView/MonthView.jsx"
@@ -12,7 +12,7 @@ const resetToday = (setToday) => {
 }
 const Calendar = () => {
   // varriables
-  const [today, setToday] = React.useState(getTodayDate())
+  const [today, setToday] = useState(getTodayDate())
 
   return (
     <>

@@ -1,5 +1,5 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useContext, useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { ThemeContext } from "../../context/ThemeContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
@@ -99,26 +99,26 @@ const showUserInvitations = (userInvitations, handleInvitationAction) => {
 
 const Profile = () => {
   // contexts
-  const { user } = React.useContext(UserDataContext)
-  const { modalDispatcher } = React.useContext(ModalContext)
-  const { theme, toggleTheme } = React.useContext(ThemeContext)
+  const { user } = useContext(UserDataContext)
+  const { modalDispatcher } = useContext(ModalContext)
+  const { theme, themeDispatcher } = useContext(ThemeContext)
 
   // forms
-  const [formDataGroup, setFormDataGroup] = React.useState({ groupName: "" })
-  const [formDataPwd, setFormDataPwd] = React.useState({
+  const [formDataGroup, setFormDataGroup] = useState({ groupName: "" })
+  const [formDataPwd, setFormDataPwd] = useState({
     oldPassword: "",
     newPassword: "",
   })
 
   // fetched data
-  const [userGroups, setUserGroups] = React.useState({
+  const [userGroups, setUserGroups] = useState({
     ownedGroups: [],
     memberGroups: [],
   })
-  const [userInvitations, setUserInvitations] = React.useState([])
+  const [userInvitations, setUserInvitations] = useState([])
 
   // variables
-  const [isLoaded, setIsLoaded] = React.useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const handleInputGroup = (e) => {
     const key = e.target.name
@@ -192,13 +192,13 @@ const Profile = () => {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (user) {
       getGroups(user._id, setUserGroups)
       getInvitations(user._id, setUserInvitations)
       setIsLoaded(true)
     }
-  }, [user])
+  }, [user, userInvitations])
 
   return (
     <>
@@ -228,7 +228,11 @@ const Profile = () => {
           <section className="user-settings">
             <h2>Change Theme</h2>
             <p>
-              Currently in <button onClick={toggleTheme}>{theme}</button> mode
+              Currently in{" "}
+              <button onClick={() => themeDispatcher({ type: "toggle" })}>
+                {theme}
+              </button>{" "}
+              mode
             </p>
             <h2>Change Password</h2>
             <form onSubmit={handleSubmitUpdatePassword}>

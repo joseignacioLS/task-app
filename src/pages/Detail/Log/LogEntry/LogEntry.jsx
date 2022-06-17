@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import { UserDataContext } from "../../../../context/UserDataContext"
 import style from "./LogEntry.module.scss"
 
 const LogEntry = ({ entry, userId, index, handleDelete }) => {
   // contexts
-  const { user } = React.useContext(UserDataContext)
+  const { user } = useContext(UserDataContext)
 
   const isLogged = user !== undefined
 

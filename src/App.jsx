@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import Footer from "./core/Footer/Footer"
 import Modal from "./core/Modal/Modal"
 import Navbar from "./core/Navbar/Navbar"
-import React from "react"
+import React, { useContext } from "react"
 import ModalProvider from "./context/ModalContext.js"
 import UserProvider from "./context/UserDataContext.js"
 import routes, { secureRoute } from "./config/routes"
@@ -10,7 +10,7 @@ import styles from "./App.module.scss"
 import { ThemeContext } from "./context/ThemeContext"
 
 function App() {
-  const { theme } = React.useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext)
   return (
     <>
       <UserProvider>

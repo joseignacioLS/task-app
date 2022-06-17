@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserDataContext } from "../../../context/UserDataContext.js"
 import Loading from "../../../shared/components/Loading/Loading.jsx"
@@ -93,9 +93,9 @@ const showWeeks = (date, tasks, handleClick) => {
 }
 
 const MonthView = ({ date, setToday }) => {
-  const [tasks, setTasks] = React.useState([])
-  const { user } = React.useContext(UserDataContext)
-  const [isLoaded, setIsLoaded] = React.useState(false)
+  const [tasks, setTasks] = useState([])
+  const { user } = useContext(UserDataContext)
+  const [isLoaded, setIsLoaded] = useState(false)
   const navigate = useNavigate()
 
   const handleClick = (clickedDate, currentDate, visit) => {
@@ -107,7 +107,7 @@ const MonthView = ({ date, setToday }) => {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     getTasksList(user._id, setTasks, setIsLoaded)
   }, [user._id])
 

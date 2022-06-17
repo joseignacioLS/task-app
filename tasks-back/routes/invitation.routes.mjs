@@ -1,7 +1,6 @@
 import express from "express"
 import { Group } from "../models/group.model.mjs"
 import { Invitation } from "../models/invitation.model.mjs"
-import { Task } from "../models/task.model.mjs"
 import { User } from "../models/user.model.mjs"
 
 const router = express.Router()
@@ -23,7 +22,9 @@ router.get("/:id", async (req, res, next) => {
 router.get("/userInvitations/:userId", async (req, res, next) => {
   const { userId } = req.params
   try {
-    const invitations = await Invitation.find({ user: userId }).populate("group")
+    const invitations = await Invitation.find({ user: userId }).populate(
+      "group"
+    )
     res.status(200).json({
       status: 200,
       data: invitations,
@@ -37,18 +38,45 @@ router.get("/userInvitations/:userId", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   const { username, groupId } = req.body
   try {
-    const user = await User.findOne({username})
+    const user = await User.findOne({ username })
     if (!user) {
       return res.status(400).json({
-        message:"user does not exist",
-        status:400
+        message: "user does not exist",
+        status: 400,
       })
     }
+
+    const group = await Group.findById(groupId)
+
+    if (!group) {
+      return res.status(400).json({
+        message: "group does not exist",
+        status: 400,
+      })
+    }
+
+    if (group.members.includes(user._id)) {
+      return res.status(400).json({
+        status: 400,
+        message: "user is already member of the group",
+      })
+    }
+
+    const prevInvitation = await Invitation.findOne({ user: user._id, group: groupId })
+
+    if (prevInvitation) {
+      return res.status(400).json({
+        status: 400,
+        message: "Already invited",
+      })
+    }
+
     // get private tasks
     const invitation = await new Invitation({
       user: user._id,
       group: groupId,
     })
+
 
     const savedInvitation = await invitation.save()
 

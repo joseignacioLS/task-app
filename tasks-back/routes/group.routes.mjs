@@ -1,7 +1,6 @@
 import express from "express"
 import { Group } from "../models/group.model.mjs"
 import { Task } from "../models/task.model.mjs"
-import { User } from "../models/user.model.mjs"
 
 const router = express.Router()
 
@@ -73,6 +72,27 @@ router.delete("/:groupId", async (req, res, next) => {
     res.status(200).json({
       status: 200,
       data: deletedGroup,
+    })
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
+
+router.put("/:groupId", async (req, res, next) => {
+  const { groupId } = req.params
+  const { userId } = req.body
+  try {
+    const modGroup = await Group.findByIdAndUpdate(groupId, {
+      $pull: { members: userId },
+    })
+
+    if (!modGroup)
+      return res.status(404).json({
+        status: 404,
+      })
+    res.status(200).json({
+      status: 200,
+      data: modGroup,
     })
   } catch (err) {
     res.status(500).json(err)

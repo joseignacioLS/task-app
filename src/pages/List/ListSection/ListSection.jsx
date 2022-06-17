@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { UserDataContext } from "../../../context/UserDataContext.js"
 import Loading from "../../../shared/components/Loading/Loading.jsx"
 import { requestGetUserTasks } from "../../../shared/utils/api.mjs"
@@ -40,15 +40,15 @@ const showCards = (currentList) => {
 
 const ListSection = ({ filter }) => {
   // contexts
-  const { user } = React.useContext(UserDataContext)
+  const { user } = useContext(UserDataContext)
 
   // fetched data
-  const [tasks, setTasks] = React.useState([])
+  const [tasks, setTasks] = useState([])
 
   // variables
-  const [currentList, setCurrentList] = React.useState([])
-  const [isLoaded, setIsLoaded] = React.useState(false)
-  const [listDom, setListDom] = React.useState(null)
+  const [currentList, setCurrentList] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [listDom, setListDom] = useState(null)
 
   const handleCurrentListChange = () => {
     const filteredTaskList = tasks
@@ -66,17 +66,17 @@ const ListSection = ({ filter }) => {
     setCurrentList(filteredTaskList)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (user) {
       getTasksList(user._id, setTasks, setIsLoaded, handleCurrentListChange)
     }
   }, [user])
 
-  React.useEffect(() => {
+  useEffect(() => {
     handleCurrentListChange(tasks, setCurrentList, filter)
   }, [tasks, filter])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (listDom) {
       listDom.style.animation = "none"
       setTimeout(

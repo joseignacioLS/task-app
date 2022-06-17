@@ -1,19 +1,24 @@
-import React from "react"
+import React, { createContext, useReducer } from "react"
 
-export const ThemeContext = React.createContext()
+export const ThemeContext = createContext()
+
+const INITIAL_STATE = { theme: localStorage.getItem("theme") || "light" }
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "toggle":
+      const newTheme = state.theme === "light" ? "dark" : "light"
+      return { theme: newTheme }
+    default:
+      throw new Error()
+  }
+}
 
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = React.useState(
-    localStorage.getItem("theme") || "light"
-  )
+  const [themeData, themeDispatcher] = useReducer(reducer, INITIAL_STATE)
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light"
-    setTheme(newTheme)
-    localStorage.setItem("theme", newTheme)
-  }
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: themeData.theme, themeDispatcher }}>
       {children}
     </ThemeContext.Provider>
   )

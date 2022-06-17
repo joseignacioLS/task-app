@@ -1,11 +1,11 @@
-import React from "react"
+import React, { createContext, useReducer } from "react"
 import {
   clearUserFromLocalStorage,
   retrieveUserFromLocalStorage,
   setUserLocalStorage,
 } from "../shared/utils/localstorage.mjs"
 
-export const UserDataContext = React.createContext()
+export const UserDataContext = createContext()
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -22,7 +22,7 @@ const reducer = (state, action) => {
 }
 
 const UserProvider = ({ children }) => {
-  const [user, userDispatcher] = React.useReducer(
+  const [user, userDispatcher] = useReducer(
     reducer,
     retrieveUserFromLocalStorage()
   )

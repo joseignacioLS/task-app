@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { ThemeContext } from "../../context/ThemeContext"
 import { UserDataContext } from "../../context/UserDataContext"
@@ -6,8 +6,8 @@ import { UserDataContext } from "../../context/UserDataContext"
 import styles from "./Navbar.module.scss"
 
 const Navbar = () => {
-  const { user, userDispatcher } = React.useContext(UserDataContext)
-  const { theme } = React.useContext(ThemeContext)
+  const { user, userDispatcher } = useContext(UserDataContext)
+  const { theme } = useContext(ThemeContext)
 
   const location = useLocation()
 

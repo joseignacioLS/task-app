@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { UserDataContext } from "../../../../context/UserDataContext"
 import Loading from "../../../../shared/components/Loading/Loading"
@@ -43,12 +43,12 @@ const showTasks = (tasks) => {
 }
 
 const DayView = () => {
-  const { user } = React.useContext(UserDataContext)
+  const { user } = useContext(UserDataContext)
   const { date } = useParams()
-  const [tasks, setTasks] = React.useState([])
-  const [isLoaded, setIsLoaded] = React.useState(false)
+  const [tasks, setTasks] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     getDayTasks(user._id, date, setTasks, setIsLoaded)
   }, [user, date])
 

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import "./Modal.scss"
 import { ModalContext } from "../../context/ModalContext"
 
@@ -16,7 +16,7 @@ const showOptions = (options, handleAcceptModal) => {
 }
 
 const Modal = () => {
-  const { modalData, modalDispatcher } = React.useContext(ModalContext)
+  const { modalData, modalDispatcher } = useContext(ModalContext)
 
   const handleAcceptModal = (f) => {
     return () => {

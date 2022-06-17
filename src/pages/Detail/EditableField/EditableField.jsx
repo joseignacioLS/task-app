@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 const EditableField = ({
   value,
@@ -11,8 +11,8 @@ const EditableField = ({
   classModCheck,
   isEditable = false,
 }) => {
-  const [data, setData] = React.useState(value)
-  const [isEdit, setIsEdit] = React.useState(false)
+  const [data, setData] = useState(value)
+  const [isEdit, setIsEdit] = useState(false)
 
   const handleInput = (e) => {
     setData(e.target.value)
@@ -21,7 +21,7 @@ const EditableField = ({
     if (isEditable) setIsEdit((oldValue) => !oldValue)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isEdit && value !== data) {
       //validation
       const isValue = data.length > 0

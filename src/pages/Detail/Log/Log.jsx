@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useState } from "react"
 import { ModalContext } from "../../../context/ModalContext"
 import { UserDataContext } from "../../../context/UserDataContext"
 import { requestRemoveMessageFromLog } from "../../../shared/utils/api.mjs"
@@ -24,14 +24,14 @@ const showLogEntries = (tasklog, handleDelete) => {
 
 const Log = ({ _id, tasklog, updateTaskLog, getTaskInformation }) => {
   // contexts
-  const { user } = React.useContext(UserDataContext)
+  const { user } = useContext(UserDataContext)
 
   const isLogged = user !== undefined
 
-  const { modalDispatcher } = React.useContext(ModalContext)
+  const { modalDispatcher } = useContext(ModalContext)
 
   // forms
-  const [newMessage, setNewMessage] = React.useState("")
+  const [newMessage, setNewMessage] = useState("")
 
   const handleInput = (e) => {
     setNewMessage(e.target.value)

@@ -1,5 +1,5 @@
-const BACKURL = "https://peaceful-woodland-96091.herokuapp.com"
-//const BACKURL = "http://localhost:4000"
+//const BACKURL = "https://peaceful-woodland-96091.herokuapp.com"
+const BACKURL = "http://localhost:4000"
 
 const requestLogin = async (username, password) => {
   try {
@@ -215,6 +215,18 @@ const requestDeleteGroup = async (groupId) => {
   return data.status === 200
 }
 
+const requestRemoveUserFromGroup = async (userId, groupId) => {
+  const res = await fetch(`${BACKURL}/group/${groupId}`, {
+    method: "PUT",
+    body: JSON.stringify({ userId }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  const data = await res.json()
+  return data.status === 200
+}
+
 const requestGetUserInvitations = async (id) => {
   const res = await fetch(`${BACKURL}/invitation/userInvitations/${id}`)
   const data = await res.json()
@@ -257,6 +269,7 @@ export {
   requestDeleteTask,
   requestGetGroup,
   requestCreateGroup,
+  requestRemoveUserFromGroup,
   requestGetUserGroups,
   requestDeleteGroup,
   requestSendInvitation,

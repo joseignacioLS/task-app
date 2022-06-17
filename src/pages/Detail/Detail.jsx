@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext"
 import { UserDataContext } from "../../context/UserDataContext"
@@ -39,17 +39,17 @@ const updateTaskField = async (taskId, name, value) => {
 
 const Detail = () => {
   // contexts
-  const { user } = React.useContext(UserDataContext)
-  const { modalDispatcher } = React.useContext(ModalContext)
+  const { user } = useContext(UserDataContext)
+  const { modalDispatcher } = useContext(ModalContext)
 
   const isLogged = user !== undefined
 
   // fetched data
-  const [task, setTask] = React.useState({})
+  const [task, setTask] = useState({})
 
   // variables
   const { id } = useParams()
-  const [isLoaded, setIsLoaded] = React.useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
   const isExpired = task.status === "pending" && checkExpiration(task.deadline)
 
   // others
@@ -157,7 +157,7 @@ const Detail = () => {
     await getTaskInformation(id)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     getTaskInformation(id)
   }, [id])
 

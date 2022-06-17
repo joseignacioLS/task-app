@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
@@ -25,11 +25,11 @@ const getGroups = async (userId, setUserGroups) => {
 
 const CreateTask = () => {
   // contexts
-  const { user } = React.useContext(UserDataContext)
-  const { modalDispatcher } = React.useContext(ModalContext)
+  const { user } = useContext(UserDataContext)
+  const { modalDispatcher } = useContext(ModalContext)
 
   // forms
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     title: "",
     description: "",
     deadline: "",
@@ -37,12 +37,10 @@ const CreateTask = () => {
   })
 
   // fetched data
-  const [userGroups, setUserGroups] = React.useState([
-    { _id: "", name: "Private" },
-  ])
+  const [userGroups, setUserGroups] = useState([{ _id: "", name: "Private" }])
 
   // variables
-  const [selectedGroup, setSelectedGroup] = React.useState("")
+  const [selectedGroup, setSelectedGroup] = useState("")
 
   // other
   const navigate = useNavigate()
@@ -86,7 +84,7 @@ const CreateTask = () => {
     navigate(`/?list=${selectedGroup}`)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (userGroups.length <= 1) {
       return
     }
@@ -102,7 +100,7 @@ const CreateTask = () => {
     })
   }, [userGroups])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (user) {
       getGroups(user._id, setUserGroups)
     }
