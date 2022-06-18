@@ -1,0 +1,129 @@
+.detailContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 4rem;
+}
+
+@media (min-width: 550px) {
+  .detailContainer {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+
+.taskDetail {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (min-width: 550px) {
+  .taskDetail {
+    width: 50%;
+  }
+}
+
+.taskDetailTitle, .taskDetailTitleInput {
+  outline: none;
+  width: 100%;
+  border: 2px solid transparent;
+  border-bottom: 1px solid #222;
+  font-size: 2rem;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  font-family: inherit;
+}
+
+.taskDetailTitleInput {
+  border: 1.5px solid #f45b69;
+}
+
+.taskDetailWwnership {
+  color: gray;
+}
+
+.taskDetail__status {
+  color: gray;
+}
+
+.taskDetailDeadline, .taskDetailDeadlineInput {
+  outline: none;
+  margin-top: 1rem;
+  border: 2px solid transparent;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.taskDetailDeadlineInput {
+  border: 1px solid #f45b69;
+}
+
+.taskDetailDescription, .taskDetailDescriptionInput {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  height: 6rem;
+  overflow-y: auto;
+  border: 1px solid #222;
+  border-radius: 0.5rem;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.taskDetailDescriptionInput {
+  outline: none;
+  border: 1.5px solid #f45b69;
+}
+
+.taskDetailHandler {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
+}
+
+.taskDetailHandler button {
+  color: #222;
+  background-color: #f45b69;
+}
+
+.expired {
+  color: #f45b69;
+}
+/*# sourceMappingURL=Detail.module.css.map */

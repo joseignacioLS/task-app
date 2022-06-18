@@ -1,4 +1,21 @@
-.logEntry {
+.logItem {
+  width: 100%;
+}
+
+.logItemSelf {
+  text-align: right;
+}
+
+.logItemOther {
+  text-align: left;
+}
+
+.logItem button {
+  background-color: #f45b69;
+  color: #222;
+}
+
+.logItem .logEntry {
   color: inherit;
 }
 /*# sourceMappingURL=LogEntry.module.css.map */

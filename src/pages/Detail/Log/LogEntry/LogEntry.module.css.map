@@ -1,8 +1,9 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,SAAS,CAAC;EACR,KAAK,EAAE,OAAO;CACf",
+    "mappings": "AAEA,AAAA,QAAQ,CAAC;EACP,KAAK,EAAE,IAAI;CAcZ;;AAbE,AAAD,YAAK,CAAC;EACJ,UAAU,EAAE,KAAK;CAClB;;AACA,AAAD,aAAM,CAAC;EACL,UAAU,EAAE,IAAI;CACjB;;AAPH,AAQE,QARM,CAQN,MAAM,CAAC;EACL,gBAAgB,ECNd,OAAO;EDOT,KAAK,ECXS,IAAI;CDYnB;;AAXH,AAYE,QAZM,CAYN,SAAS,CAAC;EACR,KAAK,EAAE,OAAO;CACf",
     "sources": [
-        "LogEntry.module.scss"
+        "LogEntry.module.scss",
+        "../../../../styles/_variables.scss"
     ],
     "names": [],
     "file": "LogEntry.module.css"

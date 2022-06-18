@@ -1,0 +1,47 @@
+@charset "UTF-8";
+.day {
+  padding: 0.5rem;
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  width: calc(100% / 7);
+  border: 1px solid gray;
+  color: #eee;
+  background-color: #222;
+  cursor: pointer;
+  opacity: 0.55;
+}
+
+.daySameMonth {
+  opacity: 1;
+}
+
+.dayToday {
+  color: black;
+  background-color: #eee;
+  -webkit-transition: 500ms;
+  transition: 500ms;
+}
+
+.dayWithTasks::after {
+  content: "✖";
+  color: #f45b69;
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.dayCompleted::after {
+  content: "✔";
+  color: #0b7a75;
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+/*# sourceMappingURL=Day.module.css.map */

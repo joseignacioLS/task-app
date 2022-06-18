@@ -47,10 +47,7 @@
   min-width: 264px;
   -webkit-animation: slide-in 500ms forwards;
           animation: slide-in 500ms forwards;
-}
-
-.screen .modal p {
-  color: #f45b69;
+  color: #222;
   font-weight: bold;
 }
 
@@ -65,7 +62,11 @@
   background-color: #222;
   color: #eee;
   font-weight: bold;
-  padding: .5rem;
+  padding: 0.5rem;
+}
+
+.screen .error {
+  color: #f45b69;
 }
 
 @-webkit-keyframes fade-in {

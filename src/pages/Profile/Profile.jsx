@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { ThemeContext } from "../../context/ThemeContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
@@ -186,19 +186,23 @@ const Profile = () => {
   const handleInvitationAction = (id, action) => {
     return async (e) => {
       e.preventDefault()
-      requestHandleInvitation(id, action)
-      getGroups(user._id, setUserGroups)
-      getInvitations(user._id, setUserInvitations)
+      await requestHandleInvitation(id, action)
+      refreshData()
     }
+  }
+
+  const refreshData = async () => {
+    setIsLoaded(false)
+    await getGroups(user._id, setUserGroups)
+    await getInvitations(user._id, setUserInvitations)
+    setIsLoaded(true)
   }
 
   useEffect(() => {
     if (user) {
-      getGroups(user._id, setUserGroups)
-      getInvitations(user._id, setUserInvitations)
-      setIsLoaded(true)
+      refreshData()
     }
-  }, [user, userInvitations])
+  }, [user])
 
   return (
     <>

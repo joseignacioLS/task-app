@@ -1,34 +1,22 @@
-@charset "UTF-8";
-.week {
-  height: calc(100vh / 8);
-}
-
-.week .day {
+.calendarContainer {
   position: relative;
-  display: inline-block;
-  height: 100%;
-  width: calc(100% / 7);
-  border: 1px solid gray;
-  background-color: inherit;
+  background-color: #eee;
 }
 
-.week .daySameMonth {
-  color: #eee;
-  background-color: #0b7a75;
+.calendarContainer .week {
+  height: calc(100vh / 7);
 }
 
-.week .dayToday {
-  color: black;
-  background-color: #f45b69;
-}
-
-.week .dayWithTasks::after {
-  content: "❌";
-  font-size: 2rem;
+.calendarContainer .currentMonth {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  top: 1rem;
+  left: 1rem;
+  color: #222;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0 .5rem;
+  background-color: gray;
+  border-radius: 1rem;
+  pointer-events: none;
 }
 /*# sourceMappingURL=MonthView.module.css.map */

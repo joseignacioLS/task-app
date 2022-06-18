@@ -55,7 +55,7 @@ const routes = [
   {
     path: "/about",
     element: <About />,
-    secured: true,
+    secured: false,
   },
 
   {

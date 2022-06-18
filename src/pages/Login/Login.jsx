@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { ModalContext } from "../../context/ModalContext.js"
 import { UserDataContext } from "../../context/UserDataContext.js"
+import Loading from "../../shared/components/Loading/Loading.jsx"
 import PasswordInput from "../../shared/components/PasswordInput/PasswordInput.jsx"
 import { requestLogin, requestRegister } from "../../shared/utils/api.mjs"
 import "./Login.scss"
@@ -16,6 +17,7 @@ const Login = () => {
 
   // variables
   const [mode, setMode] = useState("login")
+  const [isLogin, setIsLogin] = useState(false)
 
   // other
   const navigate = useNavigate()
@@ -34,6 +36,7 @@ const Login = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLogin(true)
     let response
     if (mode === "login")
       response = await requestLogin(formData.username, formData.password)
@@ -50,33 +53,42 @@ const Login = () => {
         },
       })
     }
+    setIsLogin(false)
   }
   return (
     <>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label className="login-form__field">
-          <p>Username</p>
-          <input
-            onInput={handleInput}
-            name="username"
-            type="text"
-            value={formData.username}
-          />
-        </label>
-        <label className="login-form__field">
-          <p>Password</p>
-          <PasswordInput
-            onInput={handleInput}
-            name="password"
-            type="password"
-            value={formData.password}
-          />
-        </label>
-        <button type="submit">{mode}</button>
-        <p onClick={handleModeTogle}>
-          {mode === "login" ? "New? register here" : "Registered? Login here"}
-        </p>
-      </form>
+      {isLogin ? (
+        <Loading />
+      ) : (
+        <>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <label className="login-form__field">
+              <p>Username</p>
+              <input
+                onInput={handleInput}
+                name="username"
+                type="text"
+                value={formData.username}
+              />
+            </label>
+            <label className="login-form__field">
+              <p>Password</p>
+              <PasswordInput
+                onInput={handleInput}
+                name="password"
+                type="password"
+                value={formData.password}
+              />
+            </label>
+            <button type="submit">{mode}</button>
+            <p onClick={handleModeTogle}>
+              {mode === "login"
+                ? "New? register here"
+                : "Registered? Login here"}
+            </p>
+          </form>
+        </>
+      )}
     </>
   )
 }

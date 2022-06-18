@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,QAAQ,CAAC;EACP,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,2BAAiD;EAExD,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,UAAU;CAaxB;;AAXE,AAAD,YAAK,CAAC;EACJ,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,IAAI;EAEX,UAAU,EAAE,IAAI;EAEhB,gBAAgB,ECZd,OAAO;EDaT,aAAa,EAAE,GAAG;EAElB,SAAS,EAAE,oBAAoB;CAChC;;AAGH,UAAU,CAAV,QAAU;EACR,GAAG;IACD,SAAS,EAAE,gBAAgB",
+    "sources": [
+        "Loading.module.scss",
+        "../../../styles/_variables.scss",
+        "../../../styles/_mixins.scss"
+    ],
+    "names": [],
+    "file": "Loading.module.css"
+}

@@ -22,7 +22,7 @@ const Navbar = () => {
       <section
         className={`${styles.navbarSection} ${styles.navbarSectionCenter}`}
       >
-        <Link className={styles.title} to="/">
+        <Link className={styles.title} to="/?list=Private">
           My Tasks
         </Link>
       </section>
