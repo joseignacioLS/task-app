@@ -78,9 +78,11 @@ const List = () => {
 
   const handleStatusToggle = () => {
     setFilter((oldValue) => {
-      const newValue = { pending: "completed", completed: "pending" }[
-        oldValue.statusFilter
-      ]
+      const newValue = {
+        pending: "completed",
+        completed: "all",
+        all: "pending",
+      }[oldValue.statusFilter]
       return { ...oldValue, statusFilter: newValue }
     })
   }

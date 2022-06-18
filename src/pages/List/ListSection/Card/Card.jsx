@@ -16,7 +16,7 @@ const Card = ({ _id, title, status, deadline }) => {
           style={{ "--deadline": `${highContrastOpacity}` }}
         ></div>
       )}
-      <p className={"task-item__title"}>{title}</p>
+      <p className={`task-item__title ${status === "completed"? "task-item__title--completed":""}`}>{title}</p>
       <p className={"task-item__date "}>({deadline})</p>
     </Link>
   )

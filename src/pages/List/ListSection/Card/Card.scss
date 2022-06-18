@@ -51,6 +51,10 @@
     flex-shrink: 1;
     flex-grow: 1;
     color: $secondary-color;
+
+    &--completed {
+      text-decoration: line-through;
+    }
   }
 
   &__date {

@@ -19,16 +19,12 @@ const Navbar = () => {
         theme === "dark" ? "darkMode" : "lightMode"
       }`}
     >
-      <section
-        className={`${styles.navbarSection} ${styles.navbarSectionCenter}`}
-      >
+      <section className={`${styles.navbarSection}`}>
         <Link className={styles.title} to="/?list=Private">
           My Tasks
         </Link>
       </section>
-      <section
-        className={`accountActionsSelector ${styles.navbarSection} ${styles.navbarSectionRight}`}
-      >
+      <section className={`accountActionsSelector ${styles.navbarSection}`}>
         {isLogged && (
           <>
             <Link to="/profile" className={styles.username}>

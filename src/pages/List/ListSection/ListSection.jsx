@@ -23,7 +23,7 @@ const getTasksList = async (userId, setTasks, setIsLoaded) => {
 const showCards = (currentList) => {
   return (
     <ul className="tasks-list">
-      {currentList.map(({ _id, title, status, group, deadline }) => {
+      {currentList.map(({ _id, title, status, deadline }) => {
         return (
           <Card
             key={_id}
@@ -38,6 +38,23 @@ const showCards = (currentList) => {
   )
 }
 
+const generateFilteredList = (tasks, filter) => {
+  return tasks
+    .filter((task) => {
+      return task.group === filter.userGroups[filter.listIndex]._id
+    })
+    .filter((task) => {
+      return (
+        filter.statusFilter === "all" || task.status === filter.statusFilter
+      )
+    })
+    .sort((a, b) => {
+      if (filter.sortAscending)
+        return new Date(a.deadline) - new Date(b.deadline)
+      return new Date(b.deadline) - new Date(a.deadline)
+    })
+}
+
 const ListSection = ({ filter }) => {
   // contexts
   const { user } = useContext(UserDataContext)
@@ -46,51 +63,34 @@ const ListSection = ({ filter }) => {
   const [tasks, setTasks] = useState([])
 
   // variables
-  const [currentList, setCurrentList] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
-  const [listDom, setListDom] = useState(null)
-
-  const handleCurrentListChange = () => {
-    const filteredTaskList = tasks
-      .filter((task) => {
-        return task.group === filter.userGroups[filter.listIndex]._id
-      })
-      .filter((task) => {
-        return task.status === filter.statusFilter
-      })
-      .sort((a, b) => {
-        if (filter.sortAscending)
-          return new Date(a.deadline) - new Date(b.deadline)
-        return new Date(b.deadline) - new Date(a.deadline)
-      })
-    setCurrentList(filteredTaskList)
-  }
+  const [listDOM, setListDOM] = useState(null)
 
   useEffect(() => {
     if (user) {
-      getTasksList(user._id, setTasks, setIsLoaded, handleCurrentListChange)
+      getTasksList(user._id, setTasks, setIsLoaded)
     }
   }, [user])
 
   useEffect(() => {
-    handleCurrentListChange(tasks, setCurrentList, filter)
-  }, [tasks, filter])
-
-  useEffect(() => {
-    if (listDom) {
-      listDom.style.animation = "none"
+    if (listDOM) {
+      listDOM.style.animation = "none"
       setTimeout(
-        () => (listDom.style.animation = "grow-from-top 500ms forwards"),
+        () => (listDOM.style.animation = "grow-from-top 500ms forwards"),
         0
       )
     } else {
-      setListDom(() => {
+      setListDOM(() => {
         return document.querySelector(".tasks-list")
       })
     }
   }, [filter, isLoaded])
 
-  return <>{isLoaded ? showCards(currentList) : <Loading />}</>
+  return (
+    <>
+      {isLoaded ? showCards(generateFilteredList(tasks, filter)) : <Loading />}
+    </>
+  )
 }
 
 export default ListSection
