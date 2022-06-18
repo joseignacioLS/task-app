@@ -22,19 +22,25 @@ const getTasksList = async (userId, setTasks, setIsLoaded) => {
 
 const showCards = (currentList) => {
   return (
-    <ul className="tasks-list">
-      {currentList.map(({ _id, title, status, deadline }) => {
-        return (
-          <Card
-            key={_id}
-            _id={_id}
-            title={title}
-            status={status}
-            deadline={deadline}
-          />
-        )
-      })}
-    </ul>
+    <>
+      {currentList.length > 0 ? (
+        <ul className="tasks-list">
+          {currentList.map(({ _id, title, status, deadline }) => {
+            return (
+              <Card
+                key={_id}
+                _id={_id}
+                title={title}
+                status={status}
+                deadline={deadline}
+              />
+            )
+          })}
+        </ul>
+      ) : (
+        <p>There are no cards here</p>
+      )}
+    </>
   )
 }
 
