@@ -1,6 +1,7 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import styles from "./Modal.module.scss"
 import { ModalContext } from "../../context/ModalContext"
+import { useLocation } from "react-router-dom"
 
 const showOptions = (options, handleAcceptModal) => {
   if (!options || options.length === 0)
@@ -17,6 +18,7 @@ const showOptions = (options, handleAcceptModal) => {
 
 const Modal = () => {
   const { modalData, modalDispatcher } = useContext(ModalContext)
+  const location = useLocation()
 
   const handleAcceptModal = (f) => {
     return () => {
@@ -25,11 +27,20 @@ const Modal = () => {
     }
   }
 
+  useEffect(() => {
+    console.log(location.pathname)
+    modalDispatcher({ type: "hide" })
+  }, [location.pathname])
+
   return (
     <>
       {modalData.isVisible && (
         <div className={styles.screen}>
-          <div className={`${styles.modal} ${modalData.isError ? styles.error : ""}`}>
+          <div
+            className={`${styles.modal} ${
+              modalData.isError ? styles.error : ""
+            }`}
+          >
             <p>{modalData.message}</p>
             <div className={styles.modalActions}>
               {showOptions(modalData.options, handleAcceptModal)}
