@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import "./Modal.scss"
+import styles from "./Modal.module.scss"
 import { ModalContext } from "../../context/ModalContext"
 
 const showOptions = (options, handleAcceptModal) => {
@@ -28,10 +28,10 @@ const Modal = () => {
   return (
     <>
       {modalData.isVisible && (
-        <div className="screen">
-          <div className={`modal ${modalData.isError ? "error" : ""}`}>
+        <div className={styles.screen}>
+          <div className={`${styles.modal} ${modalData.isError ? styles.error : ""}`}>
             <p>{modalData.message}</p>
-            <div className="modal__actions">
+            <div className={styles.modalActions}>
               {showOptions(modalData.options, handleAcceptModal)}
             </div>
           </div>
