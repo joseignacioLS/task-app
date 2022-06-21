@@ -5,7 +5,7 @@ import { UserDataContext } from "../../context/UserDataContext"
 
 import styles from "./Navbar.module.scss"
 
-const Navbar = () => {
+const Navbar = ({ className }) => {
   const { user, userDispatcher } = useContext(UserDataContext)
   const { theme } = useContext(ThemeContext)
 
@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`${styles.navbar} ${
+      className={`${className} ${styles.navbar} ${
         theme === "dark" ? "darkMode" : "lightMode"
       }`}
     >

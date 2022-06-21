@@ -15,25 +15,27 @@ function App() {
     <>
       <UserProvider>
         <ModalProvider>
-          <Navbar />
-          <main
+          <div
             className={`${styles.pageContainer} ${
               theme === "dark" ? "darkMode" : "lightMode"
             }`}
           >
-            <Routes>
-              {routes.map((route) => {
-                return (
-                  <Route
-                    path={route.path}
-                    key={route.path}
-                    element={secureRoute(route.element, route.secured)}
-                  />
-                )
-              })}
-            </Routes>
-          </main>
-          <Footer />
+            <Navbar className={styles.header} />
+            <main className={styles.main}>
+              <Routes>
+                {routes.map((route) => {
+                  return (
+                    <Route
+                      path={route.path}
+                      key={route.path}
+                      element={secureRoute(route.element, route.secured)}
+                    />
+                  )
+                })}
+              </Routes>
+            </main>
+            <Footer className={styles.footer} />
+          </div>
           <Modal />
         </ModalProvider>
       </UserProvider>
