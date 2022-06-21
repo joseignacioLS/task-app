@@ -1,5 +1,7 @@
 /**
  * Tests whether a password passes all the validations
+ * min length 4
+ * max length 12
  * @param {*} password string, password to test
  * @returns boolean
  */

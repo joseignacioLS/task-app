@@ -10,7 +10,6 @@ export const UserDataContext = createContext()
 const reducer = (state, action) => {
   switch (action.type) {
     case "set":
-      console.log(action.userData)
       setUserLocalStorage(action.userData)
       return action.userData
     case "logout":

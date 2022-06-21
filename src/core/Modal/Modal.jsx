@@ -28,7 +28,6 @@ const Modal = () => {
   }
 
   useEffect(() => {
-    console.log(location.pathname)
     modalDispatcher({ type: "hide" })
   }, [location.pathname])
 

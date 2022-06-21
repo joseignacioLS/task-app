@@ -37,10 +37,44 @@ const getTasksList = async (userId, setTasks, setIsLoaded) => {
 const generateMondays = (date) => {
   const monday = addDaysToDate(date, -(getDayOfTheWeek(date) - 1))
   const newMondays = [-2, -1, 0, 1, 2].map((delta) => {
-    console.log(monday, delta * 7, addDaysToDate(monday, 7 * delta))
     return addDaysToDate(monday, 7 * delta)
   })
   return newMondays
+}
+
+const showWeek = (date, monday, tasks, handleClick) => {
+  return [0, 1, 2, 3, 4, 5, 6].map((delta) => {
+    const newDate = addDaysToDate(monday, delta)
+    const today = newDate === date
+    const sameMonth = newDate.split("-")[1] === date.split("-")[1]
+    const pendingTasks =
+      tasks.filter((t) => t.deadline === newDate && t.status === "pending")
+        .length > 0
+    const completedTasks =
+      tasks.filter((t) => t.deadline === newDate && t.status === "completed")
+        .length > 0
+    if (pendingTasks || completedTasks)
+      return (
+        <Day
+          key={newDate}
+          date={newDate}
+          today={today}
+          hasTasks={[pendingTasks, completedTasks]}
+          sameMonth={sameMonth}
+          handleClick={handleClick(newDate, date, true)}
+        />
+      )
+    return (
+      <Day
+        key={newDate}
+        date={newDate}
+        today={today}
+        hasTasks={[false, false]}
+        sameMonth={sameMonth}
+        handleClick={handleClick(newDate, date, false)}
+      />
+    )
+  })
 }
 
 /**
@@ -55,39 +89,7 @@ const showWeeks = (date, tasks, handleClick) => {
   const mondays = generateMondays(date)
   return mondays.map((monday) => (
     <div key={JSON.stringify(monday)} className={styles.week}>
-      {[0, 1, 2, 3, 4, 5, 6].map((delta) => {
-        const newDate = addDaysToDate(monday, delta)
-        const today = newDate === date
-        const sameMonth = newDate.split("-")[1] === date.split("-")[1]
-        const pendingTasks =
-          tasks.filter((t) => t.deadline === newDate && t.status === "pending")
-            .length > 0
-        const completedTasks =
-          tasks.filter(
-            (t) => t.deadline === newDate && t.status === "completed"
-          ).length > 0
-        if (pendingTasks || completedTasks)
-          return (
-            <Day
-              key={newDate}
-              date={newDate}
-              today={today}
-              hasTasks={[pendingTasks, completedTasks]}
-              sameMonth={sameMonth}
-              handleClick={handleClick(newDate, date, true)}
-            />
-          )
-        return (
-          <Day
-            key={newDate}
-            date={newDate}
-            today={today}
-            hasTasks={[false, false]}
-            sameMonth={sameMonth}
-            handleClick={handleClick(newDate, date, false)}
-          />
-        )
-      })}
+      {showWeek(date, monday, tasks, handleClick)}
     </div>
   ))
 }

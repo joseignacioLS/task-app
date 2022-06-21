@@ -11,9 +11,7 @@ describe("Navbar Logged out", () => {
   beforeEach(() => {
     const history = createMemoryHistory()
     view = render(
-      <UserDataContext.Provider
-        value={{ user: undefined, logout: testF }}
-      >
+      <UserDataContext.Provider value={{ user: undefined, logout: testF }}>
         <Router location={history.location} navigator={history}>
           <Navbar />
         </Router>
@@ -22,8 +20,6 @@ describe("Navbar Logged out", () => {
   })
 
   test("renders appropriately", () => {
-    console.log(prettyDOM(view.container))
-    console.log(view.user)
     // Arrange
     // Assert
     expect(screen.getByText(/Tasks/i)).toBeInTheDocument()
@@ -37,10 +33,9 @@ describe("Navbar Logged out", () => {
 })
 
 describe("Navbar Logged in", () => {
-  let view
   beforeEach(() => {
     const history = createMemoryHistory()
-    view = render(
+    render(
       <UserDataContext.Provider
         value={{ user: { username: "username" }, logout: testF }}
       >
@@ -62,7 +57,6 @@ describe("Navbar Logged in", () => {
     // Assert
     expect(screen.getByText(/username/i)).toBeInTheDocument()
   })
-
 
   test("renders logout button", () => {
     // Assert
