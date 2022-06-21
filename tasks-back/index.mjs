@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import "dotenv/config"
 
-import {connect} from "./db/db.mjs"
+import { connect } from "./db/db.mjs"
 
 import { router as userRouter } from "./routes/user.routes.mjs"
 import { router as taskRouter } from "./routes/task.routes.mjs"
@@ -16,6 +16,8 @@ server.use(cors())
 
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
+
+server.set("secretKey", "theMostUnbreakableSecretKeyEverCreated4")
 
 router.get("/", async (req, res, next) => {
   try {

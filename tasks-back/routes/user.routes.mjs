@@ -1,5 +1,6 @@
 import express from "express"
 import { User } from "../models/user.model.mjs"
+import jwt from "jsonwebtoken"
 
 const router = express.Router()
 
@@ -19,10 +20,23 @@ router.post("/login", async (req, res, next) => {
       { _id: 1, username: 1 }
     )
     if (prevUser) {
+      // generate token
+      const token = jwt.sign(
+        {
+          id: prevUser._id,
+          username: prevUser.username,
+        },
+        req.app.get("secretKey")
+      )
+
       return res.status(200).json({
         status: 200,
         message: "Login Successful",
-        data: prevUser,
+        data: {
+          _id: prevUser._id,
+          username: prevUser.username,
+          token,
+        },
       })
     }
 
@@ -55,12 +69,23 @@ router.post("/register", async (req, res, next) => {
 
     const savedUser = await user.save()
 
+    //generate token
+
+    const token = jwt.sign(
+      {
+        id: savedUser._id,
+        username: savedUser.username,
+      },
+      req.app.get("secretKey")
+    )
+
     res.status(200).json({
       status: 200,
       message: "Register Successful",
       data: {
         _id: savedUser._id,
         username: savedUser.username,
+        token,
       },
     })
     // register
